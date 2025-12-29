@@ -1,9 +1,11 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type PricingType = 'purchase' | 'monthly' | 'yearly';
 type CategoryId = 'home' | 'vehicles' | 'jewellery' | 'services' | 'travel' | 'wardrobe' | 'food' | 'wellness' | 'legacy' | 'safety';
+type TransitionPhase = 'idle' | 'out' | 'in';
+type TransitionDirection = 'forward' | 'back';
 
 interface Option {
   id: string;
@@ -267,12 +269,17 @@ const steps: StepConfig[] = [
   },
 ];
 
+const confettiColors = ['#2DD4BF', '#F6C66A', '#60A5FA', '#A78BFA', '#34D399', '#FCA5A5'];
+
 function Confetti() {
   const pieces = Array.from({ length: 100 }, (_, i) => ({
     id: i,
     left: Math.random() * 100,
     delay: Math.random() * 0.5,
     duration: 2 + Math.random() * 0.5,
+    color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+    size: 2 + Math.random() * 3,
+    rotation: Math.random() * 360,
   }));
 
   return (
@@ -280,18 +287,23 @@ function Confetti() {
       {pieces.map((piece) => (
         <div
           key={piece.id}
-          className="absolute w-2 h-2 bg-blue-400 rounded-full"
           style={{
+            position: 'absolute',
             left: `${piece.left}%`,
             top: '-10px',
+            width: `${piece.size}px`,
+            height: `${piece.size}px`,
+            backgroundColor: piece.color,
+            borderRadius: '50%',
             animation: `fall ${piece.duration}s linear ${piece.delay}s forwards`,
+            transform: `rotateZ(${piece.rotation}deg)`,
           }}
         />
       ))}
       <style>{`
         @keyframes fall {
           to {
-            transform: translateY(100vh) rotateZ(360deg);
+            transform: translateY(100vh) rotateZ(720deg);
             opacity: 0;
           }
         }
@@ -306,36 +318,78 @@ interface OptionCardProps {
   onClick: () => void;
 }
 
+const imageMap: { [key: string]: string } = {
+  'h1': '/House/nycpenthouse.webp',
+  'h2': '/House/laketahoecabin.webp',
+  'h3': '/House/aspencabin.jpg',
+  'h4': '/House/malibuwaterfront.webp',
+  'h5': '/House/londonluxapartement.webp',
+  'h6': '/House/westvanmansion.jpg',
+  'h7': '/House/lakecomovilla.webp',
+  'h8': '/House/monacopent.jpg',
+  'h9': '/House/swissalps.webp',
+  'h10': '/House/westpointgrey.webp',
+  'h11': '/House/capetownvilla.webp',
+  'h12': '/House/marbellavilla.jpg',
+  'h13': '/House/maldives.jpg',
+  'h14': '/House/carmel.jpg',
+  'h15': '/House/lajolla.webp',
+  'v1': '/cars/gls600.avif',
+  'v2': '/cars/g63.jpg',
+  'v3': '/cars/BMW X7 M60i xDrive 2022-2.webp',
+  'v4': '/cars/x6mc.avif',
+  'v5': '/cars/db12.png',
+  'v6': '/cars/rrcullinan.jpeg',
+  'v7': '/cars/0P1A0922-3_1.jpg',
+  'v8': '/cars/phantom.jpg',
+  'v9': '/cars/superfast812.webp',
+  'v10': '/cars/svj.jpg',
+  'v11': '/cars/079-bentley-bentayga-speed.webp',
+  'v12': '/cars/dsc09285.webp',
+  'v13': '/cars/c63amg.avif',
+  'v14': '/cars/rs7.jpg',
+};
+
 function OptionCard({ option, isSelected, onClick }: OptionCardProps) {
+  const imageSrc = imageMap[option.id];
+  
   return (
     <button
       onClick={onClick}
-      className={`group relative text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-2xl ${
+      className={`group relative text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2DD4BF] rounded-2xl ${
         isSelected
-          ? 'ring-2 ring-blue-500 ring-offset-2 ring-offset-slate-950'
-          : 'hover:ring-2 hover:ring-slate-700 hover:ring-offset-2 hover:ring-offset-slate-950'
+          ? 'ring-2 ring-[#F6C66A] ring-offset-2 ring-offset-[#060A0F]'
+          : 'hover:ring-2 hover:ring-[rgba(45,212,191,0.22)] hover:ring-offset-2 hover:ring-offset-[#060A0F]'
       }`}
     >
       <div
-        className={`bg-slate-800/50 backdrop-blur-sm border rounded-2xl overflow-hidden transition-all duration-300 ${
+        className={`bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border rounded-2xl overflow-hidden transition-all duration-300 ${
           isSelected
-            ? 'border-blue-500/50 shadow-lg shadow-blue-500/20'
-            : 'border-slate-700/50 hover:border-slate-600/50 shadow-md'
+            ? 'border-[#F6C66A] shadow-2xl'
+            : 'border-[rgba(148,163,184,0.14)] hover:border-[rgba(45,212,191,0.22)] shadow-lg'
         }`}
+        style={isSelected ? { boxShadow: '0 0 24px rgba(45,212,191,0.15)' } : {}}
       >
-        <div className="w-full aspect-video bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-t-2xl flex items-center justify-center border-b border-slate-700/30">
-          <span className="text-sm font-medium text-slate-500">Image</span>
+        <div className="w-full aspect-video bg-gradient-to-br from-[#0F766E]/20 to-[#0B1220] rounded-t-2xl flex items-center justify-center border-b border-[rgba(45,212,191,0.14)] overflow-hidden">
+          {imageSrc ? (
+            <img src={imageSrc} alt={option.name} className="w-full h-full object-cover" />
+          ) : (
+            <span className="text-sm font-medium text-[rgba(231,237,246,0.65)]">Image</span>
+          )}
         </div>
 
         <div className="p-6">
-          <h3 className="text-lg font-semibold text-white mb-2">{option.name}</h3>
-          <p className="text-sm text-slate-400">{getDisplayPrice(option)}</p>
+          <h3 className="text-lg font-semibold text-[#E7EDF6] mb-2">{option.name}</h3>
+          <p className={`text-sm ${isSelected ? 'text-[#F6C66A] font-semibold' : 'text-[#A8B3C7]'}`}>
+            {getDisplayPrice(option)}
+          </p>
         </div>
       </div>
 
       {isSelected && (
         <div className="absolute inset-0 rounded-2xl pointer-events-none">
-          <div className="absolute inset-0 rounded-2xl bg-blue-500/5"></div>
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#2DD4BF]/10 to-[#F6C66A]/10"></div>
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-50 rounded-t-2xl"></div>
         </div>
       )}
     </button>
@@ -344,8 +398,12 @@ function OptionCard({ option, isSelected, onClick }: OptionCardProps) {
 
 export default function LifeSpecWizard() {
   const [currentStep, setCurrentStep] = useState(0);
+  const [renderedStep, setRenderedStep] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
   const [showMaxMessage, setShowMaxMessage] = useState(false);
+  const [transitionPhase, setTransitionPhase] = useState<TransitionPhase>('idle');
+  const [transitionDirection, setTransitionDirection] = useState<TransitionDirection>('forward');
+  const [isAnimating, setIsAnimating] = useState(false);
 
   const [homeId, setHomeId] = useState<string | null>(null);
   const [vehicleId, setVehicleId] = useState<string | null>(null);
@@ -358,7 +416,26 @@ export default function LifeSpecWizard() {
   const [legacyIds, setLegacyIds] = useState<string[]>([]);
   const [safetyIds, setSafetyIds] = useState<string[]>([]);
 
-  const step = steps[currentStep];
+  const step = steps[renderedStep];
+
+  useEffect(() => {
+    if (transitionPhase === 'out') {
+      const outTimer = setTimeout(() => {
+        setRenderedStep(currentStep);
+        setTransitionPhase('in');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 180);
+      return () => clearTimeout(outTimer);
+    }
+
+    if (transitionPhase === 'in') {
+      const inTimer = setTimeout(() => {
+        setTransitionPhase('idle');
+        setIsAnimating(false);
+      }, 180);
+      return () => clearTimeout(inTimer);
+    }
+  }, [transitionPhase, currentStep]);
 
   const getSelectionState = (categoryId: CategoryId): string | string[] | null => {
     switch (categoryId) {
@@ -448,7 +525,10 @@ export default function LifeSpecWizard() {
   });
 
   const handleNext = () => {
-    if (canProceed) {
+    if (canProceed && !isAnimating) {
+      setIsAnimating(true);
+      setTransitionDirection('forward');
+      setTransitionPhase('out');
       if (currentStep < steps.length - 1) {
         setCurrentStep(currentStep + 1);
       } else {
@@ -458,49 +538,86 @@ export default function LifeSpecWizard() {
   };
 
   const handleBack = () => {
-    if (currentStep > 0) {
+    if (currentStep > 0 && !isAnimating) {
+      setIsAnimating(true);
+      setTransitionDirection('back');
+      setTransitionPhase('out');
       setCurrentStep(currentStep - 1);
     }
   };
 
+  const getTransitionClass = () => {
+    if (transitionPhase === 'idle') return 'opacity-100 translate-y-0 translate-x-0 blur-0';
+    if (transitionPhase === 'out') {
+      if (transitionDirection === 'forward') {
+        return 'opacity-0 translate-y-2 -translate-x-2 blur-sm';
+      } else {
+        return 'opacity-0 translate-y-2 translate-x-2 blur-sm';
+      }
+    }
+    if (transitionPhase === 'in') {
+      if (transitionDirection === 'forward') {
+        return 'opacity-100 translate-y-0 translate-x-0 blur-0';
+      } else {
+        return 'opacity-100 translate-y-0 translate-x-0 blur-0';
+      }
+    }
+    return 'opacity-100 translate-y-0 translate-x-0 blur-0';
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#060A0F] via-[#071827] to-[#060A0F] flex flex-col relative overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-96 bg-radial-gradient opacity-20" style={{
+          background: 'radial-gradient(circle at center, rgba(45,212,191,0.15) 0%, transparent 70%)'
+        }}></div>
+      </div>
+
       {isFinished && <Confetti />}
 
-      <header className="fixed top-0 left-0 right-0 z-40 h-14 bg-slate-950/80 backdrop-blur-sm border-b border-slate-800/50">
+      <header className="fixed top-0 left-0 right-0 z-40 h-14 bg-[#060A0F]/80 backdrop-blur-sm border-b border-[rgba(45,212,191,0.14)]">
         <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-          <div className="text-xl font-semibold text-white">LifeSpec</div>
-          <button className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors">
+          <div className="text-xl font-semibold text-[#2DD4BF]">LifeSpec</div>
+          <button className="px-4 py-2 text-sm font-medium text-[#A8B3C7] hover:text-[#2DD4BF] transition-colors">
             Sign In
           </button>
         </div>
       </header>
 
       <div className="fixed top-20 left-6 z-30">
-        <div className="bg-slate-800/40 backdrop-blur-md border border-slate-700/50 rounded-full px-6 py-4 shadow-lg">
-          <div className="text-xs font-medium text-slate-400 uppercase tracking-wide">
+        <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-md border border-[rgba(45,212,191,0.14)] rounded-2xl px-6 py-4 shadow-2xl">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
+          <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">
             Monthly Total
           </div>
-          <div className="text-2xl font-bold text-white mt-1">
+          <div className="text-2xl font-semibold text-[#2DD4BF] mt-1">
             {formatMonthly(totalMonthly)}
+          </div>
+          <div className="border-t border-[rgba(45,212,191,0.14)] my-3"></div>
+          <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">
+            Yearly Total
+          </div>
+          <div className="text-xl font-semibold text-[#F6C66A] mt-1">
+            {formatMoney(roundToNearest10(totalMonthly * 12))}/yr
           </div>
         </div>
       </div>
 
-      <main className="flex-1 pt-20 pb-32 overflow-y-auto">
+      <main className="flex-1 pt-32 pb-48 overflow-y-auto relative z-10">
         <div className="max-w-6xl mx-auto px-6">
           {isFinished ? (
-            <div className="text-center py-16">
-              <h1 className="text-5xl font-bold text-white mb-4">
+            <div className={`text-center py-16 transition-all duration-300 ease-out ${getTransitionClass()}`}>
+              <h1 className="text-5xl font-semibold text-[#E7EDF6] mb-4">
                 Your LifeSpec is complete.
               </h1>
-              <p className="text-lg text-slate-400 mb-12">
+              <p className="text-lg text-[#A8B3C7] mb-12">
                 Here's your personalized lifestyle summary
               </p>
 
-              <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 mb-12">
+              <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-2xl p-8 mb-12 shadow-2xl">
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
                 <div className="mb-8">
-                  <h2 className="text-2xl font-bold text-white mb-6">Your Selections</h2>
+                  <h2 className="text-2xl font-semibold text-[#E7EDF6] mb-6">Your Selections</h2>
                   <div className="space-y-4 text-left">
                     {steps.map((s) => {
                       const sel = allSelections.find((x) => x.id === s.id);
@@ -508,15 +625,15 @@ export default function LifeSpecWizard() {
                       if (ids.length === 0) return null;
                       return (
                         <div key={s.id}>
-                          <h3 className="font-semibold text-slate-300 mb-2">{s.heading}</h3>
+                          <h3 className="font-semibold text-[#E7EDF6] mb-2">{s.heading}</h3>
                           <ul className="space-y-1 ml-4">
                             {ids.map((id) => {
                               const option = s.options.find((o) => o.id === id);
                               if (!option) return null;
                               const monthly = computeMonthlyFromOption(option);
                               return (
-                                <li key={id} className="text-slate-400 text-sm">
-                                  {option.name} — {formatMonthly(monthly)}
+                                <li key={id} className="text-[#A8B3C7] text-sm">
+                                  {option.name} — <span className="text-[#2DD4BF]">{formatMonthly(monthly)}</span>
                                 </li>
                               );
                             })}
@@ -527,26 +644,26 @@ export default function LifeSpecWizard() {
                   </div>
                 </div>
 
-                <div className="border-t border-slate-700/50 pt-8">
-                  <div className="text-sm text-slate-400 mb-2">Total Monthly Cost</div>
-                  <div className="text-5xl font-bold text-blue-400">
+                <div className="border-t border-[rgba(45,212,191,0.14)] pt-8">
+                  <div className="text-sm text-[#A8B3C7] mb-2">Total Monthly Cost</div>
+                  <div className="text-5xl font-semibold text-[#F6C66A]">
                     {formatMonthly(totalMonthly)}
                   </div>
                 </div>
               </div>
             </div>
           ) : (
-            <>
+            <div className={`transition-all duration-300 ease-out ${getTransitionClass()}`}>
               <div className="text-center mb-16">
-                <h1 className="text-5xl font-bold text-white mb-2">
+                <h1 className="text-5xl font-semibold text-[#E7EDF6] mb-2">
                   {step.heading}
                 </h1>
-                <p className="text-lg text-slate-400 mb-4">{step.subheading}</p>
-                <p className="text-sm text-slate-500">
+                <p className="text-lg text-[#A8B3C7] mb-4">{step.subheading}</p>
+                <p className="text-sm text-[rgba(231,237,246,0.65)]">
                   Selected {selectedCount}/{step.maxSelections}
                 </p>
                 {showMaxMessage && (
-                  <p className="text-sm text-orange-400 mt-2">
+                  <p className="text-sm text-[#F6C66A] mt-2">
                     Max {step.maxSelections} selected
                   </p>
                 )}
@@ -562,50 +679,52 @@ export default function LifeSpecWizard() {
                   />
                 ))}
               </div>
-            </>
+            </div>
           )}
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/80 backdrop-blur-sm border-t border-slate-800/50">
-        <div className="max-w-6xl mx-auto px-6 py-6">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#060A0F]/80 backdrop-blur-sm border-t border-[rgba(45,212,191,0.14)] px-6 py-6">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-slate-400">
-                Step {currentStep + 1} of {steps.length}
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-sm font-medium text-[#A8B3C7]">
+                {step.heading}
               </span>
             </div>
-            <div className="w-full h-1 bg-slate-700/50 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-[#0E1A2B] rounded-full overflow-hidden border border-[rgba(45,212,191,0.14)]">
               <div
-                className="h-full bg-blue-500 transition-all duration-500 ease-out"
+                className="h-full bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] transition-all duration-500 ease-out rounded-full"
                 style={{ width: `${progressPercent}%` }}
               ></div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <button
-              onClick={handleBack}
-              disabled={currentStep === 0}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                currentStep === 0
-                  ? 'text-slate-600 cursor-not-allowed'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
-              }`}
-            >
-              Back
-            </button>
+          <div className="flex items-center justify-center gap-4">
+            {!isFinished && (
+              <button
+                onClick={handleBack}
+                disabled={currentStep === 0 || isAnimating}
+                className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-200 border ${
+                  currentStep === 0 || isAnimating
+                    ? 'text-[rgba(231,237,246,0.35)] cursor-not-allowed bg-[#0E1A2B] border-[rgba(148,163,184,0.14)]'
+                    : 'text-[#A8B3C7] hover:text-[#2DD4BF] hover:border-[rgba(45,212,191,0.22)] border-[rgba(148,163,184,0.14)] bg-[#0B1220]'
+                }`}
+              >
+                ←
+              </button>
+            )}
 
             <button
               onClick={handleNext}
-              disabled={!canProceed}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
-                !canProceed
-                  ? 'bg-slate-700 text-slate-500 cursor-not-allowed'
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
+              disabled={!canProceed || isAnimating}
+              className={`flex-1 max-w-3xl px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-200 border ${
+                !canProceed || isAnimating
+                  ? 'bg-[#0E1A2B] text-[#A8B3C7] cursor-not-allowed border-[rgba(148,163,184,0.14)]'
+                  : 'bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-[#E7EDF6] hover:from-[#0D5F5B] hover:to-[#1BA39F] border-[rgba(45,212,191,0.22)] shadow-lg shadow-[rgba(45,212,191,0.15)] hover:shadow-[rgba(45,212,191,0.25)]'
               }`}
             >
-              {currentStep === steps.length - 1 ? 'Finish' : 'Next'}
+              {currentStep === steps.length - 1 ? 'Finish' : 'Continue'}
             </button>
           </div>
         </div>
