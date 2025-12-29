@@ -125,7 +125,7 @@ const steps: StepConfig[] = [
     id: 'jewellery',
     heading: 'Jewellery',
     subheading: 'What are you wearing on your wrist?',
-    maxSelections: 1,
+    maxSelections: 999,
     options: [
       { id: 'j1', name: 'Rolex Datejust (Yellow Dial)', pricingType: 'purchase', amount: 10000, category: 'jewellery' },
       { id: 'j2', name: 'Rolex Submariner (Black)', pricingType: 'purchase', amount: 11000, category: 'jewellery' },
@@ -148,7 +148,7 @@ const steps: StepConfig[] = [
     id: 'services',
     heading: 'Services',
     subheading: 'What services would you like?',
-    maxSelections: 3,
+    maxSelections: 999,
     options: [
       { id: 's1', name: 'Housekeeping', pricingType: 'monthly', amount: 800, category: 'services' },
       { id: 's2', name: 'Private Chef', pricingType: 'monthly', amount: 8000, category: 'services' },
@@ -164,7 +164,7 @@ const steps: StepConfig[] = [
     id: 'travel',
     heading: 'Travel',
     subheading: 'Where would you like to travel?',
-    maxSelections: 3,
+    maxSelections: 999,
     options: [
       { id: 't1', name: 'St Barts Hillside Villa', pricingType: 'yearly', amount: 60000, category: 'travel' },
       { id: 't2', name: 'Monaco Grand Prix Weekend', pricingType: 'yearly', amount: 45000, category: 'travel' },
@@ -182,7 +182,7 @@ const steps: StepConfig[] = [
     id: 'wardrobe',
     heading: 'Wardrobe',
     subheading: 'What fashion items would you like?',
-    maxSelections: 3,
+    maxSelections: 999,
     options: [
       { id: 'w1', name: 'Minimal Everyday Wardrobe', pricingType: 'yearly', amount: 3000, category: 'wardrobe' },
       { id: 'w2', name: 'Athletic Performance Wardrobe', pricingType: 'yearly', amount: 4000, category: 'wardrobe' },
@@ -200,7 +200,7 @@ const steps: StepConfig[] = [
     id: 'food',
     heading: 'Food',
     subheading: 'What dining experiences would you like?',
-    maxSelections: 3,
+    maxSelections: 999,
     options: [
       { id: 'f1', name: 'Basic Groceries', pricingType: 'monthly', amount: 400, category: 'food' },
       { id: 'f2', name: 'Organic Groceries', pricingType: 'monthly', amount: 700, category: 'food' },
@@ -218,7 +218,7 @@ const steps: StepConfig[] = [
     id: 'wellness',
     heading: 'Health & Wellness',
     subheading: 'What wellness services would you like?',
-    maxSelections: 2,
+    maxSelections: 999,
     options: [
       { id: 'hw1', name: 'Weightlifting Membership', pricingType: 'monthly', amount: 120, category: 'wellness' },
       { id: 'hw2', name: 'Stairmaster / Cardio Routine', pricingType: 'monthly', amount: 40, category: 'wellness' },
@@ -229,7 +229,7 @@ const steps: StepConfig[] = [
     id: 'legacy',
     heading: 'Legacy',
     subheading: 'What legacy would you like to build?',
-    maxSelections: 3,
+    maxSelections: 999,
     options: [
       { id: 'l1', name: 'Student Loan Support', pricingType: 'yearly', amount: 12000, category: 'legacy' },
       { id: 'l2', name: 'Emergency Family Fund', pricingType: 'yearly', amount: 10000, category: 'legacy' },
@@ -245,7 +245,7 @@ const steps: StepConfig[] = [
     id: 'safety',
     heading: 'Safety & Financial Foundation',
     subheading: 'What safety measures would you like?',
-    maxSelections: 3,
+    maxSelections: 999,
     options: [
       { id: 'sf1', name: 'Health Insurance', pricingType: 'monthly', amount: 600, category: 'safety' },
       { id: 'sf2', name: 'Life Insurance', pricingType: 'monthly', amount: 120, category: 'safety' },
@@ -391,54 +391,218 @@ const imageMap: { [key: string]: string } = {
   'w10': '/wardrobe/ultralux.webp',
 };
 
+interface ResultsScreenProps {
+  totalMonthly: number;
+  steps: StepConfig[];
+  allSelections: Array<{ id: CategoryId; value: string | string[] | null }>;
+  customOptionsByCategory: Record<CategoryId, Option[]>;
+}
+
+function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCategory }: ResultsScreenProps) {
+  const [showAffordability, setShowAffordability] = useState(false);
+  const [netMonthlyInput, setNetMonthlyInput] = useState('');
+
+  const requiredGrossMonthly = totalMonthly / 0.45;
+  const requiredGrossYearly = requiredGrossMonthly * 12;
+
+  const netMonthly = netMonthlyInput ? parseFloat(netMonthlyInput) : 0;
+  const grossMonthly = netMonthly > 0 ? netMonthly / 0.75 : 0;
+  const spendableMonthly = grossMonthly * 0.70;
+  const progressPct = netMonthly > 0 ? Math.min((spendableMonthly / totalMonthly) * 100, 100) : 0;
+
+  return (
+    <div className={`py-16 transition-all duration-300 ease-out opacity-100 translate-y-0`}>
+      {/* Top Row: Title + Button */}
+      <div className="flex items-start justify-between mb-12">
+        <div>
+          <h1 className="text-5xl font-semibold text-[#E7EDF6] mb-2">LifeSpec Blueprint</h1>
+          <p className="text-lg text-[#A8B3C7]">Your lifestyle cost breakdown</p>
+        </div>
+        <button
+          onClick={() => setShowAffordability(!showAffordability)}
+          className="group relative px-6 py-3 text-sm font-medium transition-all duration-300 rounded-xl overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, rgba(45,212,191,0.1) 0%, rgba(246,198,106,0.05) 100%)',
+            border: '1.5px solid',
+            borderImage: 'linear-gradient(135deg, #2DD4BF 0%, #F6C66A 100%) 1',
+          }}
+        >
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
+            background: 'radial-gradient(circle at 50% 50%, rgba(45,212,191,0.15) 0%, transparent 70%)',
+          }} />
+          <div className="relative flex items-center gap-2 text-[#A8B3C7] group-hover:text-[#2DD4BF]">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            How far am I?
+          </div>
+        </button>
+      </div>
+
+      {/* Affordability Dropdown */}
+      <div
+        className="overflow-hidden transition-all duration-300 ease-out mb-12"
+        style={{
+          maxHeight: showAffordability ? '400px' : '0px',
+          opacity: showAffordability ? 1 : 0,
+        }}
+      >
+        <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-2xl p-6 mb-6">
+          <div className="mb-6">
+            <label className="block text-sm font-medium text-[#A8B3C7] mb-2">Monthly income (after tax)</label>
+            <input
+              type="number"
+              placeholder="e.g. 4500"
+              value={netMonthlyInput}
+              onChange={(e) => setNetMonthlyInput(e.target.value)}
+              className="w-full bg-[#0E1A2B] border border-[rgba(45,212,191,0.14)] rounded-lg px-4 py-3 text-[#E7EDF6] placeholder-[#A8B3C7]/50 focus:outline-none focus:border-[rgba(45,212,191,0.4)]"
+            />
+            <p className="text-xs text-[#A8B3C7] mt-2">We'll estimate savings based on 30% of gross income.</p>
+          </div>
+
+          {netMonthly > 0 && (
+            <>
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm text-[#A8B3C7]">Progress</span>
+                  <span className="text-sm font-semibold text-[#2DD4BF]">{Math.round(progressPct)}%</span>
+                </div>
+                <div className="w-full h-2 bg-[#0E1A2B] rounded-full overflow-hidden border border-[rgba(45,212,191,0.14)]">
+                  <div
+                    className="h-full bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] transition-all duration-500"
+                    style={{ width: `${progressPct}%` }}
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-3 text-sm">
+                <div className="flex items-center justify-between">
+                  <span className="text-[#A8B3C7]">Estimated spendable per month:</span>
+                  <span className="text-[#2DD4BF] font-semibold">{formatMonthly(Math.round(spendableMonthly))}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-[#A8B3C7]">Goal lifestyle cost:</span>
+                  <span className="text-[#F6C66A] font-semibold">{formatMonthly(totalMonthly)}</span>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* 2-Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Left: Blueprint Numbers */}
+        <div>
+          <h2 className="text-2xl font-semibold text-[#E7EDF6] mb-8">Blueprint Numbers</h2>
+
+          <div className="mb-12">
+            <div className="text-6xl font-bold text-[#2DD4BF]">{formatMonthly(totalMonthly)}</div>
+            <p className="text-sm text-[#A8B3C7] mt-2">Monthly Lifestyle Cost</p>
+          </div>
+
+          {/* Stat Tiles */}
+          <div className="space-y-4 mb-8">
+            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-4">
+              <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Yearly Lifestyle Cost</p>
+              <p className="text-2xl font-semibold text-[#F6C66A]">{formatMoney(roundToNearest10(totalMonthly * 12))}</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-4">
+              <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Required Gross Income (Yearly)</p>
+              <p className="text-2xl font-semibold text-[#E7EDF6]">{formatMoney(Math.round(requiredGrossYearly))}</p>
+            </div>
+
+            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-4">
+              <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Assumptions</p>
+              <p className="text-sm text-[#A8B3C7]">25% tax + 30% savings</p>
+            </div>
+          </div>
+
+          <p className="text-xs text-[#A8B3C7]">These are estimates, not financial advice.</p>
+        </div>
+
+        {/* Right: Your Selections */}
+        <div>
+          <h2 className="text-2xl font-semibold text-[#E7EDF6] mb-8">Your Selections</h2>
+
+          <div className="space-y-6">
+            {steps.map((s) => {
+              const sel = allSelections.find((x) => x.id === s.id);
+              const ids = Array.isArray(sel?.value) ? sel.value : (sel?.value ? [sel.value] : []);
+              const customOpts = customOptionsByCategory[s.id as CategoryId] || [];
+              const allOpts = [...s.options, ...customOpts];
+              const selectedOpts = allOpts.filter((o) => ids.includes(o.id));
+              if (selectedOpts.length === 0) return null;
+
+              return (
+                <div key={s.id}>
+                  <h3 className="text-sm font-semibold text-[#E7EDF6] mb-3 uppercase tracking-wide">{s.heading}</h3>
+                  <div className="space-y-2 pl-4 border-l border-[rgba(45,212,191,0.14)]">
+                    {selectedOpts.map((option) => {
+                      const monthly = computeMonthlyFromOption(option);
+                      return (
+                        <div key={option.id} className="flex items-center justify-between">
+                          <span className="text-sm text-[#A8B3C7]">
+                            {option.name}
+                            {option.isCustom && <span className="text-[#2DD4BF] ml-2">(Custom)</span>}
+                          </span>
+                          <span className="text-sm text-[#2DD4BF] font-medium">+{formatMonthly(monthly)}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function OptionCard({ option, isSelected, onClick, onDelete }: OptionCardProps) {
   const imageSrc = imageMap[option.id];
 
   return (
-    <div
-      className={`group relative text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2DD4BF] rounded-2xl ${
+    <button
+      onClick={onClick}
+      className={`group relative w-full text-left rounded-2xl transition-all duration-200 ${
         isSelected
-          ? 'ring-2 ring-[#F6C66A] ring-offset-2 ring-offset-[#060A0F]'
-          : 'hover:ring-2 hover:ring-[rgba(45,212,191,0.22)] hover:ring-offset-2 hover:ring-offset-[#060A0F]'
+          ? 'ring-2 ring-[#F6C66A]'
+          : 'ring-1 ring-transparent hover:ring-[rgba(45,212,191,0.3)]'
       }`}
     >
-      <button
-        onClick={onClick}
-        className="w-full text-left"
+      <div
+        className={`bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-200 ${
+          isSelected ? 'shadow-lg shadow-[rgba(246,198,106,0.2)]' : 'shadow-md'
+        }`}
       >
-        <div
-          className={`bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border rounded-2xl overflow-hidden transition-all duration-300 ${
-            isSelected
-              ? 'border-[#F6C66A] shadow-2xl'
-              : 'border-[rgba(148,163,184,0.14)] hover:border-[rgba(45,212,191,0.22)] shadow-lg'
-          }`}
-          style={isSelected ? { boxShadow: '0 0 24px rgba(45,212,191,0.15)' } : {}}
-        >
-          <div className="w-full aspect-video bg-gradient-to-br from-[#0F766E]/20 to-[#0B1220] rounded-t-2xl flex items-center justify-center border-b border-[rgba(45,212,191,0.14)] overflow-hidden">
-            {imageSrc ? (
-              <img src={imageSrc} alt={option.name} className="w-full h-full object-cover" />
-            ) : (
-              <span className="text-sm font-medium text-[rgba(231,237,246,0.65)]">Image</span>
+        <div className="w-full aspect-video bg-gradient-to-br from-[#0F766E]/20 to-[#0B1220] flex items-center justify-center border-b border-[rgba(45,212,191,0.14)] overflow-hidden">
+          {imageSrc ? (
+            <img src={imageSrc} alt={option.name} className="w-full h-full object-cover" />
+          ) : (
+            <span className="text-sm font-medium text-[rgba(231,237,246,0.65)]">Image</span>
+          )}
+        </div>
+
+        <div className="p-6">
+          <div className="flex items-start justify-between gap-2 mb-3">
+            <h3 className="text-lg font-semibold text-[#E7EDF6] flex-1">{option.name}</h3>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className={`text-sm transition-colors duration-200 ${isSelected ? 'text-[#F6C66A] font-semibold' : 'text-[#A8B3C7]'}`}>
+              {getDisplayPrice(option)}
+            </p>
+            {option.isCustom && (
+              <span className="text-xs font-medium text-[#2DD4BF] bg-[#0F766E]/30 px-2 py-1 rounded">
+                Custom
+              </span>
             )}
           </div>
-
-          <div className="p-6">
-            <div className="flex items-start justify-between gap-2">
-              <h3 className="text-lg font-semibold text-[#E7EDF6] mb-2 flex-1">{option.name}</h3>
-            </div>
-            <div className="flex items-center justify-between">
-              <p className={`text-sm ${isSelected ? 'text-[#F6C66A] font-semibold' : 'text-[#A8B3C7]'}`}>
-                {getDisplayPrice(option)}
-              </p>
-              {option.isCustom && (
-                <span className="text-xs font-medium text-[#2DD4BF] bg-[#0F766E]/30 px-2 py-1 rounded">
-                  Custom
-                </span>
-              )}
-            </div>
-          </div>
         </div>
-      </button>
+      </div>
 
       {option.isCustom && onDelete && (
         <button
@@ -451,14 +615,7 @@ function OptionCard({ option, isSelected, onClick, onDelete }: OptionCardProps) 
           ✕
         </button>
       )}
-
-      {isSelected && (
-        <div className="absolute inset-0 rounded-2xl pointer-events-none">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-[#2DD4BF]/10 to-[#F6C66A]/10"></div>
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-50 rounded-t-2xl"></div>
-        </div>
-      )}
-    </div>
+    </button>
   );
 }
 
@@ -577,7 +734,6 @@ export default function LifeSpecWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [renderedStep, setRenderedStep] = useState(0);
   const [isFinished, setIsFinished] = useState(false);
-  const [showMaxMessage, setShowMaxMessage] = useState(false);
   const [transitionPhase, setTransitionPhase] = useState<TransitionPhase>('idle');
   const [transitionDirection, setTransitionDirection] = useState<TransitionDirection>('forward');
   const [isAnimating, setIsAnimating] = useState(false);
@@ -586,9 +742,9 @@ export default function LifeSpecWizard() {
     home: [], vehicles: [], jewellery: [], services: [], travel: [], wardrobe: [], food: [], wellness: [], legacy: [], safety: [],
   });
 
-  const [homeId, setHomeId] = useState<string | null>(null);
-  const [vehicleId, setVehicleId] = useState<string | null>(null);
-  const [jewelleryId, setJewelleryId] = useState<string | null>(null);
+  const [homeIds, setHomeIds] = useState<string[]>([]);
+  const [vehicleIds, setVehicleIds] = useState<string[]>([]);
+  const [jewelleryIds, setJewelleryIds] = useState<string[]>([]);
   const [serviceIds, setServiceIds] = useState<string[]>([]);
   const [travelIds, setTravelIds] = useState<string[]>([]);
   const [wardrobeIds, setWardrobeIds] = useState<string[]>([]);
@@ -626,11 +782,11 @@ export default function LifeSpecWizard() {
     return () => { document.body.style.overflow = ''; };
   }, [showAddCustomModal]);
 
-  const getSelectionState = (categoryId: CategoryId): string | string[] | null => {
+  const getSelectionState = (categoryId: CategoryId): string[] => {
     switch (categoryId) {
-      case 'home': return homeId;
-      case 'vehicles': return vehicleId;
-      case 'jewellery': return jewelleryId;
+      case 'home': return homeIds;
+      case 'vehicles': return vehicleIds;
+      case 'jewellery': return jewelleryIds;
       case 'services': return serviceIds;
       case 'travel': return travelIds;
       case 'wardrobe': return wardrobeIds;
@@ -638,45 +794,31 @@ export default function LifeSpecWizard() {
       case 'wellness': return wellnessIds;
       case 'legacy': return legacyIds;
       case 'safety': return safetyIds;
-      default: return null;
+      default: return [];
     }
   };
 
-  const setSelectionState = (categoryId: CategoryId, value: string | string[] | null) => {
+  const setSelectionState = (categoryId: CategoryId, value: string[]) => {
     switch (categoryId) {
-      case 'home': setHomeId(value as string | null); break;
-      case 'vehicles': setVehicleId(value as string | null); break;
-      case 'jewellery': setJewelleryId(value as string | null); break;
-      case 'services': setServiceIds(value as string[]); break;
-      case 'travel': setTravelIds(value as string[]); break;
-      case 'wardrobe': setWardrobeIds(value as string[]); break;
-      case 'food': setFoodIds(value as string[]); break;
-      case 'wellness': setWellnessIds(value as string[]); break;
-      case 'legacy': setLegacyIds(value as string[]); break;
-      case 'safety': setSafetyIds(value as string[]); break;
+      case 'home': setHomeIds(value); break;
+      case 'vehicles': setVehicleIds(value); break;
+      case 'jewellery': setJewelleryIds(value); break;
+      case 'services': setServiceIds(value); break;
+      case 'travel': setTravelIds(value); break;
+      case 'wardrobe': setWardrobeIds(value); break;
+      case 'food': setFoodIds(value); break;
+      case 'wellness': setWellnessIds(value); break;
+      case 'legacy': setLegacyIds(value); break;
+      case 'safety': setSafetyIds(value); break;
     }
   };
 
   const handleSelectOption = (optionId: string) => {
-    const selection = getSelectionState(step.id);
-    if (step.maxSelections === 1) {
-      if (selection === optionId) {
-        setSelectionState(step.id, null);
-      } else {
-        setSelectionState(step.id, optionId);
-      }
+    const ids = getSelectionState(step.id);
+    if (ids.includes(optionId)) {
+      setSelectionState(step.id, ids.filter((id) => id !== optionId));
     } else {
-      const ids = (selection as string[]) || [];
-      if (ids.includes(optionId)) {
-        setSelectionState(step.id, ids.filter((id) => id !== optionId));
-      } else {
-        if (ids.length < step.maxSelections) {
-          setSelectionState(step.id, [...ids, optionId]);
-        } else {
-          setShowMaxMessage(true);
-          setTimeout(() => setShowMaxMessage(false), 1500);
-        }
-      }
+      setSelectionState(step.id, [...ids, optionId]);
     }
   };
 
@@ -696,18 +838,8 @@ export default function LifeSpecWizard() {
       [step.id]: [...prev[step.id], newCustomOption],
     }));
 
-    const selection = getSelectionState(step.id);
-    if (step.maxSelections === 1) {
-      setSelectionState(step.id, customId);
-    } else {
-      const ids = (selection as string[]) || [];
-      if (ids.length < step.maxSelections) {
-        setSelectionState(step.id, [...ids, customId]);
-      } else {
-        setShowMaxMessage(true);
-        setTimeout(() => setShowMaxMessage(false), 1500);
-      }
-    }
+    const ids = getSelectionState(step.id);
+    setSelectionState(step.id, [...ids, customId]);
     setShowAddCustomModal(false);
   };
 
@@ -717,15 +849,8 @@ export default function LifeSpecWizard() {
       [step.id]: prev[step.id].filter((opt) => opt.id !== optionId),
     }));
 
-    const selection = getSelectionState(step.id);
-    if (step.maxSelections === 1) {
-      if (selection === optionId) {
-        setSelectionState(step.id, null);
-      }
-    } else {
-      const ids = (selection as string[]) || [];
-      setSelectionState(step.id, ids.filter((id) => id !== optionId));
-    }
+    const ids = getSelectionState(step.id);
+    setSelectionState(step.id, ids.filter((id) => id !== optionId));
   };
 
   const currentSelection = getSelectionState(step.id);
@@ -735,9 +860,9 @@ export default function LifeSpecWizard() {
 
   let totalMonthly = 0;
   const allSelections = [
-    { id: 'home', value: homeId },
-    { id: 'vehicles', value: vehicleId },
-    { id: 'jewellery', value: jewelleryId },
+    { id: 'home', value: homeIds },
+    { id: 'vehicles', value: vehicleIds },
+    { id: 'jewellery', value: jewelleryIds },
     { id: 'services', value: serviceIds },
     { id: 'travel', value: travelIds },
     { id: 'wardrobe', value: wardrobeIds },
@@ -751,7 +876,7 @@ export default function LifeSpecWizard() {
     const stepConfig = steps.find((s) => s.id === sel.id);
     if (!stepConfig) return;
 
-    const ids = Array.isArray(sel.value) ? sel.value : (sel.value ? [sel.value] : []);
+    const ids = sel.value || [];
     ids.forEach((id) => {
       const option = stepConfig.options.find((o) => o.id === id);
       if (option) {
@@ -760,9 +885,8 @@ export default function LifeSpecWizard() {
     });
 
     const customOptions = customOptionsByCategory[sel.id as CategoryId] || [];
-    const customIds = Array.isArray(sel.value) ? sel.value : (sel.value ? [sel.value] : []);
     customOptions.forEach((opt) => {
-      if (customIds.includes(opt.id)) {
+      if (ids.includes(opt.id)) {
         totalMonthly += opt.amount;
       }
     });
@@ -822,77 +946,56 @@ export default function LifeSpecWizard() {
 
       <header className="fixed top-0 left-0 right-0 z-40 h-14 bg-[#060A0F]/80 backdrop-blur-sm border-b border-[rgba(45,212,191,0.14)]">
         <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-          <div className="text-xl font-semibold text-[#2DD4BF]">LifeSpec</div>
-          <button className="px-4 py-2 text-sm font-medium text-[#A8B3C7] hover:text-[#2DD4BF] transition-colors">
-            Sign In
+          <button
+            onClick={() => window.location.href = '/'}
+            className="text-xl font-semibold text-[#2DD4BF] hover:text-[#F6C66A] transition-colors"
+          >
+            LifeSpec
           </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => window.location.href = '/login'}
+              className="px-4 py-2 text-sm font-medium text-[#A8B3C7] hover:text-[#2DD4BF] transition-colors"
+            >
+              Log in
+            </button>
+            <button
+              onClick={() => window.location.href = '/signup'}
+              className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] hover:from-[#0D5F5B] hover:to-[#1BA39F] rounded-lg transition-all duration-300"
+            >
+              Sign up
+            </button>
+          </div>
         </div>
       </header>
 
-      <div className="fixed top-20 left-6 z-30">
-        <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-md border border-[rgba(45,212,191,0.14)] rounded-2xl px-6 py-4 shadow-2xl">
-          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
-          <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Monthly Total</div>
-          <div className="text-2xl font-semibold text-[#2DD4BF] mt-1">{formatMonthly(totalMonthly)}</div>
-          <div className="border-t border-[rgba(45,212,191,0.14)] my-3"></div>
-          <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Yearly Total</div>
-          <div className="text-xl font-semibold text-[#F6C66A] mt-1">{formatMoney(roundToNearest10(totalMonthly * 12))}/yr</div>
+      {!isFinished && (
+        <div className="fixed top-20 left-6 z-30">
+          <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-md border border-[rgba(45,212,191,0.14)] rounded-2xl px-6 py-4 shadow-2xl">
+            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
+            <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Monthly Total</div>
+            <div className="text-2xl font-semibold text-[#2DD4BF] mt-1">{formatMonthly(totalMonthly)}</div>
+            <div className="border-t border-[rgba(45,212,191,0.14)] my-3"></div>
+            <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Yearly Total</div>
+            <div className="text-xl font-semibold text-[#F6C66A] mt-1">{formatMoney(roundToNearest10(totalMonthly * 12))}/yr</div>
+          </div>
         </div>
-      </div>
+      )}
 
       <main className="flex-1 pt-32 pb-48 overflow-y-auto relative z-10">
         <div className="max-w-6xl mx-auto px-6">
           {isFinished ? (
-            <div className={`text-center py-16 transition-all duration-300 ease-out ${getTransitionClass()}`}>
-              <h1 className="text-5xl font-semibold text-[#E7EDF6] mb-4">Your LifeSpec is complete.</h1>
-              <p className="text-lg text-[#A8B3C7] mb-12">Here's your personalized lifestyle summary</p>
-
-              <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-2xl p-8 mb-12 shadow-2xl">
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
-                <div className="mb-8">
-                  <h2 className="text-2xl font-semibold text-[#E7EDF6] mb-6">Your Selections</h2>
-                  <div className="space-y-4 text-left">
-                    {steps.map((s) => {
-                      const sel = allSelections.find((x) => x.id === s.id);
-                      const ids = Array.isArray(sel?.value) ? sel.value : (sel?.value ? [sel.value] : []);
-                      const customOpts = customOptionsByCategory[s.id as CategoryId] || [];
-                      const allOpts = [...s.options, ...customOpts];
-                      const selectedOpts = allOpts.filter((o) => ids.includes(o.id));
-                      if (selectedOpts.length === 0) return null;
-                      return (
-                        <div key={s.id}>
-                          <h3 className="font-semibold text-[#E7EDF6] mb-2">{s.heading}</h3>
-                          <ul className="space-y-1 ml-4">
-                            {selectedOpts.map((option) => {
-                              const monthly = computeMonthlyFromOption(option);
-                              return (
-                                <li key={option.id} className="text-[#A8B3C7] text-sm">
-                                  {option.name} {option.isCustom && <span className="text-[#2DD4BF]">(Custom)</span>} — <span className="text-[#2DD4BF]">{formatMonthly(monthly)}</span>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div className="border-t border-[rgba(45,212,191,0.14)] pt-8">
-                  <div className="text-sm text-[#A8B3C7] mb-2">Total Monthly Cost</div>
-                  <div className="text-5xl font-semibold text-[#F6C66A]">{formatMonthly(totalMonthly)}</div>
-                </div>
-              </div>
-            </div>
+            <ResultsScreen
+              totalMonthly={totalMonthly}
+              steps={steps}
+              allSelections={allSelections as Array<{ id: CategoryId; value: string | string[] | null }>}
+              customOptionsByCategory={customOptionsByCategory}
+            />
           ) : (
             <div className={`transition-all duration-300 ease-out ${getTransitionClass()}`}>
               <div className="text-center mb-16">
                 <h1 className="text-5xl font-semibold text-[#E7EDF6] mb-2">{step.heading}</h1>
-                <p className="text-lg text-[#A8B3C7] mb-4">{step.subheading}</p>
-                <p className="text-sm text-[rgba(231,237,246,0.65)]">Selected {selectedCount}/{step.maxSelections}</p>
-                {showMaxMessage && (
-                  <p className="text-sm text-[#F6C66A] mt-2">Max {step.maxSelections} selected</p>
-                )}
+                <p className="text-lg text-[#A8B3C7]">{step.subheading}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

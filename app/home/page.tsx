@@ -1,15 +1,103 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function HomePage() {
   const router = useRouter();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isBlueprintVisible, setIsBlueprintVisible] = useState(false);
+  const [isProofVisible, setIsProofVisible] = useState(false);
+  const [isFaqVisible, setIsFaqVisible] = useState(false);
+  const [monthlyCount, setMonthlyCount] = useState(0);
+  const [yearlyCount, setYearlyCount] = useState(0);
+  const [incomeCount, setIncomeCount] = useState(0);
+  const [affordabilityWidth, setAffordabilityWidth] = useState(0);
+  const [activeFaqTab, setActiveFaqTab] = useState(0);
+  const blueprintRef = useRef<HTMLDivElement>(null);
+  const proofRef = useRef<HTMLDivElement>(null);
+  const faqRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          if (entry.target === blueprintRef.current) setIsBlueprintVisible(true);
+          if (entry.target === proofRef.current) setIsProofVisible(true);
+          if (entry.target === faqRef.current) setIsFaqVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (blueprintRef.current) observer.observe(blueprintRef.current);
+    if (proofRef.current) observer.observe(proofRef.current);
+    if (faqRef.current) observer.observe(faqRef.current);
+
+    return () => {
+      if (blueprintRef.current) observer.unobserve(blueprintRef.current);
+      if (proofRef.current) observer.unobserve(proofRef.current);
+      if (faqRef.current) observer.unobserve(faqRef.current);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isBlueprintVisible) return;
+
+    let monthlyFrame = 0;
+    let yearlyFrame = 0;
+    let incomeFrame = 0;
+    let affordabilityFrame = 0;
+
+    const animateMonthly = () => {
+      if (monthlyFrame < 18750) {
+        monthlyFrame += 18750 / 60;
+        setMonthlyCount(Math.floor(monthlyFrame));
+        requestAnimationFrame(animateMonthly);
+      } else {
+        setMonthlyCount(18750);
+      }
+    };
+
+    const animateYearly = () => {
+      if (yearlyFrame < 225000) {
+        yearlyFrame += 225000 / 60;
+        setYearlyCount(Math.floor(yearlyFrame));
+        requestAnimationFrame(animateYearly);
+      } else {
+        setYearlyCount(225000);
+      }
+    };
+
+    const animateIncome = () => {
+      if (incomeFrame < 350000) {
+        incomeFrame += 350000 / 60;
+        setIncomeCount(Math.floor(incomeFrame));
+        requestAnimationFrame(animateIncome);
+      } else {
+        setIncomeCount(350000);
+      }
+    };
+
+    const animateAffordability = () => {
+      if (affordabilityFrame < 64) {
+        affordabilityFrame += 64 / 50;
+        setAffordabilityWidth(Math.floor(affordabilityFrame));
+        requestAnimationFrame(animateAffordability);
+      } else {
+        setAffordabilityWidth(64);
+      }
+    };
+
+    animateMonthly();
+    setTimeout(animateYearly, 100);
+    setTimeout(animateIncome, 200);
+    setTimeout(animateAffordability, 300);
+  }, [isBlueprintVisible]);
 
   const scrollToHowItWorks = () => {
     const element = document.getElementById('how-it-works');
@@ -50,12 +138,20 @@ export default function HomePage() {
             <div className="text-xl md:text-2xl font-light tracking-widest text-white">
               Life<span className="font-semibold">Spec</span>
             </div>
-            <button
-              onClick={() => router.push('/signin')}
-              className="px-5 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-300"
-            >
-              Sign In
-            </button>
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => router.push('/login')}
+                className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-300"
+              >
+                Log in
+              </button>
+              <button
+                onClick={() => router.push('/signup')}
+                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] hover:from-[#0D5F5B] hover:to-[#1BA39F] rounded-lg transition-all duration-300"
+              >
+                Sign up
+              </button>
+            </div>
           </header>
 
           {/* Centered Hero Content */}
@@ -200,8 +296,8 @@ export default function HomePage() {
                 </div>
                 <div className="group bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 hover:border-white/25 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl">
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="w-full md:w-32 h-32 bg-gradient-to-br from-[#0F766E]/30 to-[#2DD4BF]/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10">
-                      <span className="text-slate-400 text-sm font-medium">Image</span>
+                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10 overflow-hidden">
+                      <img src="/image1.webp" alt="Choose your life" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-2xl font-bold text-white mb-2">Choose your life.</h3>
@@ -223,8 +319,8 @@ export default function HomePage() {
                 </div>
                 <div className="group bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 hover:border-white/25 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl">
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="w-full md:w-32 h-32 bg-gradient-to-br from-[#0F766E]/30 to-[#2DD4BF]/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10">
-                      <span className="text-slate-400 text-sm font-medium">Image</span>
+                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10 overflow-hidden">
+                      <img src="/image2.webp" alt="See the number" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-2xl font-bold text-white mb-2">See the number.</h3>
@@ -246,8 +342,8 @@ export default function HomePage() {
                 </div>
                 <div className="group bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 hover:border-white/25 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl">
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="w-full md:w-32 h-32 bg-gradient-to-br from-[#0F766E]/30 to-[#2DD4BF]/10 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10">
-                      <span className="text-slate-400 text-sm font-medium">Image</span>
+                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10 overflow-hidden">
+                      <img src="/image3.webp" alt="Lock it in" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-2xl font-bold text-white mb-2">Lock it in.</h3>
@@ -269,6 +365,524 @@ export default function HomePage() {
               style={{ transitionDelay: '300ms' }}
             >
               Start Building
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Example Blueprint Section */}
+      <section ref={blueprintRef} className="relative py-16 md:py-20 px-8 md:px-12 bg-[#060A0F] overflow-hidden">
+        {/* Background Gradient + Glow */}
+        <div className="absolute inset-0 opacity-40 pointer-events-none">
+          <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-to-br from-[#2DD4BF]/20 to-[#F6C66A]/10 rounded-full blur-3xl" style={{
+            animation: 'pulse 8s ease-in-out infinite',
+          }} />
+          <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-gradient-to-br from-[#0F766E]/15 to-transparent rounded-full blur-3xl" style={{
+            animation: 'pulse 10s ease-in-out infinite 1s',
+          }} />
+        </div>
+
+        {/* Diagonal Gradient Overlay */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
+          background: 'linear-gradient(135deg, transparent 0%, rgba(45,212,191,0.1) 50%, transparent 100%)',
+        }} />
+
+        <style>{`
+          @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.05); }
+          }
+          @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+          }
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          @keyframes popIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+          }
+          .animate-shimmer {
+            background: linear-gradient(90deg, transparent 0%, rgba(45,212,191,0.3) 50%, transparent 100%);
+            background-size: 1000px 100%;
+            animation: shimmer 3s infinite;
+          }
+          .animate-float {
+            animation: float 3s ease-in-out infinite;
+          }
+          .animate-slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+          }
+          .animate-pop-in {
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          }
+        `}</style>
+
+        <div className="relative z-10 max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className={`inline-block px-4 py-2 bg-white/5 backdrop-blur-sm border border-[#2DD4BF]/30 rounded-full text-xs font-semibold text-[#2DD4BF] uppercase tracking-wider mb-6 transition-all duration-700 ${
+              isBlueprintVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+            }`}>
+              Example Blueprint
+            </div>
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 transition-all duration-700 ${
+              isBlueprintVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              This is what your dream life costs.
+            </h2>
+            <p className={`text-lg text-slate-300 max-w-2xl mx-auto transition-all duration-700 ${
+              isBlueprintVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`} style={{ transitionDelay: isBlueprintVisible ? '100ms' : '0ms' }}>
+              Build your LifeSpec in minutes and get your monthly cost, yearly cost, and required income — instantly.
+            </p>
+          </div>
+
+          {/* Two-Column Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Left Column: Copy + CTA */}
+            <div className={`flex flex-col justify-center transition-all duration-700 ${
+              isBlueprintVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              {/* Hype Bullets */}
+              <div className="space-y-4 mb-8">
+                {[
+                  'Real-time totals as you pick items',
+                  'Monthly + yearly breakdown',
+                  'Affordability meter in seconds',
+                ].map((bullet, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3 transition-all duration-500"
+                    style={{
+                      animation: isBlueprintVisible ? `slideUp 0.6s ease-out ${300 + idx * 100}ms forwards` : 'none',
+                      opacity: isBlueprintVisible ? 1 : 0,
+                    }}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-[#F6C66A] mt-2 flex-shrink-0" />
+                    <p className="text-slate-300 text-lg">{bullet}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <button
+                  onClick={() => router.push('/loading-screen')}
+                  className="px-8 py-4 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-xl hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.25)] hover:shadow-xl hover:shadow-[rgba(45,212,191,0.35)] transform hover:scale-105"
+                  style={{
+                    animation: isBlueprintVisible ? 'slideUp 0.6s ease-out 600ms forwards' : 'none',
+                    opacity: isBlueprintVisible ? 1 : 0,
+                  }}
+                >
+                  Create My LifeSpec
+                </button>
+                <button
+                  onClick={() => blueprintRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                  className="px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-xl hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                  style={{
+                    animation: isBlueprintVisible ? 'slideUp 0.6s ease-out 700ms forwards' : 'none',
+                    opacity: isBlueprintVisible ? 1 : 0,
+                  }}
+                >
+                  See the Blueprint
+                </button>
+              </div>
+
+              {/* Trust Pills */}
+              <div className="flex flex-wrap gap-3">
+                {['No sign-up required', 'Takes ~2 minutes', 'Shareable blueprint'].map((pill, idx) => (
+                  <div
+                    key={idx}
+                    className="px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-xs text-slate-300 transition-all duration-500"
+                    style={{
+                      animation: isBlueprintVisible ? `slideUp 0.6s ease-out ${800 + idx * 100}ms forwards` : 'none',
+                      opacity: isBlueprintVisible ? 1 : 0,
+                    }}
+                  >
+                    ✓ {pill}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right Column: Blueprint Panel */}
+            <button
+              onClick={() => router.push('/loading-screen')}
+              className={`group relative transition-all duration-700 cursor-pointer ${
+                isBlueprintVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isBlueprintVisible ? '200ms' : '0ms' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#2DD4BF]/10 to-[#F6C66A]/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              <div className="relative bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl group-hover:shadow-3xl group-hover:border-white/20 transition-all duration-300 group-hover:-translate-y-2 group-hover:animate-float">
+                {/* Blueprint Header */}
+                <div className="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
+                  <div>
+                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">LifeSpec Blueprint</p>
+                    <p className="text-sm text-slate-300">Example</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2DD4BF] to-[#F6C66A] opacity-20" />
+                </div>
+
+                {/* Stat Tiles Grid */}
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  {[
+                    { label: 'Monthly Cost', value: `$${monthlyCount.toLocaleString()}`, color: 'text-[#2DD4BF]', delay: 0 },
+                    { label: 'Yearly Cost', value: `$${yearlyCount.toLocaleString()}`, color: 'text-[#F6C66A]', delay: 100 },
+                    { label: 'Required Income', value: `$${incomeCount.toLocaleString()}`, color: 'text-white', delay: 200 },
+                    { label: 'Affordability', value: `${affordabilityWidth}%`, color: 'text-[#2DD4BF]', delay: 300 },
+                  ].map((tile, idx) => (
+                    <div
+                      key={idx}
+                      className="bg-gradient-to-br from-white/8 to-white/4 border border-white/10 rounded-xl p-4 group-hover:border-white/20 transition-all duration-300 group-hover:scale-105"
+                      style={{
+                        animation: isBlueprintVisible ? `popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${600 + tile.delay}ms forwards` : 'none',
+                        opacity: isBlueprintVisible ? 1 : 0,
+                      }}
+                    >
+                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">{tile.label}</p>
+                      <p className={`text-xl font-bold ${tile.color}`}>{tile.value}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Itemized Picks */}
+                <div className="space-y-1 mb-6 pb-6 border-b border-white/10">
+                  {[
+                    { category: 'Home', item: 'Malibu Waterfront Mansion', price: 12500 },
+                    { category: 'Vehicle', item: 'Mercedes G63 AMG', price: 2400 },
+                    { category: 'Services', item: 'Private Chef', price: 4000 },
+                    { category: 'Services', item: 'Housekeeping', price: 800 },
+                    { category: 'Travel', item: 'Lake Como Villa Weekends', price: 1750 },
+                    { category: 'Fashion', item: 'Designer Wardrobe', price: 1300 },
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between py-2 px-2 rounded-lg hover:bg-white/5 transition-colors duration-200"
+                      style={{
+                        animation: isBlueprintVisible ? `slideUp 0.4s ease-out ${800 + idx * 50}ms forwards` : 'none',
+                        opacity: isBlueprintVisible ? 1 : 0,
+                      }}
+                    >
+                      <div className="flex-1">
+                        <p className="text-xs text-slate-400 font-medium">{item.category}</p>
+                        <p className="text-sm text-slate-200">{item.item}</p>
+                      </div>
+                      <p className="text-sm font-semibold text-[#2DD4BF] ml-4">+${item.price.toLocaleString()}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer Hint */}
+                <div className="flex items-center justify-center gap-2 text-slate-400 text-sm">
+                  <span>Try yours</span>
+                  <span className="text-[#2DD4BF]">→</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof Section - Marquee Reviews */}
+      <section ref={proofRef} className="relative py-16 md:py-20 px-8 md:px-12 bg-[#060A0F] overflow-hidden">
+        <style>{`
+          @keyframes marqueeLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          @keyframes marqueeRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+          }
+          .marquee-left { animation: marqueeLeft 50s linear infinite; }
+          .marquee-right { animation: marqueeRight 50s linear infinite; }
+          .marquee-left:hover { animation-play-state: paused; }
+          .marquee-right:hover { animation-play-state: paused; }
+        `}</style>
+
+        <div className="relative z-10 max-w-7xl mx-auto mb-12">
+          <div className="text-center mb-8">
+            <h2 className={`text-4xl md:text-5xl font-bold text-white mb-3 transition-all duration-700 ${
+              isProofVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              Real people. Real wake-up call.
+            </h2>
+            <p className={`text-lg text-slate-300 transition-all duration-700 ${
+              isProofVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`} style={{ transitionDelay: isProofVisible ? '100ms' : '0ms' }}>
+              LifeSpec turns "one day" into a number you can actually work with.
+            </p>
+          </div>
+        </div>
+
+        {/* Marquee Row A - Left */}
+        <div className="relative mb-6 overflow-hidden">
+          <div className="marquee-left flex gap-4 w-max">
+            {[
+              { handle: '@dylan.builds', initials: 'DB', text: 'Seeing $18,750/mo in black and white changed everything. No more guessing.', monthly: '$18,750' },
+              { handle: '@lina.moves', initials: 'LM', text: 'The affordability bar was eye-opening. I need to earn way more than I thought.', monthly: '$12,300' },
+              { handle: '@ari.plans', initials: 'AP', text: 'Built my blueprint in 2 minutes. Instant clarity on what my dream costs.', monthly: '$22,500' },
+              { handle: '@noahmetrics', initials: 'NM', text: 'Monthly total: $15,600. Now I have a real target to work toward.', monthly: '$15,600' },
+              { handle: '@sasha.studies', initials: 'SS', text: 'The custom items feature let me add exactly what I want. So flexible.', monthly: '$9,800' },
+              { handle: '@jaydensteps', initials: 'JS', text: 'Required income breakdown was a reality check I needed. Highly recommend.', monthly: '$28,000' },
+            ].map((review, idx) => (
+              <div key={idx} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2DD4BF] to-[#F6C66A] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                      {review.initials}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{review.handle}</p>
+                      <p className="text-xs text-slate-400">Verified Build</p>
+                    </div>
+                  </div>
+                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                </div>
+                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
+                <div className="pt-3 border-t border-white/10">
+                  <p className="text-xs text-slate-400">Monthly total:</p>
+                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                </div>
+              </div>
+            ))}
+            {/* Repeat for infinite scroll */}
+            {[
+              { handle: '@dylan.builds', initials: 'DB', text: 'Seeing $18,750/mo in black and white changed everything. No more guessing.', monthly: '$18,750' },
+              { handle: '@lina.moves', initials: 'LM', text: 'The affordability bar was eye-opening. I need to earn way more than I thought.', monthly: '$12,300' },
+              { handle: '@ari.plans', initials: 'AP', text: 'Built my blueprint in 2 minutes. Instant clarity on what my dream costs.', monthly: '$22,500' },
+              { handle: '@noahmetrics', initials: 'NM', text: 'Monthly total: $15,600. Now I have a real target to work toward.', monthly: '$15,600' },
+              { handle: '@sasha.studies', initials: 'SS', text: 'The custom items feature let me add exactly what I want. So flexible.', monthly: '$9,800' },
+              { handle: '@jaydensteps', initials: 'JS', text: 'Required income breakdown was a reality check I needed. Highly recommend.', monthly: '$28,000' },
+            ].map((review, idx) => (
+              <div key={`repeat-a-${idx}`} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2DD4BF] to-[#F6C66A] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                      {review.initials}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{review.handle}</p>
+                      <p className="text-xs text-slate-400">Verified Build</p>
+                    </div>
+                  </div>
+                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                </div>
+                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
+                <div className="pt-3 border-t border-white/10">
+                  <p className="text-xs text-slate-400">Monthly total:</p>
+                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Marquee Row B - Right */}
+        <div className="relative mb-8 overflow-hidden">
+          <div className="marquee-right flex gap-4 w-max">
+            {[
+              { handle: '@mia.finance', initials: 'MF', text: 'Shared my blueprint with my partner. We finally agree on our target.', monthly: '$21,000' },
+              { handle: '@kevinfocus', initials: 'KF', text: 'No sign-up needed. Built, saw my numbers, and left. Perfect.', monthly: '$16,800' },
+              { handle: '@dylan.builds', initials: 'DB', text: 'The 25% tax + 30% savings math is realistic. Not inflated.', monthly: '$18,750' },
+              { handle: '@lina.moves', initials: 'LM', text: 'Customized every item. My blueprint is actually mine.', monthly: '$12,300' },
+              { handle: '@ari.plans', initials: 'AP', text: 'Instant. No waiting. No complexity. Just the number.', monthly: '$22,500' },
+              { handle: '@noahmetrics', initials: 'NM', text: 'Bookmarked it. Going back to check my progress monthly.', monthly: '$15,600' },
+            ].map((review, idx) => (
+              <div key={idx} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F6C66A] to-[#2DD4BF] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                      {review.initials}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{review.handle}</p>
+                      <p className="text-xs text-slate-400">Verified Build</p>
+                    </div>
+                  </div>
+                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                </div>
+                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
+                <div className="pt-3 border-t border-white/10">
+                  <p className="text-xs text-slate-400">Monthly total:</p>
+                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                </div>
+              </div>
+            ))}
+            {/* Repeat for infinite scroll */}
+            {[
+              { handle: '@mia.finance', initials: 'MF', text: 'Shared my blueprint with my partner. We finally agree on our target.', monthly: '$21,000' },
+              { handle: '@kevinfocus', initials: 'KF', text: 'No sign-up needed. Built, saw my numbers, and left. Perfect.', monthly: '$16,800' },
+              { handle: '@dylan.builds', initials: 'DB', text: 'The 25% tax + 30% savings math is realistic. Not inflated.', monthly: '$18,750' },
+              { handle: '@lina.moves', initials: 'LM', text: 'Customized every item. My blueprint is actually mine.', monthly: '$12,300' },
+              { handle: '@ari.plans', initials: 'AP', text: 'Instant. No waiting. No complexity. Just the number.', monthly: '$22,500' },
+              { handle: '@noahmetrics', initials: 'NM', text: 'Bookmarked it. Going back to check my progress monthly.', monthly: '$15,600' },
+            ].map((review, idx) => (
+              <div key={`repeat-b-${idx}`} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F6C66A] to-[#2DD4BF] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                      {review.initials}
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-white">{review.handle}</p>
+                      <p className="text-xs text-slate-400">Verified Build</p>
+                    </div>
+                  </div>
+                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                </div>
+                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
+                <div className="pt-3 border-t border-white/10">
+                  <p className="text-xs text-slate-400">Monthly total:</p>
+                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats Line */}
+        <div className={`text-center transition-all duration-700 ${
+          isProofVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        }`}>
+          <p className="text-sm text-slate-400">
+            <span className="text-[#2DD4BF] font-semibold">4.8/5</span> average — based on <span className="text-[#F6C66A] font-semibold">9,400+</span> builds
+          </p>
+        </div>
+      </section>
+
+      {/* FAQ Section - Tabbed Layout */}
+      <section ref={faqRef} className="relative py-16 md:py-20 px-8 md:px-12 bg-[#060A0F]">
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className={`text-4xl md:text-5xl font-bold text-white mb-3 transition-all duration-700 ${
+              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}>
+              Questions, answered.
+            </h2>
+            <p className={`text-lg text-slate-300 transition-all duration-700 ${
+              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`} style={{ transitionDelay: isFaqVisible ? '100ms' : '0ms' }}>
+              Quick clarity before you build.
+            </p>
+          </div>
+
+          {/* Tabbed FAQ Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Left: Question Tabs */}
+            <div className={`space-y-2 transition-all duration-700 ${
+              isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            }`}>
+              {[
+                'How does LifeSpec estimate monthly costs?',
+                'Are these numbers exact or averages?',
+                'Can I customize items and prices?',
+                'Why do you show required income?',
+                'Do I need an account to use it?',
+                'Can I save and share my blueprint?',
+              ].map((question, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setActiveFaqTab(idx)}
+                  className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 ${
+                    activeFaqTab === idx
+                      ? 'bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white border border-[#2DD4BF]'
+                      : 'bg-white/5 border border-white/10 text-slate-300 hover:border-white/20'
+                  }`}
+                >
+                  <p className="text-sm font-medium">{question}</p>
+                </button>
+              ))}
+            </div>
+
+            {/* Right: Answer Panel */}
+            <div className={`lg:col-span-2 transition-all duration-700 ${
+              isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            }`} style={{ transitionDelay: isFaqVisible ? '200ms' : '0ms' }}>
+              <div className="bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 min-h-64 flex flex-col justify-between">
+                {/* Answer Content */}
+                <div className="fade-in">
+                  {activeFaqTab === 0 && (
+                    <div className="animate-fade-in">
+                      <h3 className="text-xl font-bold text-white mb-4">How does LifeSpec estimate monthly costs?</h3>
+                      <p className="text-slate-300 mb-4">We sum up the monthly prices of all items you select. Each item has a base price, and you can customize any of them. The total is your estimated monthly lifestyle cost.</p>
+                      <p className="text-slate-400 text-sm">This is for inspiration and planning — not financial advice.</p>
+                    </div>
+                  )}
+                  {activeFaqTab === 1 && (
+                    <div className="animate-fade-in">
+                      <h3 className="text-xl font-bold text-white mb-4">Are these numbers exact or averages?</h3>
+                      <p className="text-slate-300 mb-4">They're realistic estimates based on market research. A Malibu mansion might cost $12,500/mo, but your actual costs could vary. Use these as a starting point, not gospel.</p>
+                      <p className="text-slate-400 text-sm">Customize prices to match your local market or preferences.</p>
+                    </div>
+                  )}
+                  {activeFaqTab === 2 && (
+                    <div className="animate-fade-in">
+                      <h3 className="text-xl font-bold text-white mb-4">Can I customize items and prices?</h3>
+                      <p className="text-slate-300 mb-4">Yes. Every step lets you add custom items with your own monthly price. Want a $5,000/mo car instead of the preset? Add it. Your blueprint, your rules.</p>
+                      <p className="text-slate-400 text-sm">Custom items are stored locally during your session.</p>
+                    </div>
+                  )}
+                  {activeFaqTab === 3 && (
+                    <div className="animate-fade-in">
+                      <h3 className="text-xl font-bold text-white mb-4">Why do you show required income?</h3>
+                      <p className="text-slate-300 mb-4">We work backward from your lifestyle cost. We assume 25% taxes and 30% savings, so your gross income needs to cover the rest. It's a reality check.</p>
+                      <p className="text-slate-400 text-sm">Use the affordability meter to compare your income to your dream lifestyle.</p>
+                    </div>
+                  )}
+                  {activeFaqTab === 4 && (
+                    <div className="animate-fade-in">
+                      <h3 className="text-xl font-bold text-white mb-4">Do I need an account to use it?</h3>
+                      <p className="text-slate-300 mb-4">Nope. Build your blueprint, see your numbers, and leave. No sign-up required. (Saving blueprints for later will require an account — coming soon.)</p>
+                      <p className="text-slate-400 text-sm">Screenshot your blueprint and share it with anyone.</p>
+                    </div>
+                  )}
+                  {activeFaqTab === 5 && (
+                    <div className="animate-fade-in">
+                      <h3 className="text-xl font-bold text-white mb-4">Can I save and share my blueprint?</h3>
+                      <p className="text-slate-300 mb-4">You can screenshot your blueprint and share it instantly. Saving to your account for later is a future feature we're building.</p>
+                      <p className="text-slate-400 text-sm">For now, your blueprint lives in your browser session.</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* Tip Row */}
+                <div className="mt-6 pt-6 border-t border-white/10">
+                  <p className="text-xs text-slate-400 mb-1">💡 Tip:</p>
+                  <p className="text-sm text-slate-300">Try entering your net income on the Blueprint screen to see your affordability %.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom CTA */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+            <button
+              onClick={() => router.push('/loading-screen')}
+              className={`px-8 py-4 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-xl hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.25)] hover:shadow-xl transform hover:scale-105 ${
+                isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isFaqVisible ? '300ms' : '0ms' }}
+            >
+              Start building
+            </button>
+            <button
+              onClick={() => blueprintRef.current?.scrollIntoView({ behavior: 'smooth' })}
+              className={`px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-xl hover:border-white/40 hover:bg-white/5 transition-all duration-300 ${
+                isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isFaqVisible ? '400ms' : '0ms' }}
+            >
+              See example blueprint
             </button>
           </div>
         </div>
