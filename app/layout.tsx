@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-[#060A0F]">
         <AuthProvider>
           <AppHeader />
           <main className="pt-20">
