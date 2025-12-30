@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -31,42 +31,49 @@ export default function SignupPage() {
     setLoading(true);
     console.log('SIGNUP_START:', { email: email.substring(0, 3) + '***' });
 
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName || '',
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            full_name: fullName || '',
+          },
         },
-      },
-    });
+      });
 
-    console.log('SIGNUP_RESPONSE:', { 
-      hasUser: !!data?.user, 
-      hasSession: !!data?.session, 
-      error: signUpError 
-    });
+      console.log('SIGNUP_RESPONSE:', { 
+        hasUser: !!data?.user, 
+        hasSession: !!data?.session, 
+        error: signUpError 
+      });
 
-    if (signUpError) {
-      console.error('❌ SIGNUP_ERROR:', signUpError);
-      setError(`Signup failed: ${signUpError.message}`);
+      if (signUpError) {
+        console.error('❌ SIGNUP_ERROR:', signUpError);
+        setError(`Signup failed: ${signUpError.message}`);
+        setLoading(false);
+        return;
+      }
+
+      if (!data?.user) {
+        console.error('❌ SIGNUP_NO_USER');
+        setError('Signup failed: No user created. Check Supabase Email provider is enabled.');
+        setLoading(false);
+        return;
+      }
+
+      if (data?.session) {
+        console.log('✓ SIGNUP_SUCCESS_WITH_SESSION - Redirecting to dashboard');
+        router.push('/dashboard');
+      } else {
+        console.log('✓ SIGNUP_SUCCESS_NEEDS_CONFIRMATION - Check your email');
+        setConfirmationSent(true);
+      }
+    } catch (error) {
+      console.error('SIGNUP_EXCEPTION:', error);
+      setError(`Signup failed: ${(error as Error).message}`);
       setLoading(false);
-      return;
-    }
-
-    if (!data?.user) {
-      console.error('❌ SIGNUP_NO_USER');
-      setError('Signup failed: No user created. Check Supabase Email provider is enabled.');
-      setLoading(false);
-      return;
-    }
-
-    if (data?.session) {
-      console.log('✓ SIGNUP_SUCCESS_WITH_SESSION - Redirecting to dashboard');
-      router.push('/dashboard');
-    } else {
-      console.log('✓ SIGNUP_SUCCESS_NEEDS_CONFIRMATION - Check your email');
-      setConfirmationSent(true);
     }
   };
 

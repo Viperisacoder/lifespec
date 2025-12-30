@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -18,37 +18,44 @@ export default function LoginPage() {
 
     console.log('SIGNIN_START:', { email: email.substring(0, 3) + '***' });
 
-    const { data, error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    console.log('SIGNIN_RESPONSE:', { 
-      hasUser: !!data?.user, 
-      hasSession: !!data?.session, 
-      error: signInError 
-    });
+      console.log('SIGNIN_RESPONSE:', { 
+        hasUser: !!data?.user, 
+        hasSession: !!data?.session, 
+        error: signInError 
+      });
 
-    if (signInError) {
-      console.error('❌ SIGNIN_ERROR:', signInError);
-      setError(`Login failed: ${signInError.message}`);
-      setLoading(false);
-      return;
-    }
+      if (signInError) {
+        console.error('❌ SIGNIN_ERROR:', signInError);
+        setError(`Login failed: ${signInError.message}`);
+        setLoading(false);
+        return;
+      }
 
-    if (!data.user) {
-      console.error('❌ SIGNIN_NO_USER');
-      setError('Login failed: No user found');
-      setLoading(false);
-      return;
-    }
+      if (!data.user) {
+        console.error('❌ SIGNIN_NO_USER');
+        setError('Login failed: No user found');
+        setLoading(false);
+        return;
+      }
 
-    if (data.session) {
-      console.log('✓ SIGNIN_SUCCESS');
-      router.push('/dashboard');
-    } else {
-      console.error('❌ SIGNIN_NO_SESSION');
-      setError('Login failed: No session created');
+      if (data.session) {
+        console.log('✓ SIGNIN_SUCCESS');
+        router.push('/dashboard');
+      } else {
+        console.error('❌ SIGNIN_NO_SESSION');
+        setError('Login failed: No session created');
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error('SIGNIN_EXCEPTION:', error);
+      setError(`Login failed: ${(error as Error).message}`);
       setLoading(false);
     }
   };

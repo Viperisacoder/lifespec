@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { getSupabaseBrowserClient } from '@/lib/supabase/browser';
 import { User, Session } from '@supabase/supabase-js';
 
 interface AuthContextType {
@@ -23,6 +23,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const initAuth = async () => {
       try {
+        const supabase = getSupabaseBrowserClient();
         const { data: { session: currentSession } } = await supabase.auth.getSession();
         setSession(currentSession);
         setUser(currentSession?.user || null);
@@ -35,20 +36,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     initAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, currentSession) => {
-        setSession(currentSession);
-        setUser(currentSession?.user || null);
-      }
-    );
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { data: { subscription } } = supabase.auth.onAuthStateChange(
+        (_event: string, currentSession: Session | null) => {
+          setSession(currentSession);
+          setUser(currentSession?.user || null);
+        }
+      );
 
-    return () => {
-      subscription?.unsubscribe();
-    };
+      return () => {
+        subscription?.unsubscribe();
+      };
+    } catch (error) {
+      console.error('Error setting up auth listener:', error);
+      return () => {};
+    }
   }, []);
 
   const signUp = async (email: string, password: string, fullName?: string) => {
     try {
+      const supabase = getSupabaseBrowserClient();
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -83,6 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
+      const supabase = getSupabaseBrowserClient();
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -106,6 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = async () => {
     try {
+      const supabase = getSupabaseBrowserClient();
       await supabase.auth.signOut();
     } catch (error) {
       console.error('Error signing out:', error);
