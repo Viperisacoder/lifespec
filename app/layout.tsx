@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { AuthProvider } from "@/app/contexts/AuthContext";
+import { AppHeader } from "@/app/components/AppHeader";
 
 export const metadata: Metadata = {
   title: "LifeSpec",
@@ -13,7 +15,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          <AppHeader />
+          <main className="pt-20">
+            {children}
+          </main>
+        </AuthProvider>
+      </body>
     </html>
   );
 }

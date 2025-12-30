@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { LegacyIcon, SafetyIcon } from '@/app/components/icons/LifeSpecIcons';
+import { MobileCalculatorDropdown } from '@/app/components/MobileCalculatorDropdown';
 
 type PricingType = 'purchase' | 'monthly' | 'yearly';
 type CategoryId = 'home' | 'vehicles' | 'jewellery' | 'services' | 'travel' | 'wardrobe' | 'food' | 'wellness' | 'legacy' | 'safety';
@@ -338,12 +340,12 @@ const imageMap: { [key: string]: string } = {
   'v4': '/cars/x6mc.avif',
   'v5': '/cars/db12.png',
   'v6': '/cars/rrcullinan.jpeg',
-  'v7': '/cars/0P1A0922-3_1.jpg',
+  'v7': '/cars/dsc09285.webp',
   'v8': '/cars/phantom.jpg',
   'v9': '/cars/superfast812.webp',
   'v10': '/cars/svj.jpg',
   'v11': '/cars/079-bentley-bentayga-speed.webp',
-  'v12': '/cars/dsc09285.webp',
+  'v12': '/cars/0P1A0922-3_1.jpg',
   'v13': '/cars/c63amg.avif',
   'v14': '/cars/rs7.jpg',
   'j1': '/jewellery/rolexyellow.webp',
@@ -389,6 +391,19 @@ const imageMap: { [key: string]: string } = {
   'w8': '/wardrobe/vacation.webp',
   'w9': '/wardrobe/sneaker.webp',
   'w10': '/wardrobe/ultralux.webp',
+  'f1': '/Food/basicgroceries.webp',
+  'f2': '/Food/organicgroceries.jpg',
+  'f3': '/Food/weeklymealprep.webp',
+  'f4': '/Food/casualdining.jpg',
+  'f5': '/Food/upscale.png',
+  'f6': '/Food/michelin.webp',
+  'f7': '/Food/privatechef.jpg',
+  'f8': '/Food/luxuryfood.webp',
+  'f9': '/Food/specialtycoffee.webp',
+  'f10': '/Food/wineandine.jpg',
+  'hw1': '/healthandwellness/gymmembership.webp',
+  'hw2': '/healthandwellness/stairmaster.avif',
+  'hw3': '/healthandwellness/pilates.jpg',
 };
 
 interface ResultsScreenProps {
@@ -411,16 +426,16 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
   const progressPct = netMonthly > 0 ? Math.min((spendableMonthly / totalMonthly) * 100, 100) : 0;
 
   return (
-    <div className={`py-16 transition-all duration-300 ease-out opacity-100 translate-y-0`}>
+    <div className={`py-8 sm:py-16 transition-all duration-300 ease-out opacity-100 translate-y-0`}>
       {/* Top Row: Title + Button */}
-      <div className="flex items-start justify-between mb-12">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-8 sm:mb-12 gap-4 sm:gap-0">
         <div>
-          <h1 className="text-5xl font-semibold text-[#E7EDF6] mb-2">LifeSpec Blueprint</h1>
-          <p className="text-lg text-[#A8B3C7]">Your lifestyle cost breakdown</p>
+          <h1 className="text-3xl sm:text-5xl font-semibold text-[#E7EDF6] mb-2">LifeSpec Blueprint</h1>
+          <p className="text-sm sm:text-lg text-[#A8B3C7]">Your lifestyle cost breakdown</p>
         </div>
         <button
           onClick={() => setShowAffordability(!showAffordability)}
-          className="group relative px-6 py-3 text-sm font-medium transition-all duration-300 rounded-xl overflow-hidden"
+          className="group relative px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-all duration-300 rounded-xl overflow-hidden whitespace-nowrap"
           style={{
             background: 'linear-gradient(135deg, rgba(45,212,191,0.1) 0%, rgba(246,198,106,0.05) 100%)',
             border: '1.5px solid',
@@ -441,21 +456,21 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
 
       {/* Affordability Dropdown */}
       <div
-        className="overflow-hidden transition-all duration-300 ease-out mb-12"
+        className="overflow-hidden transition-all duration-300 ease-out mb-8 sm:mb-12"
         style={{
           maxHeight: showAffordability ? '400px' : '0px',
           opacity: showAffordability ? 1 : 0,
         }}
       >
-        <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-2xl p-6 mb-6">
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-[#A8B3C7] mb-2">Monthly income (after tax)</label>
+        <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-2xl p-4 sm:p-6 mb-6">
+          <div className="mb-4 sm:mb-6">
+            <label className="block text-xs sm:text-sm font-medium text-[#A8B3C7] mb-2">Monthly income (after tax)</label>
             <input
               type="number"
               placeholder="e.g. 4500"
               value={netMonthlyInput}
               onChange={(e) => setNetMonthlyInput(e.target.value)}
-              className="w-full bg-[#0E1A2B] border border-[rgba(45,212,191,0.14)] rounded-lg px-4 py-3 text-[#E7EDF6] placeholder-[#A8B3C7]/50 focus:outline-none focus:border-[rgba(45,212,191,0.4)]"
+              className="w-full bg-[#0E1A2B] border border-[rgba(45,212,191,0.14)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-[#E7EDF6] placeholder-[#A8B3C7]/50 focus:outline-none focus:border-[rgba(45,212,191,0.4)]"
             />
             <p className="text-xs text-[#A8B3C7] mt-2">We'll estimate savings based on 30% of gross income.</p>
           </div>
@@ -491,31 +506,31 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
       </div>
 
       {/* 2-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
         {/* Left: Blueprint Numbers */}
         <div>
-          <h2 className="text-2xl font-semibold text-[#E7EDF6] mb-8">Blueprint Numbers</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#E7EDF6] mb-6 sm:mb-8">Blueprint Numbers</h2>
 
-          <div className="mb-12">
-            <div className="text-6xl font-bold text-[#2DD4BF]">{formatMonthly(totalMonthly)}</div>
-            <p className="text-sm text-[#A8B3C7] mt-2">Monthly Lifestyle Cost</p>
+          <div className="mb-8 sm:mb-12">
+            <div className="text-4xl sm:text-6xl font-bold text-[#2DD4BF]">{formatMonthly(totalMonthly)}</div>
+            <p className="text-xs sm:text-sm text-[#A8B3C7] mt-2">Monthly Lifestyle Cost</p>
           </div>
 
           {/* Stat Tiles */}
-          <div className="space-y-4 mb-8">
-            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-4">
+          <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
+            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-3 sm:p-4">
               <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Yearly Lifestyle Cost</p>
-              <p className="text-2xl font-semibold text-[#F6C66A]">{formatMoney(roundToNearest10(totalMonthly * 12))}</p>
+              <p className="text-lg sm:text-2xl font-semibold text-[#F6C66A]">{formatMoney(roundToNearest10(totalMonthly * 12))}</p>
             </div>
 
-            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-4">
+            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-3 sm:p-4">
               <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Required Gross Income (Yearly)</p>
-              <p className="text-2xl font-semibold text-[#E7EDF6]">{formatMoney(Math.round(requiredGrossYearly))}</p>
+              <p className="text-lg sm:text-2xl font-semibold text-[#E7EDF6]">{formatMoney(Math.round(requiredGrossYearly))}</p>
             </div>
 
-            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-4">
+            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-3 sm:p-4">
               <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Assumptions</p>
-              <p className="text-sm text-[#A8B3C7]">25% tax + 30% savings</p>
+              <p className="text-xs sm:text-sm text-[#A8B3C7]">25% tax + 30% savings</p>
             </div>
           </div>
 
@@ -524,9 +539,9 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
 
         {/* Right: Your Selections */}
         <div>
-          <h2 className="text-2xl font-semibold text-[#E7EDF6] mb-8">Your Selections</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#E7EDF6] mb-6 sm:mb-8">Your Selections</h2>
 
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {steps.map((s) => {
               const sel = allSelections.find((x) => x.id === s.id);
               const ids = Array.isArray(sel?.value) ? sel.value : (sel?.value ? [sel.value] : []);
@@ -537,17 +552,17 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
 
               return (
                 <div key={s.id}>
-                  <h3 className="text-sm font-semibold text-[#E7EDF6] mb-3 uppercase tracking-wide">{s.heading}</h3>
-                  <div className="space-y-2 pl-4 border-l border-[rgba(45,212,191,0.14)]">
+                  <h3 className="text-xs sm:text-sm font-semibold text-[#E7EDF6] mb-2 sm:mb-3 uppercase tracking-wide">{s.heading}</h3>
+                  <div className="space-y-2 pl-3 sm:pl-4 border-l border-[rgba(45,212,191,0.14)]">
                     {selectedOpts.map((option) => {
                       const monthly = computeMonthlyFromOption(option);
                       return (
-                        <div key={option.id} className="flex items-center justify-between">
-                          <span className="text-sm text-[#A8B3C7]">
+                        <div key={option.id} className="flex items-center justify-between gap-2">
+                          <span className="text-xs sm:text-sm text-[#A8B3C7] truncate">
                             {option.name}
                             {option.isCustom && <span className="text-[#2DD4BF] ml-2">(Custom)</span>}
                           </span>
-                          <span className="text-sm text-[#2DD4BF] font-medium">+{formatMonthly(monthly)}</span>
+                          <span className="text-xs sm:text-sm text-[#2DD4BF] font-medium whitespace-nowrap">+{formatMonthly(monthly)}</span>
                         </div>
                       );
                     })}
@@ -558,12 +573,34 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
           </div>
         </div>
       </div>
+
     </div>
   );
 }
 
 function OptionCard({ option, isSelected, onClick, onDelete }: OptionCardProps) {
   const imageSrc = imageMap[option.id];
+  
+  // Determine if this option should use an icon instead of an image
+  const useIcon = option.category === 'legacy' || option.category === 'safety';
+  
+  const renderIcon = () => {
+    if (option.category === 'legacy') {
+      return (
+        <LegacyIcon className={`w-12 h-12 transition-colors duration-200 ${
+          isSelected ? 'text-[#F6C66A]' : 'text-slate-400 group-hover:text-[#2DD4BF]'
+        }`} />
+      );
+    }
+    if (option.category === 'safety') {
+      return (
+        <SafetyIcon className={`w-12 h-12 transition-colors duration-200 ${
+          isSelected ? 'text-[#F6C66A]' : 'text-slate-400 group-hover:text-[#2DD4BF]'
+        }`} />
+      );
+    }
+    return null;
+  };
 
   return (
     <button
@@ -580,19 +617,21 @@ function OptionCard({ option, isSelected, onClick, onDelete }: OptionCardProps) 
         }`}
       >
         <div className="w-full aspect-video bg-gradient-to-br from-[#0F766E]/20 to-[#0B1220] flex items-center justify-center border-b border-[rgba(45,212,191,0.14)] overflow-hidden">
-          {imageSrc ? (
+          {useIcon ? (
+            renderIcon()
+          ) : imageSrc ? (
             <img src={imageSrc} alt={option.name} className="w-full h-full object-cover" />
           ) : (
             <span className="text-sm font-medium text-[rgba(231,237,246,0.65)]">Image</span>
           )}
         </div>
 
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <div className="flex items-start justify-between gap-2 mb-3">
-            <h3 className="text-lg font-semibold text-[#E7EDF6] flex-1">{option.name}</h3>
+            <h3 className="text-base sm:text-lg font-semibold text-[#E7EDF6] flex-1 truncate">{option.name}</h3>
           </div>
           <div className="flex items-center justify-between">
-            <p className={`text-sm transition-colors duration-200 ${isSelected ? 'text-[#F6C66A] font-semibold' : 'text-[#A8B3C7]'}`}>
+            <p className={`text-xs sm:text-sm transition-colors duration-200 ${isSelected ? 'text-[#F6C66A] font-semibold' : 'text-[#A8B3C7]'}`}>
               {getDisplayPrice(option)}
             </p>
             {option.isCustom && (
@@ -677,26 +716,26 @@ function AddCustomModal({ isOpen, onClose, onAdd }: AddCustomModalProps) {
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50" onClick={onClose} />
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
-          className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] border border-[rgba(45,212,191,0.14)] rounded-2xl p-8 w-full max-w-md shadow-2xl"
+          className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] border border-[rgba(45,212,191,0.14)] rounded-2xl p-4 sm:p-8 w-full max-w-md shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <h2 className="text-2xl font-semibold text-[#E7EDF6] mb-6">Add Custom Item</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#E7EDF6] mb-4 sm:mb-6">Add Custom Item</h2>
 
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-[#A8B3C7] mb-2">Item Name</label>
+          <div className="mb-4 sm:mb-6">
+            <label className="block text-xs sm:text-sm font-medium text-[#A8B3C7] mb-2">Item Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="e.g., Personal Masseuse"
-              className="w-full bg-[#0F1A28] border border-[rgba(45,212,191,0.22)] rounded-lg px-4 py-3 text-[#E7EDF6] placeholder-[rgba(168,179,199,0.5)] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF] focus:border-transparent transition-all"
+              className="w-full bg-[#0F1A28] border border-[rgba(45,212,191,0.22)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-[#E7EDF6] placeholder-[rgba(168,179,199,0.5)] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF] focus:border-transparent transition-all"
             />
-            {nameError && <p className="text-sm text-[#F87171] mt-2">{nameError}</p>}
+            {nameError && <p className="text-xs sm:text-sm text-[#F87171] mt-2">{nameError}</p>}
           </div>
 
-          <div className="mb-8">
-            <label className="block text-sm font-medium text-[#A8B3C7] mb-2">Monthly Price ($)</label>
+          <div className="mb-6 sm:mb-8">
+            <label className="block text-xs sm:text-sm font-medium text-[#A8B3C7] mb-2">Monthly Price ($)</label>
             <input
               type="number"
               value={monthlyPrice}
@@ -705,21 +744,21 @@ function AddCustomModal({ isOpen, onClose, onAdd }: AddCustomModalProps) {
               placeholder="e.g., 2500"
               min="0"
               max="1000000"
-              className="w-full bg-[#0F1A28] border border-[rgba(45,212,191,0.22)] rounded-lg px-4 py-3 text-[#E7EDF6] placeholder-[rgba(168,179,199,0.5)] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF] focus:border-transparent transition-all"
+              className="w-full bg-[#0F1A28] border border-[rgba(45,212,191,0.22)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-[#E7EDF6] placeholder-[rgba(168,179,199,0.5)] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF] focus:border-transparent transition-all"
             />
-            {priceError && <p className="text-sm text-[#F87171] mt-2">{priceError}</p>}
+            {priceError && <p className="text-xs sm:text-sm text-[#F87171] mt-2">{priceError}</p>}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3">
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-3 rounded-lg border border-[rgba(45,212,191,0.22)] text-[#A8B3C7] hover:text-[#2DD4BF] hover:border-[rgba(45,212,191,0.44)] transition-all font-medium"
+              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-[rgba(45,212,191,0.22)] text-xs sm:text-sm text-[#A8B3C7] hover:text-[#2DD4BF] hover:border-[rgba(45,212,191,0.44)] transition-all font-medium"
             >
               Cancel
             </button>
             <button
               onClick={handleAdd}
-              className="flex-1 px-4 py-3 rounded-lg bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-[#E7EDF6] hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all font-medium shadow-lg shadow-[rgba(45,212,191,0.15)]"
+              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-xs sm:text-sm text-[#E7EDF6] hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all font-medium shadow-lg shadow-[rgba(45,212,191,0.15)]"
             >
               Add
             </button>
@@ -944,46 +983,31 @@ export default function LifeSpecWizard() {
         onAdd={handleAddCustom}
       />
 
-      <header className="fixed top-0 left-0 right-0 z-40 h-14 bg-[#060A0F]/80 backdrop-blur-sm border-b border-[rgba(45,212,191,0.14)]">
-        <div className="max-w-6xl mx-auto px-6 h-full flex items-center justify-between">
-          <button
-            onClick={() => window.location.href = '/'}
-            className="text-xl font-semibold text-[#2DD4BF] hover:text-[#F6C66A] transition-colors"
-          >
-            LifeSpec
-          </button>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => window.location.href = '/login'}
-              className="px-4 py-2 text-sm font-medium text-[#A8B3C7] hover:text-[#2DD4BF] transition-colors"
-            >
-              Log in
-            </button>
-            <button
-              onClick={() => window.location.href = '/signup'}
-              className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] hover:from-[#0D5F5B] hover:to-[#1BA39F] rounded-lg transition-all duration-300"
-            >
-              Sign up
-            </button>
-          </div>
-        </div>
-      </header>
-
       {!isFinished && (
-        <div className="fixed top-20 left-6 z-30">
-          <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-md border border-[rgba(45,212,191,0.14)] rounded-2xl px-6 py-4 shadow-2xl">
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
-            <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Monthly Total</div>
-            <div className="text-2xl font-semibold text-[#2DD4BF] mt-1">{formatMonthly(totalMonthly)}</div>
-            <div className="border-t border-[rgba(45,212,191,0.14)] my-3"></div>
-            <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Yearly Total</div>
-            <div className="text-xl font-semibold text-[#F6C66A] mt-1">{formatMoney(roundToNearest10(totalMonthly * 12))}/yr</div>
+        <>
+          {/* Mobile Calculator Dropdown */}
+          <MobileCalculatorDropdown
+            totalMonthly={totalMonthly}
+            totalYearly={roundToNearest10(totalMonthly * 12)}
+            requiredIncome={Math.round(totalMonthly / 0.65)}
+          />
+
+          {/* Desktop Calculator Box */}
+          <div className="hidden sm:block fixed top-24 left-6 z-30">
+            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-md border border-[rgba(45,212,191,0.14)] rounded-2xl px-6 py-4 shadow-2xl">
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
+              <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Monthly Total</div>
+              <div className="text-2xl font-semibold text-[#2DD4BF] mt-1">{formatMonthly(totalMonthly)}</div>
+              <div className="border-t border-[rgba(45,212,191,0.14)] my-3"></div>
+              <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Yearly Total</div>
+              <div className="text-xl font-semibold text-[#F6C66A] mt-1">{formatMoney(roundToNearest10(totalMonthly * 12))}/yr</div>
+            </div>
           </div>
-        </div>
+        </>
       )}
 
-      <main className="flex-1 pt-32 pb-48 overflow-y-auto relative z-10">
-        <div className="max-w-6xl mx-auto px-6">
+      <main className="flex-1 pt-24 sm:pt-32 pb-48 overflow-y-auto relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           {isFinished ? (
             <ResultsScreen
               totalMonthly={totalMonthly}
@@ -993,12 +1017,12 @@ export default function LifeSpecWizard() {
             />
           ) : (
             <div className={`transition-all duration-300 ease-out ${getTransitionClass()}`}>
-              <div className="text-center mb-16">
-                <h1 className="text-5xl font-semibold text-[#E7EDF6] mb-2">{step.heading}</h1>
-                <p className="text-lg text-[#A8B3C7]">{step.subheading}</p>
+              <div className="text-center mb-8 sm:mb-16">
+                <h1 className="text-3xl sm:text-5xl font-semibold text-[#E7EDF6] mb-2">{step.heading}</h1>
+                <p className="text-sm sm:text-lg text-[#A8B3C7]">{step.subheading}</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
                 <button
                   onClick={() => setShowAddCustomModal(true)}
                   className="group relative text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2DD4BF] rounded-2xl hover:ring-2 hover:ring-[rgba(45,212,191,0.22)] hover:ring-offset-2 hover:ring-offset-[#060A0F]"
@@ -1007,9 +1031,9 @@ export default function LifeSpecWizard() {
                     <div className="w-full aspect-video bg-gradient-to-br from-[#0F766E]/20 to-[#0B1220] rounded-t-2xl flex items-center justify-center border-b border-[rgba(45,212,191,0.14)]">
                       <span className="text-5xl text-[#2DD4BF]">+</span>
                     </div>
-                    <div className="p-6">
-                      <h3 className="text-lg font-semibold text-[#E7EDF6]">Add Custom</h3>
-                      <p className="text-sm text-[#A8B3C7] mt-1">Create your own option</p>
+                    <div className="p-4 sm:p-6">
+                      <h3 className="text-base sm:text-lg font-semibold text-[#E7EDF6]">Add Custom</h3>
+                      <p className="text-xs sm:text-sm text-[#A8B3C7] mt-1">Create your own option</p>
                     </div>
                   </div>
                 </button>
@@ -1029,11 +1053,11 @@ export default function LifeSpecWizard() {
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#060A0F]/80 backdrop-blur-sm border-t border-[rgba(45,212,191,0.14)] px-6 py-6">
+      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#060A0F]/80 backdrop-blur-sm border-t border-[rgba(45,212,191,0.14)] px-4 sm:px-6 py-4 sm:py-6">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-6">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-[#A8B3C7]">{step.heading}</span>
+          <div className="mb-4 sm:mb-6">
+            <div className="flex items-center justify-between mb-2 sm:mb-3">
+              <span className="text-xs sm:text-sm font-medium text-[#A8B3C7]">{step.heading}</span>
             </div>
             <div className="w-full h-2 bg-[#0E1A2B] rounded-full overflow-hidden border border-[rgba(45,212,191,0.14)]">
               <div
@@ -1043,12 +1067,12 @@ export default function LifeSpecWizard() {
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex items-center justify-center gap-2 sm:gap-4">
             {!isFinished && (
               <button
                 onClick={handleBack}
                 disabled={currentStep === 0 || isAnimating}
-                className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-200 border ${
+                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-base sm:text-lg transition-all duration-200 border ${
                   currentStep === 0 || isAnimating
                     ? 'text-[rgba(231,237,246,0.35)] cursor-not-allowed bg-[#0E1A2B] border-[rgba(148,163,184,0.14)]'
                     : 'text-[#A8B3C7] hover:text-[#2DD4BF] hover:border-[rgba(45,212,191,0.22)] border-[rgba(148,163,184,0.14)] bg-[#0B1220]'
@@ -1061,7 +1085,7 @@ export default function LifeSpecWizard() {
             <button
               onClick={handleNext}
               disabled={!canProceed || isAnimating}
-              className={`flex-1 max-w-3xl px-8 py-4 rounded-2xl font-semibold text-lg transition-all duration-200 border ${
+              className={`flex-1 max-w-3xl px-4 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold text-sm sm:text-lg transition-all duration-200 border ${
                 !canProceed || isAnimating
                   ? 'bg-[#0E1A2B] text-[#A8B3C7] cursor-not-allowed border-[rgba(148,163,184,0.14)]'
                   : 'bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-[#E7EDF6] hover:from-[#0D5F5B] hover:to-[#1BA39F] border-[rgba(45,212,191,0.22)] shadow-lg shadow-[rgba(45,212,191,0.15)]'
@@ -1072,6 +1096,13 @@ export default function LifeSpecWizard() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="w-full bg-[#0B1220] py-12 md:py-16 px-8 md:px-12 text-center border-t border-white/5 mt-auto">
+        <p className="text-xs md:text-sm text-slate-500 opacity-65 max-w-4xl mx-auto leading-relaxed">
+          Disclaimer: LifeSpec provides illustrative estimates for entertainment and inspiration purposes only. All costs and projections are approximations and should not be used as financial, legal, or investment advice.
+        </p>
+      </footer>
     </div>
   );
 }

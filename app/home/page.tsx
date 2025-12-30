@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
+import { Footer } from '@/app/components/Footer';
 
 export default function HomePage() {
   const router = useRouter();
@@ -24,14 +25,16 @@ export default function HomePage() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          if (entry.target === blueprintRef.current) setIsBlueprintVisible(true);
-          if (entry.target === proofRef.current) setIsProofVisible(true);
-          if (entry.target === faqRef.current) setIsFaqVisible(true);
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === blueprintRef.current) setIsBlueprintVisible(true);
+            if (entry.target === proofRef.current) setIsProofVisible(true);
+            if (entry.target === faqRef.current) setIsFaqVisible(true);
+          }
+        });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
 
     if (blueprintRef.current) observer.observe(blueprintRef.current);
@@ -108,6 +111,19 @@ export default function HomePage() {
 
   return (
     <div className="relative min-h-screen bg-[#060A0F]">
+      <style>{`
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        .animate-fade-in {
+          animation: fadeIn 0.5s ease-in-out;
+        }
+      `}</style>
       {/* Hero Section with Background */}
       <div className="relative min-h-screen overflow-hidden">
         {/* Background Image */}
@@ -133,27 +149,6 @@ export default function HomePage() {
 
         {/* Content */}
         <div className="relative z-10 min-h-screen flex flex-col">
-          {/* Header */}
-          <header className="flex items-center justify-between px-8 py-6 md:px-12 md:py-8 border-b border-white/5 backdrop-blur-sm">
-            <div className="text-xl md:text-2xl font-light tracking-widest text-white">
-              Life<span className="font-semibold">Spec</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => router.push('/login')}
-                className="px-4 py-2 text-sm font-medium text-slate-300 hover:text-white transition-colors duration-300"
-              >
-                Log in
-              </button>
-              <button
-                onClick={() => router.push('/signup')}
-                className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] hover:from-[#0D5F5B] hover:to-[#1BA39F] rounded-lg transition-all duration-300"
-              >
-                Sign up
-              </button>
-            </div>
-          </header>
-
           {/* Centered Hero Content */}
           <div className="flex-1 flex items-center justify-center px-8 md:px-12">
             <div className="w-full max-w-3xl text-center">
@@ -765,12 +760,12 @@ export default function HomePage() {
         <div className="relative z-10 max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className={`text-4xl md:text-5xl font-bold text-white mb-3 transition-all duration-700 ${
-              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
             }`}>
               Questions, answered.
             </h2>
             <p className={`text-lg text-slate-300 transition-all duration-700 ${
-              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
             }`} style={{ transitionDelay: isFaqVisible ? '100ms' : '0ms' }}>
               Quick clarity before you build.
             </p>
@@ -780,7 +775,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left: Question Tabs */}
             <div className={`space-y-2 transition-all duration-700 ${
-              isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+              isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8 pointer-events-none'
             }`}>
               {[
                 'How does LifeSpec estimate monthly costs?',
@@ -806,7 +801,7 @@ export default function HomePage() {
 
             {/* Right: Answer Panel */}
             <div className={`lg:col-span-2 transition-all duration-700 ${
-              isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+              isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 pointer-events-none'
             }`} style={{ transitionDelay: isFaqVisible ? '200ms' : '0ms' }}>
               <div className="bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 min-h-64 flex flex-col justify-between">
                 {/* Answer Content */}
@@ -887,6 +882,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

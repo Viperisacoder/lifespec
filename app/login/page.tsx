@@ -2,150 +2,140 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const validateEmail = (e: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: typeof errors = {};
+    setError('');
+    setLoading(true);
 
-    if (!validateEmail(email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    if (!password) {
-      newErrors.password = 'Password is required';
-    }
+    console.log('SIGNIN_START:', { email: email.substring(0, 3) + '***' });
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
+    const { data, error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    console.log('SIGNIN_RESPONSE:', { 
+      hasUser: !!data?.user, 
+      hasSession: !!data?.session, 
+      error: signInError 
+    });
+
+    if (signInError) {
+      console.error('❌ SIGNIN_ERROR:', signInError);
+      setError(`Login failed: ${signInError.message}`);
+      setLoading(false);
       return;
     }
 
-    setIsSubmitting(true);
-    setShowSuccess(true);
-    setTimeout(() => {
-      router.push('/loading-screen');
-    }, 800);
+    if (!data.user) {
+      console.error('❌ SIGNIN_NO_USER');
+      setError('Login failed: No user found');
+      setLoading(false);
+      return;
+    }
+
+    if (data.session) {
+      console.log('✓ SIGNIN_SUCCESS');
+      router.push('/dashboard');
+    } else {
+      console.error('❌ SIGNIN_NO_SESSION');
+      setError('Login failed: No session created');
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="relative min-h-screen bg-[#060A0F] overflow-hidden">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: 'url(/homepage.png)',
-          filter: 'blur(12px)',
-        }}
-      />
+    <div
+      className="min-h-screen bg-cover bg-center relative flex items-center justify-center"
+      style={{
+        backgroundImage: 'url(/login.jpeg)',
+      }}
+    >
+      {/* Blurred background overlay */}
+      <div className="absolute inset-0 backdrop-blur-xl bg-black/40" />
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#060A0F]/50 via-[#060A0F]/70 to-[#060A0F]/90" />
-
-      {/* Bottom Fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-[#060A0F]/60 to-[#060A0F] z-20 pointer-events-none" />
+      {/* Gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/60" />
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <button
-              onClick={() => router.push('/')}
-              className="text-2xl font-light tracking-widest text-white hover:text-[#2DD4BF] transition-colors mb-8 inline-block"
-            >
+      <div className="relative z-10 w-full max-w-md mx-4">
+        {/* Glassmorphism card */}
+        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl md:text-4xl font-light tracking-widest text-white mb-2">
               Life<span className="font-semibold">Spec</span>
-            </button>
-            <h1 className="text-4xl font-bold text-white mb-2">Welcome back</h1>
-            <p className="text-slate-400">Log in to your LifeSpec account</p>
+            </h1>
+            <p className="text-slate-300 text-sm">Sign in to your account</p>
           </div>
 
-          {/* Card */}
-          <div className="bg-gradient-to-br from-white/12 to-white/6 backdrop-blur-xl border border-white/20 rounded-2xl p-8 shadow-2xl">
-            {showSuccess ? (
-              <div className="text-center py-8">
-                <div className="w-12 h-12 bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-6 h-6 text-[#060A0F]" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <p className="text-white font-semibold mb-2">Welcome back!</p>
-                <p className="text-slate-400 text-sm">Redirecting to your LifeSpec...</p>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {error && (
+              <div className="p-3 bg-red-500/20 border border-red-500/40 rounded-lg text-red-300 text-sm">
+                {error}
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                {/* Email */}
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Email</label>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (errors.email) setErrors({ ...errors, email: undefined });
-                    }}
-                    placeholder="you@example.com"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#2DD4BF] transition-colors"
-                  />
-                  {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
-                </div>
-
-                {/* Password */}
-                <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
-                  <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      if (errors.password) setErrors({ ...errors, password: undefined });
-                    }}
-                    placeholder="••••••••"
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-[#2DD4BF] transition-colors"
-                  />
-                  {errors.password && <p className="text-red-400 text-xs mt-1">{errors.password}</p>}
-                </div>
-
-                {/* Forgot Password */}
-                <button
-                  type="button"
-                  className="text-sm text-[#2DD4BF] hover:text-[#F6C66A] transition-colors"
-                >
-                  Forgot password?
-                </button>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full px-6 py-3 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-xl hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.25)] disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? 'Logging in...' : 'Log in'}
-                </button>
-
-                {/* Sign Up Link */}
-                <p className="text-center text-slate-400 text-sm">
-                  No account?{' '}
-                  <button
-                    type="button"
-                    onClick={() => router.push('/signup')}
-                    className="text-[#2DD4BF] hover:text-[#F6C66A] transition-colors font-medium"
-                  >
-                    Sign up
-                  </button>
-                </p>
-              </form>
             )}
+
+            <div>
+              <label className="block text-sm font-medium text-slate-200 mb-2">Email</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#2DD4BF] focus:ring-2 focus:ring-[#2DD4BF]/30 transition-all"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-200 mb-2">Password</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#2DD4BF] focus:ring-2 focus:ring-[#2DD4BF]/30 transition-all"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full px-4 py-3 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-lg hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Signing in...' : 'Sign in'}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-slate-300 text-sm">
+              Don't have an account?{' '}
+              <button
+                onClick={() => router.push('/signup')}
+                className="text-[#2DD4BF] hover:text-[#1BA39F] font-medium transition-colors"
+              >
+                Sign up
+              </button>
+            </p>
+          </div>
+
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => router.push('/')}
+              className="text-slate-400 hover:text-slate-300 text-sm transition-colors"
+            >
+              ← Back to home
+            </button>
           </div>
         </div>
       </div>

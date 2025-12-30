@@ -57,6 +57,13 @@ export default function LoadingScreen() {
           }
         }
       `}</style>
+
+      {/* Footer */}
+      <footer className="absolute bottom-0 w-full bg-[#060A0F] py-12 md:py-16 px-8 md:px-12 text-center border-t border-white/5">
+        <p className="text-xs md:text-sm text-slate-500 opacity-65 max-w-4xl mx-auto leading-relaxed">
+          Disclaimer: LifeSpec provides illustrative estimates for entertainment and inspiration purposes only. All costs and projections are approximations and should not be used as financial, legal, or investment advice.
+        </p>
+      </footer>
     </div>
   );
 }
