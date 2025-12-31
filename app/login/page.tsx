@@ -97,7 +97,12 @@ export default function LoginPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#2DD4BF] focus:ring-2 focus:ring-[#2DD4BF]/30 transition-all"
+                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  color: 'white',
+                }}
                 placeholder="you@example.com"
                 required
               />
@@ -109,7 +114,12 @@ export default function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-[#2DD4BF] focus:ring-2 focus:ring-[#2DD4BF]/30 transition-all"
+                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all"
+                style={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  color: 'white',
+                }}
                 placeholder="••••••••"
                 required
               />
@@ -118,7 +128,11 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-4 py-3 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-lg hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full px-4 py-3 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{
+                backgroundColor: 'var(--accent-gold)',
+                color: 'var(--bg-primary)',
+              }}
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>

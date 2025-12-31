@@ -81,9 +81,10 @@ export default function ContactPage() {
           <div>
             <div className="flex items-start gap-4">
               {/* Location Icon */}
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#2DD4BF]/20 to-[#2DD4BF]/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: 'rgba(212, 175, 55, 0.15)' }}>
                 <svg
-                  className="w-6 h-6 text-[#2DD4BF]"
+                  className="w-6 h-6"
+                  style={{ color: 'var(--accent-gold)' }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
