@@ -15,32 +15,51 @@ export default function LoadingScreen() {
   }, [router]);
 
   return (
-    <div className="min-h-screen bg-[#060A0F] flex items-center justify-center">
-      <div className="text-center">
-        <div className="text-3xl md:text-4xl font-light tracking-widest text-white mb-8">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+      {/* Background Image with Heavy Blur */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: 'url(/homepage.png)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          filter: 'blur(40px)',
+          opacity: 0.3,
+        }}
+      />
+
+      {/* Dark Overlay */}
+      <div className="absolute inset-0" style={{ backgroundColor: 'rgba(14, 15, 17, 0.85)' }} />
+
+      {/* Content */}
+      <div className="relative z-10 text-center">
+        <div className="text-3xl md:text-4xl font-light tracking-widest mb-8" style={{ color: 'var(--text-primary)' }}>
           Life<span className="font-semibold">Spec</span>
         </div>
         
         <div className="mb-8">
-          <p className="text-slate-300 text-lg">Building your LifeSpec...</p>
+          <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Building your LifeSpec...</p>
         </div>
 
         <div className="flex items-center justify-center gap-2">
           <div
-            className="w-2 h-2 rounded-full bg-[#2DD4BF]"
+            className="w-2 h-2 rounded-full"
             style={{
+              backgroundColor: 'var(--accent-gold)',
               animation: 'bounce 1.4s ease-in-out infinite',
             }}
           />
           <div
-            className="w-2 h-2 rounded-full bg-[#2DD4BF]"
+            className="w-2 h-2 rounded-full"
             style={{
+              backgroundColor: 'var(--accent-gold)',
               animation: 'bounce 1.4s ease-in-out infinite 0.2s',
             }}
           />
           <div
-            className="w-2 h-2 rounded-full bg-[#2DD4BF]"
+            className="w-2 h-2 rounded-full"
             style={{
+              backgroundColor: 'var(--accent-gold)',
               animation: 'bounce 1.4s ease-in-out infinite 0.4s',
             }}
           />
@@ -59,8 +78,8 @@ export default function LoadingScreen() {
       `}</style>
 
       {/* Footer */}
-      <footer className="absolute bottom-0 w-full bg-[#060A0F] py-12 md:py-16 px-8 md:px-12 text-center border-t border-white/5">
-        <p className="text-xs md:text-sm text-slate-500 opacity-65 max-w-4xl mx-auto leading-relaxed">
+      <footer className="absolute bottom-0 w-full py-12 md:py-16 px-8 md:px-12 text-center border-t" style={{ backgroundColor: 'var(--bg-primary)', borderColor: 'var(--border-color)' }}>
+        <p className="text-xs md:text-sm opacity-65 max-w-4xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
           Disclaimer: LifeSpec provides illustrative estimates for entertainment and inspiration purposes only. All costs and projections are approximations and should not be used as financial, legal, or investment advice.
         </p>
       </footer>
