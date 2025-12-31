@@ -275,18 +275,18 @@ export default function HomePage() {
       </div>
 
       {/* How It Works Section - Timeline Style */}
-      <section id="how-it-works" className="relative z-10 py-24 md:py-32 px-8 md:px-12 bg-[#060A0F]">
+      <section className="relative py-16 md:py-20 px-8 md:px-12 overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">How It Works</h2>
-            <p className="text-lg text-slate-300">Three simple steps to build and share your LifeSpec.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>How It Works</h2>
+            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Three simple steps to build and share your LifeSpec.</p>
           </div>
 
           {/* Timeline */}
           <div className="relative">
             {/* Vertical Line */}
-            <div className="hidden md:block absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-[#2DD4BF]/50 via-[#2DD4BF]/30 to-transparent" />
+            <div className="hidden md:block absolute left-8 top-0 bottom-0 w-px" style={{ background: 'linear-gradient(to bottom, var(--accent-gold) 0%, var(--accent-gold) 30%, transparent 100%)', opacity: 0.5 }} />
 
             {/* Timeline Items */}
             <div className="space-y-12 md:space-y-16">
@@ -296,17 +296,17 @@ export default function HomePage() {
                   isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
                 }`}
               >
-                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 bg-gradient-to-br from-[#F6C66A] to-[#E8B856] rounded-full flex items-center justify-center text-sm font-bold text-[#060A0F] -translate-x-8">
+                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }}>
                   1
                 </div>
-                <div className="group bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 hover:border-white/25 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10 overflow-hidden">
+                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
                       <img src="/image1.webp" alt="Choose your life" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-2">Choose your life.</h3>
-                      <p className="text-slate-300">Home, cars, travel, style — pick what your life looks like.</p>
+                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Choose your life.</h3>
+                      <p style={{ color: 'var(--text-secondary)' }}>Home, cars, travel, style — pick what your life looks like.</p>
                     </div>
                   </div>
                 </div>
@@ -319,17 +319,17 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: '100ms' }}
               >
-                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 bg-gradient-to-br from-[#F6C66A] to-[#E8B856] rounded-full flex items-center justify-center text-sm font-bold text-[#060A0F] -translate-x-8">
+                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }}>
                   2
                 </div>
-                <div className="group bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 hover:border-white/25 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10 overflow-hidden">
-                      <img src="/image2.webp" alt="See the number" className="w-full h-full object-cover" />
+                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
+                      <img src="/image2.webp" alt="See your numbers" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-2">See the number.</h3>
-                      <p className="text-slate-300">Instant monthly + yearly totals with required income estimates.</p>
+                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>See your numbers.</h3>
+                      <p style={{ color: 'var(--text-secondary)' }}>Monthly cost, yearly total, and required income — instantly.</p>
                     </div>
                   </div>
                 </div>
@@ -342,17 +342,17 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: '200ms' }}
               >
-                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 bg-gradient-to-br from-[#F6C66A] to-[#E8B856] rounded-full flex items-center justify-center text-sm font-bold text-[#060A0F] -translate-x-8">
+                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }}>
                   3
                 </div>
-                <div className="group bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 hover:border-white/25 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl">
+                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                   <div className="flex flex-col md:flex-row gap-6">
-                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10 overflow-hidden">
+                    <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
                       <img src="/image3.webp" alt="Lock it in" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold text-white mb-2">Lock it in.</h3>
-                      <p className="text-slate-300">Finish with a clean summary you can screenshot and share.</p>
+                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Lock it in.</h3>
+                      <p style={{ color: 'var(--text-secondary)' }}>Finish with a clean summary you can screenshot and share.</p>
                     </div>
                   </div>
                 </div>
@@ -364,10 +364,15 @@ export default function HomePage() {
           <div className="flex justify-center mt-16">
             <button
               onClick={() => router.push('/loading-screen')}
-              className={`px-8 py-4 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-xl hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.25)] hover:shadow-xl hover:shadow-[rgba(45,212,191,0.35)] transform hover:scale-105 ${
+              className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg transform hover:scale-105 ${
                 isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
-              style={{ transitionDelay: '300ms' }}
+              style={{
+                transitionDelay: '300ms',
+                backgroundColor: 'var(--accent-gold)',
+                color: 'var(--bg-primary)',
+                boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+              }}
             >
               Start Building
             </button>
@@ -376,20 +381,22 @@ export default function HomePage() {
       </section>
 
       {/* Example Blueprint Section */}
-      <section ref={blueprintRef} className="relative py-16 md:py-20 px-8 md:px-12 bg-[#060A0F] overflow-hidden">
+      <section ref={blueprintRef} className="relative py-16 md:py-20 px-8 md:px-12 overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
         {/* Background Gradient + Glow */}
         <div className="absolute inset-0 opacity-40 pointer-events-none">
-          <div className="absolute top-1/2 right-0 w-96 h-96 bg-gradient-to-br from-[#2DD4BF]/20 to-[#F6C66A]/10 rounded-full blur-3xl" style={{
+          <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full blur-3xl" style={{
+            background: 'linear-gradient(to bottom right, rgba(212, 175, 55, 0.2), rgba(200, 162, 77, 0.1))',
             animation: 'pulse 8s ease-in-out infinite',
           }} />
-          <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-gradient-to-br from-[#0F766E]/15 to-transparent rounded-full blur-3xl" style={{
+          <div className="absolute top-1/3 left-1/4 w-80 h-80 rounded-full blur-3xl" style={{
+            background: 'linear-gradient(to bottom right, rgba(212, 175, 55, 0.15), transparent)',
             animation: 'pulse 10s ease-in-out infinite 1s',
           }} />
         </div>
 
         {/* Diagonal Gradient Overlay */}
         <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
-          background: 'linear-gradient(135deg, transparent 0%, rgba(45,212,191,0.1) 50%, transparent 100%)',
+          background: 'linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%)',
         }} />
 
         <style>{`
