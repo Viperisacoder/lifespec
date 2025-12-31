@@ -269,7 +269,7 @@ const steps: StepConfig[] = [
   },
 ];
 
-const confettiColors = ['#2DD4BF', '#F6C66A', '#60A5FA', '#A78BFA', '#34D399', '#FCA5A5'];
+const confettiColors = ['#D4AF37', '#C8A24D', '#B89B5E', '#E6E6E6', '#9AA0A6', '#D4AF37'];
 
 function Confetti() {
   const pieces = Array.from({ length: 100 }, (_, i) => ({
@@ -431,22 +431,22 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
       {/* Top Row: Title + Button */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-8 sm:mb-12 gap-4 sm:gap-0">
         <div>
-          <h1 className="text-3xl sm:text-5xl font-semibold text-[#E7EDF6] mb-2">LifeSpec Blueprint</h1>
-          <p className="text-sm sm:text-lg text-[#A8B3C7]">Your lifestyle cost breakdown</p>
+          <h1 className="text-3xl sm:text-5xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>LifeSpec Blueprint</h1>
+          <p className="text-sm sm:text-lg" style={{ color: 'var(--text-secondary)' }}>Your lifestyle cost breakdown</p>
         </div>
         <button
           onClick={() => setShowAffordability(!showAffordability)}
           className="group relative px-4 sm:px-6 py-2 sm:py-3 text-xs sm:text-sm font-medium transition-all duration-300 rounded-xl overflow-hidden whitespace-nowrap"
           style={{
-            background: 'linear-gradient(135deg, rgba(45,212,191,0.1) 0%, rgba(246,198,106,0.05) 100%)',
+            background: `linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(200, 162, 77, 0.05) 100%)`,
             border: '1.5px solid',
-            borderImage: 'linear-gradient(135deg, #2DD4BF 0%, #F6C66A 100%) 1',
+            borderColor: 'var(--accent-gold)',
           }}
         >
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(45,212,191,0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 70%)',
           }} />
-          <div className="relative flex items-center gap-2 text-[#A8B3C7] group-hover:text-[#2DD4BF]">
+          <div className="relative flex items-center gap-2 transition-colors duration-300" style={{ color: 'var(--text-secondary)' }} onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')} onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -463,42 +463,50 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
           opacity: showAffordability ? 1 : 0,
         }}
       >
-        <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-2xl p-4 sm:p-6 mb-6">
+        <div className="backdrop-blur-sm border rounded-2xl p-4 sm:p-6 mb-6" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
           <div className="mb-4 sm:mb-6">
-            <label className="block text-xs sm:text-sm font-medium text-[#A8B3C7] mb-2">Monthly income (after tax)</label>
+            <label className="block text-xs sm:text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Monthly income (after tax)</label>
             <input
               type="number"
               placeholder="e.g. 4500"
               value={netMonthlyInput}
               onChange={(e) => setNetMonthlyInput(e.target.value)}
-              className="w-full bg-[#0E1A2B] border border-[rgba(45,212,191,0.14)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-[#E7EDF6] placeholder-[#A8B3C7]/50 focus:outline-none focus:border-[rgba(45,212,191,0.4)]"
+              className="w-full border rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base focus:outline-none transition-all"
+              style={{
+                backgroundColor: 'var(--bg-tertiary)',
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-primary)',
+              }}
             />
-            <p className="text-xs text-[#A8B3C7] mt-2">We'll estimate savings based on 30% of gross income.</p>
+            <p className="text-xs mt-2" style={{ color: 'var(--text-secondary)' }}>We'll estimate savings based on 30% of gross income.</p>
           </div>
 
           {netMonthly > 0 && (
             <>
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-[#A8B3C7]">Progress</span>
-                  <span className="text-sm font-semibold text-[#2DD4BF]">{Math.round(progressPct)}%</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>Progress</span>
+                  <span className="text-sm font-semibold" style={{ color: 'var(--accent-gold)' }}>{Math.round(progressPct)}%</span>
                 </div>
-                <div className="w-full h-2 bg-[#0E1A2B] rounded-full overflow-hidden border border-[rgba(45,212,191,0.14)]">
+                <div className="w-full h-2 rounded-full overflow-hidden border" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)' }}>
                   <div
-                    className="h-full bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] transition-all duration-500"
-                    style={{ width: `${progressPct}%` }}
+                    className="h-full transition-all duration-500"
+                    style={{
+                      width: `${progressPct}%`,
+                      background: `linear-gradient(to right, var(--accent-gold-muted), var(--accent-gold))`,
+                    }}
                   />
                 </div>
               </div>
 
               <div className="space-y-3 text-sm">
                 <div className="flex items-center justify-between">
-                  <span className="text-[#A8B3C7]">Estimated spendable per month:</span>
-                  <span className="text-[#2DD4BF] font-semibold">{formatMonthly(Math.round(spendableMonthly))}</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Estimated spendable per month:</span>
+                  <span className="font-semibold" style={{ color: 'var(--accent-gold)' }}>{formatMonthly(Math.round(spendableMonthly))}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-[#A8B3C7]">Goal lifestyle cost:</span>
-                  <span className="text-[#F6C66A] font-semibold">{formatMonthly(totalMonthly)}</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Goal lifestyle cost:</span>
+                  <span className="font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>{formatMonthly(totalMonthly)}</span>
                 </div>
               </div>
             </>
@@ -510,37 +518,37 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
         {/* Left: Blueprint Numbers */}
         <div>
-          <h2 className="text-xl sm:text-2xl font-semibold text-[#E7EDF6] mb-6 sm:mb-8">Blueprint Numbers</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8" style={{ color: 'var(--text-primary)' }}>Blueprint Numbers</h2>
 
           <div className="mb-8 sm:mb-12">
-            <div className="text-4xl sm:text-6xl font-bold text-[#2DD4BF]">{formatMonthly(totalMonthly)}</div>
-            <p className="text-xs sm:text-sm text-[#A8B3C7] mt-2">Monthly Lifestyle Cost</p>
+            <div className="text-4xl sm:text-6xl font-bold" style={{ color: 'var(--accent-gold)' }}>{formatMonthly(totalMonthly)}</div>
+            <p className="text-xs sm:text-sm mt-2" style={{ color: 'var(--text-secondary)' }}>Monthly Lifestyle Cost</p>
           </div>
 
           {/* Stat Tiles */}
           <div className="space-y-3 sm:space-y-4 mb-6 sm:mb-8">
-            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-3 sm:p-4">
-              <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Yearly Lifestyle Cost</p>
-              <p className="text-lg sm:text-2xl font-semibold text-[#F6C66A]">{formatMoney(roundToNearest10(totalMonthly * 12))}</p>
+            <div className="backdrop-blur-sm border rounded-xl p-3 sm:p-4" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+              <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Yearly Lifestyle Cost</p>
+              <p className="text-lg sm:text-2xl font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>{formatMoney(roundToNearest10(totalMonthly * 12))}</p>
             </div>
 
-            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-3 sm:p-4">
-              <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Required Gross Income (Yearly)</p>
-              <p className="text-lg sm:text-2xl font-semibold text-[#E7EDF6]">{formatMoney(Math.round(requiredGrossYearly))}</p>
+            <div className="backdrop-blur-sm border rounded-xl p-3 sm:p-4" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+              <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Required Gross Income (Yearly)</p>
+              <p className="text-lg sm:text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>{formatMoney(Math.round(requiredGrossYearly))}</p>
             </div>
 
-            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(45,212,191,0.14)] rounded-xl p-3 sm:p-4">
-              <p className="text-xs text-[#A8B3C7] uppercase tracking-wide mb-1">Assumptions</p>
-              <p className="text-xs sm:text-sm text-[#A8B3C7]">25% tax + 30% savings</p>
+            <div className="backdrop-blur-sm border rounded-xl p-3 sm:p-4" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+              <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Assumptions</p>
+              <p className="text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>25% tax + 30% savings</p>
             </div>
           </div>
 
-          <p className="text-xs text-[#A8B3C7]">These are estimates, not financial advice.</p>
+          <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>These are estimates, not financial advice.</p>
         </div>
 
         {/* Right: Your Selections */}
         <div>
-          <h2 className="text-xl sm:text-2xl font-semibold text-[#E7EDF6] mb-6 sm:mb-8">Your Selections</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-6 sm:mb-8" style={{ color: 'var(--text-primary)' }}>Your Selections</h2>
 
           <div className="space-y-4 sm:space-y-6">
             {steps.map((s) => {
@@ -553,17 +561,17 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
 
               return (
                 <div key={s.id}>
-                  <h3 className="text-xs sm:text-sm font-semibold text-[#E7EDF6] mb-2 sm:mb-3 uppercase tracking-wide">{s.heading}</h3>
-                  <div className="space-y-2 pl-3 sm:pl-4 border-l border-[rgba(45,212,191,0.14)]">
+                  <h3 className="text-xs sm:text-sm font-semibold mb-2 sm:mb-3 uppercase tracking-wide" style={{ color: 'var(--text-primary)' }}>{s.heading}</h3>
+                  <div className="space-y-2 pl-3 sm:pl-4 border-l" style={{ borderColor: 'var(--border-color)' }}>
                     {selectedOpts.map((option) => {
                       const monthly = computeMonthlyFromOption(option);
                       return (
                         <div key={option.id} className="flex items-center justify-between gap-2">
-                          <span className="text-xs sm:text-sm text-[#A8B3C7] truncate">
+                          <span className="text-xs sm:text-sm truncate" style={{ color: 'var(--text-secondary)' }}>
                             {option.name}
-                            {option.isCustom && <span className="text-[#2DD4BF] ml-2">(Custom)</span>}
+                            {option.isCustom && <span className="ml-2" style={{ color: 'var(--accent-gold)' }}>(Custom)</span>}
                           </span>
-                          <span className="text-xs sm:text-sm text-[#2DD4BF] font-medium whitespace-nowrap">+{formatMonthly(monthly)}</span>
+                          <span className="text-xs sm:text-sm font-medium whitespace-nowrap" style={{ color: 'var(--accent-gold)' }}>+{formatMonthly(monthly)}</span>
                         </div>
                       );
                     })}
@@ -589,14 +597,14 @@ function OptionCard({ option, isSelected, onClick, onDelete }: OptionCardProps) 
     if (option.category === 'legacy') {
       return (
         <LegacyIcon className={`w-12 h-12 transition-colors duration-200 ${
-          isSelected ? 'text-[#F6C66A]' : 'text-slate-400 group-hover:text-[#2DD4BF]'
+          isSelected ? 'text-[var(--accent-gold)]' : 'text-[var(--text-secondary)] group-hover:text-[var(--accent-gold)]'
         }`} />
       );
     }
     if (option.category === 'safety') {
       return (
         <SafetyIcon className={`w-12 h-12 transition-colors duration-200 ${
-          isSelected ? 'text-[#F6C66A]' : 'text-slate-400 group-hover:text-[#2DD4BF]'
+          isSelected ? 'text-[var(--accent-gold)]' : 'text-[var(--text-secondary)] group-hover:text-[var(--accent-gold)]'
         }`} />
       );
     }
@@ -608,35 +616,39 @@ function OptionCard({ option, isSelected, onClick, onDelete }: OptionCardProps) 
       onClick={onClick}
       className={`group relative w-full text-left rounded-2xl transition-all duration-200 ${
         isSelected
-          ? 'ring-2 ring-[#F6C66A]'
-          : 'ring-1 ring-transparent hover:ring-[rgba(45,212,191,0.3)]'
+          ? 'ring-2 ring-[var(--accent-gold)]'
+          : 'ring-1 ring-transparent hover:ring-[rgba(212,175,55,0.3)]'
       }`}
     >
       <div
-        className={`bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-200 ${
-          isSelected ? 'shadow-lg shadow-[rgba(246,198,106,0.2)]' : 'shadow-md'
+        className={`backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-200 ${
+          isSelected ? 'shadow-lg' : 'shadow-md'
         }`}
+        style={{
+          backgroundColor: 'var(--bg-secondary)',
+          boxShadow: isSelected ? '0 10px 25px rgba(212, 175, 55, 0.2)' : undefined,
+        }}
       >
-        <div className="w-full aspect-video bg-gradient-to-br from-[#0F766E]/20 to-[#0B1220] flex items-center justify-center border-b border-[rgba(45,212,191,0.14)] overflow-hidden">
+        <div className="w-full aspect-video flex items-center justify-center border-b overflow-hidden" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
           {useIcon ? (
             renderIcon()
           ) : imageSrc ? (
             <img src={imageSrc} alt={option.name} className="w-full h-full object-cover" />
           ) : (
-            <span className="text-sm font-medium text-[rgba(231,237,246,0.65)]">Image</span>
+            <span className="text-sm font-medium" style={{ color: 'var(--text-secondary)', opacity: 0.65 }}>Image</span>
           )}
         </div>
 
         <div className="p-4 sm:p-6">
           <div className="flex items-start justify-between gap-2 mb-3">
-            <h3 className="text-base sm:text-lg font-semibold text-[#E7EDF6] flex-1 truncate">{option.name}</h3>
+            <h3 className="text-base sm:text-lg font-semibold flex-1 truncate" style={{ color: 'var(--text-primary)' }}>{option.name}</h3>
           </div>
           <div className="flex items-center justify-between">
-            <p className={`text-xs sm:text-sm transition-colors duration-200 ${isSelected ? 'text-[#F6C66A] font-semibold' : 'text-[#A8B3C7]'}`}>
+            <p className={`text-xs sm:text-sm transition-colors duration-200 ${isSelected ? 'font-semibold' : ''}`} style={{ color: isSelected ? 'var(--accent-gold)' : 'var(--text-secondary)' }}>
               {getDisplayPrice(option)}
             </p>
             {option.isCustom && (
-              <span className="text-xs font-medium text-[#2DD4BF] bg-[#0F766E]/30 px-2 py-1 rounded">
+              <span className="text-xs font-medium px-2 py-1 rounded" style={{ color: 'var(--accent-gold)', backgroundColor: 'rgba(212, 175, 55, 0.15)' }}>
                 Custom
               </span>
             )}
@@ -650,7 +662,19 @@ function OptionCard({ option, isSelected, onClick, onDelete }: OptionCardProps) 
             e.stopPropagation();
             onDelete();
           }}
-          className="absolute top-3 right-3 text-[#A8B3C7] hover:text-[#F6C66A] transition-colors bg-[#060A0F]/80 backdrop-blur-sm p-1.5 rounded-lg hover:bg-[#0B1220] z-10"
+          className="absolute top-3 right-3 transition-colors backdrop-blur-sm p-1.5 rounded-lg z-10"
+          style={{
+            color: 'var(--text-secondary)',
+            backgroundColor: 'rgba(14, 15, 17, 0.8)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.color = 'var(--accent-gold)';
+            e.currentTarget.style.backgroundColor = 'rgba(14, 15, 17, 0.95)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.color = 'var(--text-secondary)';
+            e.currentTarget.style.backgroundColor = 'rgba(14, 15, 17, 0.8)';
+          }}
         >
           ✕
         </button>
@@ -717,26 +741,32 @@ function AddCustomModal({ isOpen, onClose, onAdd }: AddCustomModalProps) {
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50" onClick={onClose} />
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
-          className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] border border-[rgba(45,212,191,0.14)] rounded-2xl p-4 sm:p-8 w-full max-w-md shadow-2xl"
+          className="border rounded-2xl p-4 sm:p-8 w-full max-w-md shadow-2xl"
           onClick={(e) => e.stopPropagation()}
+          style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}
         >
-          <h2 className="text-xl sm:text-2xl font-semibold text-[#E7EDF6] mb-4 sm:mb-6">Add Custom Item</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6" style={{ color: 'var(--text-primary)' }}>Add Custom Item</h2>
 
           <div className="mb-4 sm:mb-6">
-            <label className="block text-xs sm:text-sm font-medium text-[#A8B3C7] mb-2">Item Name</label>
+            <label className="block text-xs sm:text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Item Name</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="e.g., Personal Masseuse"
-              className="w-full bg-[#0F1A28] border border-[rgba(45,212,191,0.22)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-[#E7EDF6] placeholder-[rgba(168,179,199,0.5)] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF] focus:border-transparent transition-all"
+              className="w-full border rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base placeholder-opacity-50 focus:outline-none focus:ring-2 transition-all"
+              style={{
+                backgroundColor: 'var(--bg-tertiary)',
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-primary)',
+              }}
             />
-            {nameError && <p className="text-xs sm:text-sm text-[#F87171] mt-2">{nameError}</p>}
+            {nameError && <p className="text-xs sm:text-sm mt-2" style={{ color: '#ff6b6b' }}>{nameError}</p>}
           </div>
 
           <div className="mb-6 sm:mb-8">
-            <label className="block text-xs sm:text-sm font-medium text-[#A8B3C7] mb-2">Monthly Price ($)</label>
+            <label className="block text-xs sm:text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Monthly Price ($)</label>
             <input
               type="number"
               value={monthlyPrice}
@@ -745,21 +775,43 @@ function AddCustomModal({ isOpen, onClose, onAdd }: AddCustomModalProps) {
               placeholder="e.g., 2500"
               min="0"
               max="1000000"
-              className="w-full bg-[#0F1A28] border border-[rgba(45,212,191,0.22)] rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base text-[#E7EDF6] placeholder-[rgba(168,179,199,0.5)] focus:outline-none focus:ring-2 focus:ring-[#2DD4BF] focus:border-transparent transition-all"
+              className="w-full border rounded-lg px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-base placeholder-opacity-50 focus:outline-none focus:ring-2 transition-all"
+              style={{
+                backgroundColor: 'var(--bg-tertiary)',
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-primary)',
+              }}
             />
-            {priceError && <p className="text-xs sm:text-sm text-[#F87171] mt-2">{priceError}</p>}
+            {priceError && <p className="text-xs sm:text-sm mt-2" style={{ color: '#ff6b6b' }}>{priceError}</p>}
           </div>
 
           <div className="flex gap-2 sm:gap-3">
             <button
               onClick={onClose}
-              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg border border-[rgba(45,212,191,0.22)] text-xs sm:text-sm text-[#A8B3C7] hover:text-[#2DD4BF] hover:border-[rgba(45,212,191,0.44)] transition-all font-medium"
+              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg border text-xs sm:text-sm transition-all font-medium"
+              style={{
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-secondary)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--accent-gold)';
+                e.currentTarget.style.borderColor = 'var(--accent-gold)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--border-color)';
+              }}
             >
               Cancel
             </button>
             <button
               onClick={handleAdd}
-              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-xs sm:text-sm text-[#E7EDF6] hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all font-medium shadow-lg shadow-[rgba(45,212,191,0.15)]"
+              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-xs sm:text-sm transition-all font-medium shadow-lg"
+              style={{
+                backgroundColor: 'var(--accent-gold)',
+                color: 'var(--bg-primary)',
+                boxShadow: '0 10px 25px rgba(212, 175, 55, 0.2)',
+              }}
             >
               Add
             </button>
@@ -969,10 +1021,10 @@ export default function LifeSpecWizard() {
   const displayOptions = [...step.options, ...customOptionsByCategory[step.id]];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#060A0F] via-[#071827] to-[#060A0F] flex flex-col relative overflow-hidden">
+    <div className="min-h-screen flex flex-col relative overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-96 bg-radial-gradient opacity-20" style={{
-          background: 'radial-gradient(circle at center, rgba(45,212,191,0.15) 0%, transparent 70%)'
+          background: 'radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%)'
         }}></div>
       </div>
 
@@ -1010,22 +1062,22 @@ export default function LifeSpecWizard() {
           ) : (
             <div className={`transition-all duration-300 ease-out ${getTransitionClass()}`}>
               <div className="text-center mb-8 sm:mb-16">
-                <h1 className="text-3xl sm:text-5xl font-semibold text-[#E7EDF6] mb-2">{step.heading}</h1>
-                <p className="text-sm sm:text-lg text-[#A8B3C7]">{step.subheading}</p>
+                <h1 className="text-3xl sm:text-5xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>{step.heading}</h1>
+                <p className="text-sm sm:text-lg" style={{ color: 'var(--text-secondary)' }}>{step.subheading}</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-8">
                 <button
                   onClick={() => setShowAddCustomModal(true)}
-                  className="group relative text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2DD4BF] rounded-2xl hover:ring-2 hover:ring-[rgba(45,212,191,0.22)] hover:ring-offset-2 hover:ring-offset-[#060A0F]"
+                  className="group relative text-left transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-2xl hover:ring-2 hover:ring-offset-2"
                 >
-                  <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-sm border border-[rgba(148,163,184,0.14)] hover:border-[rgba(45,212,191,0.22)] rounded-2xl overflow-hidden transition-all duration-300 shadow-lg h-full">
-                    <div className="w-full aspect-video bg-gradient-to-br from-[#0F766E]/20 to-[#0B1220] rounded-t-2xl flex items-center justify-center border-b border-[rgba(45,212,191,0.14)]">
-                      <span className="text-5xl text-[#2DD4BF]">+</span>
+                  <div className="backdrop-blur-sm border rounded-2xl overflow-hidden transition-all duration-300 shadow-lg h-full" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+                    <div className="w-full aspect-video rounded-t-2xl flex items-center justify-center border-b" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+                      <span className="text-5xl" style={{ color: 'var(--accent-gold)' }}>+</span>
                     </div>
                     <div className="p-4 sm:p-6">
-                      <h3 className="text-base sm:text-lg font-semibold text-[#E7EDF6]">Add Custom</h3>
-                      <p className="text-xs sm:text-sm text-[#A8B3C7] mt-1">Create your own option</p>
+                      <h3 className="text-base sm:text-lg font-semibold" style={{ color: 'var(--text-primary)' }}>Add Custom</h3>
+                      <p className="text-xs sm:text-sm mt-1" style={{ color: 'var(--text-secondary)' }}>Create your own option</p>
                     </div>
                   </div>
                 </button>
@@ -1045,53 +1097,63 @@ export default function LifeSpecWizard() {
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-40 bg-[#060A0F]/80 backdrop-blur-sm border-t border-[rgba(45,212,191,0.14)] px-4 sm:px-6 py-4 sm:py-6">
+      <div className="fixed bottom-0 left-0 right-0 z-40 backdrop-blur-sm border-t px-4 sm:px-6 py-4 sm:py-6" style={{ backgroundColor: 'rgba(14, 15, 17, 0.8)', borderColor: 'var(--border-color)' }}>
         <div className="max-w-6xl mx-auto">
           <div className="mb-4 sm:mb-6">
             <div className="flex items-center justify-between mb-2 sm:mb-3">
-              <span className="text-xs sm:text-sm font-medium text-[#A8B3C7]">{step.heading}</span>
+              <span className="text-xs sm:text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>{step.heading}</span>
             </div>
-            <div className="w-full h-2 bg-[#0E1A2B] rounded-full overflow-hidden border border-[rgba(45,212,191,0.14)]">
+            <div className="w-full h-2 rounded-full overflow-hidden border" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)' }}>
               <div
-                className="h-full bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] transition-all duration-500 ease-out rounded-full"
-                style={{ width: `${progressPercent}%` }}
-              ></div>
+                className="h-full transition-all duration-500"
+                style={{
+                  width: `${progressPercent}%`,
+                  background: `linear-gradient(to right, var(--accent-gold-muted), var(--accent-gold))`,
+                }}
+              />
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2 sm:gap-4">
-            {!isFinished && (
-              <button
-                onClick={handleBack}
-                disabled={currentStep === 0 || isAnimating}
-                className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-base sm:text-lg transition-all duration-200 border ${
-                  currentStep === 0 || isAnimating
-                    ? 'text-[rgba(231,237,246,0.35)] cursor-not-allowed bg-[#0E1A2B] border-[rgba(148,163,184,0.14)]'
-                    : 'text-[#A8B3C7] hover:text-[#2DD4BF] hover:border-[rgba(45,212,191,0.22)] border-[rgba(148,163,184,0.14)] bg-[#0B1220]'
-                }`}
-              >
-                ←
-              </button>
-            )}
+          <div className="flex gap-2 sm:gap-3">
+            <button
+              onClick={handleBack}
+              disabled={currentStep === 0 || isAnimating}
+              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium rounded-lg border disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              style={{
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-secondary)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = 'var(--accent-gold)';
+                e.currentTarget.style.borderColor = 'var(--accent-gold)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = 'var(--text-secondary)';
+                e.currentTarget.style.borderColor = 'var(--border-color)';
+              }}
+            >
+              ← Back
+            </button>
 
             <button
               onClick={handleNext}
               disabled={!canProceed || isAnimating}
-              className={`flex-1 max-w-3xl px-4 sm:px-8 py-3 sm:py-4 rounded-2xl font-semibold text-sm sm:text-lg transition-all duration-200 border ${
-                !canProceed || isAnimating
-                  ? 'bg-[#0E1A2B] text-[#A8B3C7] cursor-not-allowed border-[rgba(148,163,184,0.14)]'
-                  : 'bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-[#E7EDF6] hover:from-[#0D5F5B] hover:to-[#1BA39F] border-[rgba(45,212,191,0.22)] shadow-lg shadow-[rgba(45,212,191,0.15)]'
-              }`}
+              className="flex-1 px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm font-medium rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg"
+              style={{
+                backgroundColor: 'var(--accent-gold)',
+                color: 'var(--bg-primary)',
+                boxShadow: '0 10px 25px rgba(212, 175, 55, 0.2)',
+              }}
             >
-              {currentStep === steps.length - 1 ? 'Finish' : 'Continue'}
+              {currentStep === steps.length - 1 ? 'Finish' : 'Next →'}
             </button>
           </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="w-full bg-[#0B1220] py-12 md:py-16 px-8 md:px-12 text-center border-t border-white/5 mt-auto">
-        <p className="text-xs md:text-sm text-slate-500 opacity-65 max-w-4xl mx-auto leading-relaxed">
+      <footer className="w-full py-12 md:py-16 px-8 md:px-12 text-center border-t mt-auto" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
+        <p className="text-xs md:text-sm max-w-4xl mx-auto leading-relaxed" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>
           Disclaimer: LifeSpec provides illustrative estimates for entertainment and inspiration purposes only. All costs and projections are approximations and should not be used as financial, legal, or investment advice.
         </p>
       </footer>

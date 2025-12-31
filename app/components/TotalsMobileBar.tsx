@@ -40,7 +40,7 @@ export function TotalsMobileBar({ totalMonthly, totalYearly }: TotalsMobileBarPr
   };
 
   return (
-    <div className="md:hidden fixed top-20 left-0 right-0 z-40 bg-[#0B1220]/95 backdrop-blur-md border-b border-[rgba(45,212,191,0.12)]">
+    <div className="md:hidden fixed top-20 left-0 right-0 z-40 backdrop-blur-md border-b" style={{ backgroundColor: 'rgba(26, 29, 34, 0.95)', borderColor: 'var(--border-color)' }}>
       {/* Collapsed Header */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
@@ -48,27 +48,28 @@ export function TotalsMobileBar({ totalMonthly, totalYearly }: TotalsMobileBarPr
         className={`
           w-full px-4 py-4 flex items-center justify-between
           transition-all duration-300
-          hover:bg-[rgba(45,212,191,0.05)]
-          active:bg-[rgba(45,212,191,0.08)]
+          hover:bg-white/5
+          active:bg-white/10
         `}
       >
         <div className="text-left flex-1">
-          <p className="text-sm font-semibold text-[#2DD4BF]">
-            {formatMoney(animatedMonthly)}<span className="text-xs font-medium text-[#A8B3C7] ml-1">/mo</span>
+          <p className="text-sm font-semibold" style={{ color: 'var(--accent-gold)' }}>
+            {formatMoney(animatedMonthly)}<span className="text-xs font-medium ml-1" style={{ color: 'var(--text-secondary)' }}>/mo</span>
           </p>
-          <p className="text-xs text-[#A8B3C7]/70 mt-0.5">Tap to expand</p>
+          <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Tap to expand</p>
         </div>
 
         {/* Chevron Icon */}
         <div className="flex-shrink-0 ml-4">
           <svg
             className={`
-              w-5 h-5 text-[#A8B3C7] transition-transform duration-300 ease-out
+              w-5 h-5 transition-transform duration-300 ease-out
               ${isExpanded ? 'rotate-180' : 'rotate-0'}
             `}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            style={{ color: 'var(--text-secondary)' }}
           >
             <path
               strokeLinecap="round"
@@ -87,32 +88,35 @@ export function TotalsMobileBar({ totalMonthly, totalYearly }: TotalsMobileBarPr
           ${isExpanded ? 'max-h-80' : 'max-h-0'}
         `}
       >
-        <div className="px-4 py-6 space-y-5 border-t border-[rgba(45,212,191,0.12)] bg-gradient-to-b from-[#0B1220]/50 to-[#060A0F]/50">
+        <div className="px-4 py-6 space-y-5 border-t" style={{ borderColor: 'var(--border-color)', backgroundColor: 'rgba(14, 15, 17, 0.5)' }}>
           {/* Monthly */}
           <div className="space-y-2">
-            <div className="text-xs font-semibold text-[#A8B3C7] uppercase tracking-widest">
+            <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>
               Monthly Total
             </div>
-            <div className="text-3xl font-bold text-[#2DD4BF]">
+            <div className="text-3xl font-bold" style={{ color: 'var(--accent-gold)' }}>
               {formatMoney(animatedMonthly)}
             </div>
           </div>
 
           {/* Divider */}
-          <div className="h-px bg-gradient-to-r from-[rgba(45,212,191,0.1)] to-[rgba(45,212,191,0.05)]" />
+          <div className="h-px" style={{
+            background: `linear-gradient(to right, var(--accent-gold) 0%, transparent 100%)`,
+            opacity: 0.2,
+          }} />
 
           {/* Yearly */}
           <div className="space-y-2">
-            <div className="text-xs font-semibold text-[#A8B3C7] uppercase tracking-widest">
+            <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>
               Yearly Total
             </div>
-            <div className="text-2xl font-semibold text-[#F6C66A]">
+            <div className="text-2xl font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>
               {formatMoney(animatedYearly)}
             </div>
           </div>
 
           {/* Caption */}
-          <div className="pt-2 text-xs text-[#A8B3C7]/70">
+          <div className="pt-2 text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>
             Estimates for inspiration only
           </div>
         </div>

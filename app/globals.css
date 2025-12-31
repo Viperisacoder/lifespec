@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  /* Dark Grey + Luxury Gold Theme */
+  --bg-primary: #0E0F11;
+  --bg-secondary: #1A1D22;
+  --bg-tertiary: #1F2329;
+  --text-primary: #E6E6E6;
+  --text-secondary: #9AA0A6;
+  --accent-gold: #D4AF37;
+  --accent-gold-muted: #C8A24D;
+  --accent-gold-subtle: #B89B5E;
+  --border-color: rgba(212, 175, 55, 0.12);
+  --border-color-hover: rgba(212, 175, 55, 0.25);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +27,8 @@ body,
 #__next {
   margin: 0;
   padding: 0;
-  background-color: #060A0F;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 html {

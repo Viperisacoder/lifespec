@@ -41,15 +41,18 @@ export function TotalsCard({ totalMonthly, totalYearly }: TotalsCardProps) {
       <div
         className={`
           relative overflow-hidden rounded-2xl
-          bg-gradient-to-br from-[#0B1220] via-[#0E1A2B] to-[#0B1220]
           backdrop-blur-xl
-          border border-[rgba(45,212,191,0.12)]
           px-6 py-8
           shadow-2xl
           transition-all duration-300 ease-out
-          ${isHovered ? 'shadow-[0_20px_40px_rgba(45,212,191,0.15)]' : 'shadow-[0_10px_30px_rgba(0,0,0,0.3)]'}
+          ${isHovered ? 'shadow-[0_20px_40px_rgba(212,175,55,0.15)]' : 'shadow-[0_10px_30px_rgba(0,0,0,0.3)]'}
           ${isHovered ? '-translate-y-1' : 'translate-y-0'}
         `}
+        style={{
+          backgroundColor: 'var(--bg-secondary)',
+          borderColor: isHovered ? 'var(--accent-gold)' : 'var(--border-color)',
+          borderWidth: '1px',
+        }}
       >
         {/* Animated gradient background on hover */}
         <div
@@ -58,45 +61,51 @@ export function TotalsCard({ totalMonthly, totalYearly }: TotalsCardProps) {
             ${isHovered ? 'opacity-100' : 'opacity-0'}
           `}
           style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(45,212,191,0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
           }}
         />
 
         {/* Top border gradient */}
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF]/0 via-[#2DD4BF]/30 to-[#2DD4BF]/0" />
+        <div className="absolute top-0 left-0 right-0 h-px" style={{
+          background: `linear-gradient(to right, var(--accent-gold) 0%, var(--accent-gold) 50%, transparent 100%)`,
+          opacity: isHovered ? 0.3 : 0.15,
+        }} />
 
         {/* Content */}
         <div className="relative z-10 space-y-6">
           {/* Label */}
-          <div className="text-xs font-semibold text-[#A8B3C7] uppercase tracking-widest letter-spacing">
+          <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>
             Totals
           </div>
 
           {/* Monthly (Hero) */}
           <div className="space-y-2">
-            <div className="text-4xl font-bold text-[#2DD4BF] tracking-tight">
+            <div className="text-4xl font-bold tracking-tight" style={{ color: 'var(--accent-gold)' }}>
               {formatMoney(animatedMonthly)}
             </div>
-            <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">
+            <div className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>
               Per Month
             </div>
           </div>
 
           {/* Divider */}
-          <div className="h-px bg-gradient-to-r from-[rgba(45,212,191,0.1)] to-[rgba(45,212,191,0.05)]" />
+          <div className="h-px" style={{
+            background: `linear-gradient(to right, var(--accent-gold) 0%, transparent 100%)`,
+            opacity: 0.2,
+          }} />
 
           {/* Yearly (Secondary) */}
           <div className="space-y-2">
-            <div className="text-2xl font-semibold text-[#F6C66A]">
+            <div className="text-2xl font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>
               {formatMoney(animatedYearly)}
             </div>
-            <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">
+            <div className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>
               Per Year
             </div>
           </div>
 
           {/* Caption */}
-          <div className="pt-2 text-xs text-[#A8B3C7]/70">
+          <div className="pt-2 text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>
             Estimates for inspiration only
           </div>
         </div>

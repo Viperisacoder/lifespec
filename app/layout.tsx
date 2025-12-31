@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-[#060A0F]">
+      <body style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
         <AuthProvider>
           <AppHeader />
           <main className="pt-20">
