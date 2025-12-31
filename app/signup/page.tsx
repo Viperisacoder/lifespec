@@ -141,35 +141,32 @@ export default function SignupPage() {
     <div
       className="min-h-screen bg-cover bg-center relative flex items-center justify-center"
       style={{
-        backgroundImage: 'url(/signup.webp)',
+        backgroundImage: 'url(/signup.jpeg)',
       }}
     >
       {/* Blurred background overlay */}
-      <div className="absolute inset-0 backdrop-blur-xl bg-black/40" />
-
-      {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/60" />
+      <div className="absolute inset-0 backdrop-blur-xl" style={{ backgroundColor: 'rgba(14, 15, 17, 0.6)' }} />
 
       {/* Content */}
       <div className="relative z-10 w-full max-w-md mx-4">
         {/* Glassmorphism card */}
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
+        <div className="backdrop-blur-md border rounded-2xl p-8 shadow-2xl" style={{ backgroundColor: 'rgba(26, 29, 34, 0.8)', borderColor: 'var(--border-color)' }}>
           <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-light tracking-widest text-white mb-2">
+            <h1 className="text-3xl md:text-4xl font-light tracking-widest mb-2" style={{ color: 'var(--text-primary)' }}>
               Life<span className="font-semibold">Spec</span>
             </h1>
-            <p className="text-slate-300 text-sm">Create your account</p>
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Create your account</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-3 bg-red-500/20 border border-red-500/40 rounded-lg text-red-300 text-sm">
+              <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)', color: '#ef4444', border: '1px solid' }}>
                 {error}
               </div>
             )}
 
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">Full Name</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Full Name</label>
               <input
                 type="text"
                 value={fullName}
@@ -177,14 +174,14 @@ export default function SignupPage() {
                 className="w-full px-4 py-3 border rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 transition-all"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  borderColor: 'var(--border-color)',
                 }}
                 placeholder="John Doe"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">Email</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Email</label>
               <input
                 type="email"
                 value={email}
@@ -192,7 +189,7 @@ export default function SignupPage() {
                 className="w-full px-4 py-3 border rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 transition-all"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  borderColor: 'var(--border-color)',
                 }}
                 placeholder="you@example.com"
                 required
@@ -200,7 +197,7 @@ export default function SignupPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">Password</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Password</label>
               <input
                 type="password"
                 value={password}
@@ -208,16 +205,16 @@ export default function SignupPage() {
                 className="w-full px-4 py-3 border rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 transition-all"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  borderColor: 'var(--border-color)',
                 }}
                 placeholder="••••••••"
                 required
               />
-              <p className="text-xs text-slate-400 mt-1">At least 8 characters</p>
+              <p className="text-xs mt-1" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>At least 8 characters</p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">Confirm Password</label>
+              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Confirm Password</label>
               <input
                 type="password"
                 value={confirmPassword}
@@ -225,7 +222,7 @@ export default function SignupPage() {
                 className="w-full px-4 py-3 border rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 transition-all"
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  borderColor: 'var(--border-color)',
                 }}
                 placeholder="••••••••"
                 required
@@ -239,6 +236,7 @@ export default function SignupPage() {
               style={{
                 backgroundColor: 'var(--accent-gold)',
                 color: 'var(--bg-primary)',
+                boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
               }}
             >
               {loading ? 'Creating account...' : 'Sign up'}
@@ -246,11 +244,14 @@ export default function SignupPage() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-slate-300 text-sm">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               Already have an account?{' '}
               <button
                 onClick={() => router.push('/login')}
-                className="text-[#2DD4BF] hover:text-[#1BA39F] font-medium transition-colors"
+                className="font-medium transition-colors"
+                style={{ color: 'var(--accent-gold)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold-muted)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
               >
                 Sign in
               </button>
@@ -260,7 +261,10 @@ export default function SignupPage() {
           <div className="mt-8 text-center">
             <button
               onClick={() => router.push('/')}
-              className="text-slate-400 hover:text-slate-300 text-sm transition-colors"
+              className="text-sm transition-colors"
+              style={{ color: 'var(--text-secondary)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
             >
               ← Back to home
             </button>

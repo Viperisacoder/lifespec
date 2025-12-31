@@ -68,96 +68,90 @@ export default function LoginPage() {
       }}
     >
       {/* Blurred background overlay */}
-      <div className="absolute inset-0 backdrop-blur-xl bg-black/40" />
-
-      {/* Gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/40 to-black/60" />
+      <div className="absolute inset-0 backdrop-blur-xl" style={{ backgroundColor: 'rgba(14, 15, 17, 0.6)' }} />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-md mx-4">
-        {/* Glassmorphism card */}
-        <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-8 shadow-2xl">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-light tracking-widest text-white mb-2">
-              Life<span className="font-semibold">Spec</span>
-            </h1>
-            <p className="text-slate-300 text-sm">Sign in to your account</p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <div className="p-3 bg-red-500/20 border border-red-500/40 rounded-lg text-red-300 text-sm">
-                {error}
-              </div>
-            )}
-
-            <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">Email</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  borderColor: 'rgba(255, 255, 255, 0.2)',
-                  color: 'white',
-                }}
-                placeholder="you@example.com"
-                required
-              />
+      <div className="relative z-10 w-full max-w-md px-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="p-3 rounded-lg text-sm" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)', color: '#ef4444', border: '1px solid' }}>
+              {error}
             </div>
+          )}
 
-            <div>
-              <label className="block text-sm font-medium text-slate-200 mb-2">Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all"
-                style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  borderColor: 'rgba(255, 255, 255, 0.2)',
-                  color: 'white',
-                }}
-                placeholder="••••••••"
-                required
-              />
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full px-4 py-3 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all"
               style={{
-                backgroundColor: 'var(--accent-gold)',
-                color: 'var(--bg-primary)',
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: 'var(--border-color)',
+                color: 'white',
               }}
-            >
-              {loading ? 'Signing in...' : 'Sign in'}
-            </button>
-          </form>
-
-          <div className="mt-6 text-center">
-            <p className="text-slate-300 text-sm">
-              Don't have an account?{' '}
-              <button
-                onClick={() => router.push('/signup')}
-                className="text-[#2DD4BF] hover:text-[#1BA39F] font-medium transition-colors"
-              >
-                Sign up
-              </button>
-            </p>
+              placeholder="you@example.com"
+              required
+            />
           </div>
 
-          <div className="mt-8 text-center">
+          <div>
+            <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text-secondary)' }}>Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-all"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: 'var(--border-color)',
+                color: 'white',
+              }}
+              placeholder="••••••••"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full px-4 py-3 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            style={{
+              backgroundColor: 'var(--accent-gold)',
+              color: 'var(--bg-primary)',
+              boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+            }}
+          >
+            {loading ? 'Signing in...' : 'Sign in'}
+          </button>
+        </form>
+
+        <div className="mt-6 text-center">
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            Don't have an account?{' '}
             <button
-              onClick={() => router.push('/')}
-              className="text-slate-400 hover:text-slate-300 text-sm transition-colors"
+              onClick={() => router.push('/signup')}
+              className="font-medium transition-colors"
+              style={{ color: 'var(--accent-gold)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold-muted)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
             >
-              ← Back to home
+              Sign up
             </button>
-          </div>
+          </p>
+        </div>
+
+        <div className="mt-8 text-center">
+          <button
+            onClick={() => router.push('/')}
+            className="text-sm transition-colors"
+            style={{ color: 'var(--text-secondary)' }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+          >
+            ← Back to home
+          </button>
         </div>
       </div>
     </div>
