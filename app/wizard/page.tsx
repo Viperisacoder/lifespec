@@ -6,7 +6,7 @@ import { TotalsCard } from '@/app/components/TotalsCard';
 import { TotalsMobileBar } from '@/app/components/TotalsMobileBar';
 
 type PricingType = 'purchase' | 'monthly' | 'yearly';
-type CategoryId = 'home' | 'vehicles' | 'jewellery' | 'services' | 'travel' | 'wardrobe' | 'food' | 'wellness' | 'legacy' | 'safety';
+type CategoryId = 'home' | 'vehicles' | 'jewellery' | 'services' | 'travel' | 'wardrobe' | 'food' | 'wellness' | 'legacy' | 'safety' | 'toys';
 type TransitionPhase = 'idle' | 'out' | 'in';
 type TransitionDirection = 'forward' | 'back';
 
@@ -54,6 +54,9 @@ function computeMonthlyFromOption(option: Option): number {
     }
     if (option.category === 'jewellery') {
       return roundToNearest10((option.amount * 0.02) / 12);
+    }
+    if (option.category === 'toys') {
+      return roundToNearest10(option.amount * 0.01 + 100);
     }
   }
   if (option.pricingType === 'monthly') {
@@ -122,6 +125,39 @@ const steps: StepConfig[] = [
       { id: 'v12', name: 'Porsche 992 GT3 RS', pricingType: 'purchase', amount: 225000, category: 'vehicles' },
       { id: 'v13', name: 'Mercedes C63 AMG', pricingType: 'purchase', amount: 85000, category: 'vehicles' },
       { id: 'v14', name: 'Audi RS7', pricingType: 'purchase', amount: 125000, category: 'vehicles' },
+      { id: 'v15', name: 'Toyota Camry', pricingType: 'purchase', amount: 35000, category: 'vehicles' },
+      { id: 'v16', name: 'Tesla Model 3', pricingType: 'purchase', amount: 55000, category: 'vehicles' },
+      { id: 'v17', name: 'Bentley Continental GT', pricingType: 'purchase', amount: 230000, category: 'vehicles' },
+      { id: 'v18', name: 'Cadillac Escalade', pricingType: 'purchase', amount: 85000, category: 'vehicles' },
+      { id: 'v19', name: 'Mercedes Benz CLE 53 AMG', pricingType: 'purchase', amount: 95000, category: 'vehicles' },
+      { id: 'v20', name: 'Toyota Supra', pricingType: 'purchase', amount: 55000, category: 'vehicles' },
+      { id: 'v21', name: 'BMW M340i', pricingType: 'purchase', amount: 60000, category: 'vehicles' },
+      { id: 'v22', name: 'Toyota Land Cruiser', pricingType: 'purchase', amount: 90000, category: 'vehicles' },
+      { id: 'v23', name: 'Lexus LC500', pricingType: 'purchase', amount: 100000, category: 'vehicles' },
+      { id: 'v24', name: 'Lexus IS350', pricingType: 'purchase', amount: 50000, category: 'vehicles' },
+    ],
+  },
+  {
+    id: 'toys',
+    heading: 'Toys & Recreation',
+    subheading: 'What toys would you like to play with?',
+    maxSelections: 999,
+    options: [
+      { id: 'toy1', name: 'Jetski', pricingType: 'purchase', amount: 15000, category: 'toys' },
+      { id: 'toy2', name: 'ATV', pricingType: 'purchase', amount: 12000, category: 'toys' },
+      { id: 'toy3', name: 'Surf Set', pricingType: 'purchase', amount: 3000, category: 'toys' },
+      { id: 'toy4', name: 'Speedboat', pricingType: 'purchase', amount: 50000, category: 'toys' },
+      { id: 'toy5', name: 'Yacht', pricingType: 'purchase', amount: 500000, category: 'toys' },
+      { id: 'toy6', name: 'Indoor Golf Simulator', pricingType: 'purchase', amount: 25000, category: 'toys' },
+      { id: 'toy7', name: 'Sim Racing Setup', pricingType: 'purchase', amount: 8000, category: 'toys' },
+      { id: 'toy8', name: 'Dirt Bike', pricingType: 'purchase', amount: 8000, category: 'toys' },
+      { id: 'toy9', name: 'Helicopter', pricingType: 'purchase', amount: 2000000, category: 'toys' },
+      { id: 'toy10', name: 'Cold Plunge Tub', pricingType: 'purchase', amount: 5000, category: 'toys' },
+      { id: 'toy11', name: 'Hot Tub', pricingType: 'purchase', amount: 8000, category: 'toys' },
+      { id: 'toy12', name: 'Premium Mountain Bike', pricingType: 'purchase', amount: 5000, category: 'toys' },
+      { id: 'toy13', name: 'Electric Scooter', pricingType: 'purchase', amount: 1500, category: 'toys' },
+      { id: 'toy14', name: 'Premium Electric Bike', pricingType: 'purchase', amount: 4000, category: 'toys' },
+      { id: 'toy15', name: 'Kayak', pricingType: 'purchase', amount: 2000, category: 'toys' },
     ],
   },
   {
@@ -349,6 +385,31 @@ const imageMap: { [key: string]: string } = {
   'v12': '/cars/0P1A0922-3_1.jpg',
   'v13': '/cars/c63amg.avif',
   'v14': '/cars/rs7.jpg',
+  'v15': '/cars/toyotacamry.jpg',
+  'v16': '/cars/model3.webp',
+  'v17': '/cars/bentleygt.jpg',
+  'v18': '/cars/escalade.avif',
+  'v19': '/cars/cle53.webp',
+  'v20': '/cars/toyotasupra.jpg',
+  'v21': '/cars/m340i.jpg',
+  'v22': '/cars/landcruiser.avif',
+  'v23': '/cars/lc500.avif',
+  'v24': '/cars/is350.jpg',
+  'toy1': '/Toys/jetski.jpg',
+  'toy2': '/Toys/atv.jpg',
+  'toy3': '/Toys/surfset.webp',
+  'toy4': '/Toys/speedboat.jpeg',
+  'toy5': '/Toys/yacht.avif',
+  'toy6': '/Toys/indoorgolf.jpg',
+  'toy7': '/Toys/simracing.jpg',
+  'toy8': '/Toys/dirtbike.webp',
+  'toy9': '/Toys/helicopter.jpg',
+  'toy10': '/Toys/coldplunge.jpeg',
+  'toy11': '/Toys/hottub.jpeg',
+  'toy12': '/Toys/premiummountainbike.jpeg',
+  'toy13': '/Toys/electricscooter.jpg',
+  'toy14': '/Toys/premiumebike.jpg',
+  'toy15': '/Toys/kayak.webp',
   'j1': '/jewellery/rolexyellow.webp',
   'j2': '/jewellery/submariner.webp',
   'j3': '/jewellery/Patek-Philippe-Aquanaut-Travel-Time-5164G-Featured.jpg',
@@ -839,7 +900,7 @@ export default function LifeSpecWizard() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [showAddCustomModal, setShowAddCustomModal] = useState(false);
   const [customOptionsByCategory, setCustomOptionsByCategory] = useState<Record<CategoryId, Option[]>>({
-    home: [], vehicles: [], jewellery: [], services: [], travel: [], wardrobe: [], food: [], wellness: [], legacy: [], safety: [],
+    home: [], vehicles: [], jewellery: [], services: [], travel: [], wardrobe: [], food: [], wellness: [], legacy: [], safety: [], toys: [],
   });
 
   const [homeIds, setHomeIds] = useState<string[]>([]);
@@ -852,6 +913,7 @@ export default function LifeSpecWizard() {
   const [wellnessIds, setWellnessIds] = useState<string[]>([]);
   const [legacyIds, setLegacyIds] = useState<string[]>([]);
   const [safetyIds, setSafetyIds] = useState<string[]>([]);
+  const [toysIds, setToysIds] = useState<string[]>([]);
 
   const step = steps[renderedStep];
 
@@ -894,6 +956,7 @@ export default function LifeSpecWizard() {
       case 'wellness': return wellnessIds;
       case 'legacy': return legacyIds;
       case 'safety': return safetyIds;
+      case 'toys': return toysIds;
       default: return [];
     }
   };
@@ -910,6 +973,7 @@ export default function LifeSpecWizard() {
       case 'wellness': setWellnessIds(value); break;
       case 'legacy': setLegacyIds(value); break;
       case 'safety': setSafetyIds(value); break;
+      case 'toys': setToysIds(value); break;
     }
   };
 
@@ -962,6 +1026,7 @@ export default function LifeSpecWizard() {
   const allSelections = [
     { id: 'home', value: homeIds },
     { id: 'vehicles', value: vehicleIds },
+    { id: 'toys', value: toysIds },
     { id: 'jewellery', value: jewelleryIds },
     { id: 'services', value: serviceIds },
     { id: 'travel', value: travelIds },

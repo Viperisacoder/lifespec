@@ -159,7 +159,7 @@ export default function HomePage() {
                 }`}
                 style={{ color: 'var(--text-primary)' }}
               >
-                Where do you want to wake up?
+                Ready to Spec your life?
               </h1>
               <p
                 className={`text-lg md:text-xl mb-8 transition-all duration-1000 ease-out ${
