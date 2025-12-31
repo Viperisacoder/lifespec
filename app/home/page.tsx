@@ -136,16 +136,16 @@ export default function HomePage() {
         />
 
         {/* Dark Overlay with Radial Spotlight */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#060A0F]/50 via-[#060A0F]/70 to-[#060A0F]/90" />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(14, 15, 17, 0.5), rgba(14, 15, 17, 0.7), rgba(14, 15, 17, 0.9))' }} />
         <div
           className="absolute inset-0 opacity-30"
           style={{
-            background: 'radial-gradient(ellipse 800px 400px at center 30%, rgba(45,212,191,0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%)',
           }}
         />
 
         {/* Bottom Fade Out */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-[#060A0F]/60 to-[#060A0F] z-20 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-48" style={{ background: 'linear-gradient(to bottom, transparent, rgba(14, 15, 17, 0.6), var(--bg-primary))', zIndex: 20, pointerEvents: 'none' }} />
 
         {/* Content */}
         <div className="relative z-10 min-h-screen flex flex-col">
@@ -154,21 +154,20 @@ export default function HomePage() {
             <div className="w-full max-w-3xl text-center">
               {/* Headline */}
               <h1
-                className={`text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 transition-all duration-1000 ease-out ${
+                className={`text-5xl md:text-6xl lg:text-7xl font-bold mb-6 transition-all duration-1000 ease-out ${
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
+                style={{ color: 'var(--text-primary)' }}
               >
-                Ready to spec your dream life?
+                Where do you want to wake up?
               </h1>
-
-              {/* Subheadline */}
               <p
-                className={`text-lg md:text-xl text-slate-300 mb-12 transition-all duration-1000 ease-out ${
+                className={`text-lg md:text-xl mb-8 transition-all duration-1000 ease-out ${
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ transitionDelay: '100ms' }}
+                style={{ transitionDelay: '100ms', color: 'var(--text-secondary)' }}
               >
-                Build your lifestyle in minutes and see the real monthly + yearly cost.
+                Build your dream lifestyle. See what it costs. Get clarity on your future.
               </p>
 
               {/* LifeSpec Meter */}
@@ -178,45 +177,48 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: '200ms' }}
               >
-                <div className="group bg-gradient-to-br from-white/12 to-white/6 backdrop-blur-xl border border-white/20 rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:border-white/30 hover:-translate-y-1">
+                <div className="group backdrop-blur-xl border rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-1" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                   {/* Meter Values */}
                   <div className="grid grid-cols-3 gap-6 mb-8">
                     <div className="text-center">
-                      <p className="text-slate-400 text-sm mb-2">Monthly</p>
-                      <p className="text-2xl md:text-3xl font-bold text-[#2DD4BF]">$18,750</p>
-                      <p className="text-xs text-slate-500">/mo</p>
+                      <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>Monthly</p>
+                      <p className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--accent-gold)' }}>$18,750</p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>/mo</p>
                     </div>
-                    <div className="text-center border-l border-r border-white/10">
-                      <p className="text-slate-400 text-sm mb-2">Yearly</p>
-                      <p className="text-2xl md:text-3xl font-bold text-[#F6C66A]">$225,000</p>
-                      <p className="text-xs text-slate-500">/yr</p>
+                    <div className="text-center border-l border-r" style={{ borderColor: 'var(--border-color)' }}>
+                      <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>Yearly</p>
+                      <p className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--accent-gold-muted)' }}>$225,000</p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>/yr</p>
                     </div>
                     <div className="text-center">
-                      <p className="text-slate-400 text-sm mb-2">Required Income</p>
-                      <p className="text-2xl md:text-3xl font-bold text-white">$350,000</p>
-                      <p className="text-xs text-slate-500">/yr</p>
+                      <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>Required Income</p>
+                      <p className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>$350,000</p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>/yr</p>
                     </div>
                   </div>
 
                   {/* Divider */}
-                  <div className="h-px bg-gradient-to-r from-white/0 via-white/15 to-white/0 mb-6" />
+                  <div className="h-px mb-6" style={{ background: `linear-gradient(to right, transparent, var(--accent-gold), transparent)`, opacity: 0.2 }} />
 
                   {/* Affordability Index */}
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-3">
-                      <span className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Affordability Index</span>
-                      <span className="text-sm font-bold text-[#2DD4BF]">64%</span>
+                      <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Affordability Index</span>
+                      <span className="text-sm font-bold" style={{ color: 'var(--accent-gold)' }}>64%</span>
                     </div>
-                    <div className="w-full h-2.5 bg-white/10 rounded-full overflow-hidden border border-white/10">
+                    <div className="w-full h-2.5 rounded-full overflow-hidden border" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)' }}>
                       <div
-                        className="h-full bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] rounded-full transition-all duration-1000"
-                        style={{ width: isLoaded ? '64%' : '0%' }}
+                        className="h-full rounded-full transition-all duration-1000"
+                        style={{
+                          width: isLoaded ? '64%' : '0%',
+                          background: `linear-gradient(to right, var(--accent-gold-muted), var(--accent-gold))`,
+                        }}
                       />
                     </div>
                   </div>
 
                   {/* Caption */}
-                  <p className="text-xs text-slate-500 text-center">Estimates for inspiration only.</p>
+                  <p className="text-xs text-center" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Estimates for inspiration only.</p>
                 </div>
               </div>
 
@@ -230,7 +232,12 @@ export default function HomePage() {
                 {/* Primary Button */}
                 <button
                   onClick={() => router.push('/loading-screen')}
-                  className="px-8 py-4 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-xl hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.25)] hover:shadow-xl hover:shadow-[rgba(45,212,191,0.35)] transform hover:scale-105 mb-4"
+                  className="px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg transform hover:scale-105 mb-4"
+                  style={{
+                    backgroundColor: 'var(--accent-gold)',
+                    color: 'var(--bg-primary)',
+                    boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                  }}
                 >
                   Start Building
                 </button>
@@ -238,23 +245,26 @@ export default function HomePage() {
                 {/* Secondary Link */}
                 <button
                   onClick={scrollToHowItWorks}
-                  className="block mx-auto text-slate-300 hover:text-white transition-colors duration-300 text-sm font-medium mb-8"
+                  className="block mx-auto transition-colors duration-300 text-sm font-medium mb-8"
+                  style={{ color: 'var(--text-secondary)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
                 >
                   See how it works ↓
                 </button>
 
                 {/* Feature Chips */}
                 <div className="flex flex-wrap justify-center gap-3">
-                  <div className="px-4 py-2 bg-white/5 backdrop-blur-sm border border-[#2DD4BF]/30 rounded-full text-sm text-slate-300 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F6C66A]" />
+                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--accent-gold)' }} />
                     No sign-up required
                   </div>
-                  <div className="px-4 py-2 bg-white/5 backdrop-blur-sm border border-[#2DD4BF]/30 rounded-full text-sm text-slate-300 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F6C66A]" />
+                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--accent-gold)' }} />
                     Takes under 3 minutes
                   </div>
-                  <div className="px-4 py-2 bg-white/5 backdrop-blur-sm border border-[#2DD4BF]/30 rounded-full text-sm text-slate-300 flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#F6C66A]" />
+                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--accent-gold)' }} />
                     Realistic cost estimates
                   </div>
                 </div>
