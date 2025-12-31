@@ -10,13 +10,13 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#060A0F]">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* Background gradient */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-96 opacity-20"
           style={{
-            background: 'radial-gradient(circle at center, rgba(45,212,191,0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%)',
           }}
         />
       </div>
@@ -29,28 +29,23 @@ export default function ContactPage() {
             isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h1 className="text-4xl md:text-5xl font-light tracking-widest text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-light tracking-widest mb-4" style={{ color: 'var(--text-primary)' }}>
             Contact Us
           </h1>
-          <p className="text-slate-400 text-lg">
-            Want to report a issue or something else? Contact Us
+          <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>
+            We'd love to hear from you. Reach out anytime.
           </p>
         </div>
 
-        {/* Contact Card */}
-        <div
-          className={`bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 md:p-12 transition-all duration-1000 ease-out ${
-            isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-          style={{ transitionDelay: isLoaded ? '200ms' : '0ms' }}
-        >
+        {/* Contact Info Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-12">
           {/* Email Section */}
-          <div className="mb-8 pb-8 border-b border-white/10 last:mb-0 last:pb-0 last:border-b-0">
+          <div>
             <div className="flex items-start gap-4">
-              {/* Email Icon */}
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#F6C66A]/20 to-[#F6C66A]/10 flex items-center justify-center flex-shrink-0 mt-1">
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: 'rgba(212, 175, 55, 0.15)' }}>
                 <svg
-                  className="w-6 h-6 text-[#F6C66A]"
+                  className="w-6 h-6"
+                  style={{ color: 'var(--accent-gold)' }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -66,10 +61,13 @@ export default function ContactPage() {
 
               {/* Email Content */}
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-white mb-2">Email</h3>
+                <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Email</h3>
                 <a
                   href="mailto:mylifespec@outlook.com"
-                  className="text-slate-300 hover:text-[#F6C66A] transition-colors duration-300 break-all"
+                  className="transition-colors duration-300 break-all"
+                  style={{ color: 'var(--text-secondary)' }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
                 >
                   mylifespec@outlook.com
                 </a>
@@ -106,8 +104,8 @@ export default function ContactPage() {
 
               {/* Location Content */}
               <div className="flex-1">
-                <h3 className="text-lg font-semibold text-white mb-2">Location</h3>
-                <p className="text-slate-300">Los Angeles, California, USA</p>
+                <h3 className="text-lg font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>Location</h3>
+                <p style={{ color: 'var(--text-secondary)' }}>Los Angeles, California, USA</p>
               </div>
             </div>
           </div>
@@ -120,7 +118,7 @@ export default function ContactPage() {
           }`}
           style={{ transitionDelay: isLoaded ? '400ms' : '0ms' }}
         >
-          <p className="text-slate-500 text-sm">
+          <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>
             We respond as soon as possible
           </p>
         </div>

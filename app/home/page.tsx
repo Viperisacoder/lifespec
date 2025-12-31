@@ -110,7 +110,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#060A0F]">
+    <div className="relative min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
       <style>{`
         @keyframes fadeIn {
           from {
@@ -435,19 +435,19 @@ export default function HomePage() {
         <div className="relative z-10 max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className={`inline-block px-4 py-2 bg-white/5 backdrop-blur-sm border border-[#2DD4BF]/30 rounded-full text-xs font-semibold text-[#2DD4BF] uppercase tracking-wider mb-6 transition-all duration-700 ${
+            <div className={`inline-block px-4 py-2 backdrop-blur-sm border rounded-full text-xs font-semibold uppercase tracking-wider mb-6 transition-all duration-700 ${
               isBlueprintVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`}>
+            }`} style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', borderColor: 'var(--border-color)', color: 'var(--accent-gold)' }}>
               Example Blueprint
             </div>
-            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 transition-all duration-700 ${
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 transition-all duration-700 ${
               isBlueprintVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
+            }`} style={{ color: 'var(--text-primary)' }}>
               This is what your dream life costs.
             </h2>
-            <p className={`text-lg text-slate-300 max-w-2xl mx-auto transition-all duration-700 ${
+            <p className={`text-lg max-w-2xl mx-auto transition-all duration-700 ${
               isBlueprintVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`} style={{ transitionDelay: isBlueprintVisible ? '100ms' : '0ms' }}>
+            }`} style={{ transitionDelay: isBlueprintVisible ? '100ms' : '0ms', color: 'var(--text-secondary)' }}>
               Build your LifeSpec in minutes and get your monthly cost, yearly cost, and required income — instantly.
             </p>
           </div>
@@ -473,8 +473,8 @@ export default function HomePage() {
                       opacity: isBlueprintVisible ? 1 : 0,
                     }}
                   >
-                    <div className="w-2 h-2 rounded-full bg-[#F6C66A] mt-2 flex-shrink-0" />
-                    <p className="text-slate-300 text-lg">{bullet}</p>
+                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--accent-gold)' }} />
+                    <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>{bullet}</p>
                   </div>
                 ))}
               </div>
@@ -483,20 +483,36 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <button
                   onClick={() => router.push('/loading-screen')}
-                  className="px-8 py-4 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-xl hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.25)] hover:shadow-xl hover:shadow-[rgba(45,212,191,0.35)] transform hover:scale-105"
+                  className="px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg transform hover:scale-105"
                   style={{
                     animation: isBlueprintVisible ? 'slideUp 0.6s ease-out 600ms forwards' : 'none',
                     opacity: isBlueprintVisible ? 1 : 0,
+                    backgroundColor: 'var(--accent-gold)',
+                    color: 'var(--bg-primary)',
+                    boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
                   }}
                 >
                   Create My LifeSpec
                 </button>
                 <button
                   onClick={() => blueprintRef.current?.scrollIntoView({ behavior: 'smooth' })}
-                  className="px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-xl hover:border-white/40 hover:bg-white/5 transition-all duration-300"
+                  className="px-8 py-4 font-semibold rounded-xl transition-all duration-300 border"
                   style={{
                     animation: isBlueprintVisible ? 'slideUp 0.6s ease-out 700ms forwards' : 'none',
                     opacity: isBlueprintVisible ? 1 : 0,
+                    backgroundColor: 'transparent',
+                    borderColor: 'var(--border-color)',
+                    color: 'var(--text-secondary)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--accent-gold)';
+                    e.currentTarget.style.color = 'var(--accent-gold)';
+                    e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = 'var(--border-color)';
+                    e.currentTarget.style.color = 'var(--text-secondary)';
+                    e.currentTarget.style.backgroundColor = 'transparent';
                   }}
                 >
                   See the Blueprint
@@ -508,10 +524,13 @@ export default function HomePage() {
                 {['No sign-up required', 'Takes ~2 minutes', 'Shareable blueprint'].map((pill, idx) => (
                   <div
                     key={idx}
-                    className="px-4 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full text-xs text-slate-300 transition-all duration-500"
+                    className="px-4 py-2 backdrop-blur-sm border rounded-full text-xs transition-all duration-500"
                     style={{
                       animation: isBlueprintVisible ? `slideUp 0.6s ease-out ${800 + idx * 100}ms forwards` : 'none',
                       opacity: isBlueprintVisible ? 1 : 0,
+                      backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                      borderColor: 'var(--border-color)',
+                      color: 'var(--text-secondary)',
                     }}
                   >
                     ✓ {pill}
@@ -528,42 +547,44 @@ export default function HomePage() {
               }`}
               style={{ transitionDelay: isBlueprintVisible ? '200ms' : '0ms' }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#2DD4BF]/10 to-[#F6C66A]/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(to bottom right, rgba(212, 175, 55, 0.1), rgba(200, 162, 77, 0.05))' }} />
 
-              <div className="relative bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl group-hover:shadow-3xl group-hover:border-white/20 transition-all duration-300 group-hover:-translate-y-2 group-hover:animate-float">
+              <div className="relative backdrop-blur-xl border rounded-3xl p-8 shadow-2xl group-hover:shadow-3xl transition-all duration-300 group-hover:-translate-y-2 group-hover:animate-float" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
                 {/* Blueprint Header */}
-                <div className="flex items-center justify-between mb-8 pb-6 border-b border-white/10">
+                <div className="flex items-center justify-between mb-8 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                   <div>
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">LifeSpec Blueprint</p>
-                    <p className="text-sm text-slate-300">Example</p>
+                    <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: 'var(--text-secondary)' }}>LifeSpec Blueprint</p>
+                    <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Example</p>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2DD4BF] to-[#F6C66A] opacity-20" />
+                  <div className="w-10 h-10 rounded-full" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold), var(--accent-gold-muted))', opacity: 0.2 }} />
                 </div>
 
                 {/* Stat Tiles Grid */}
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   {[
-                    { label: 'Monthly Cost', value: `$${monthlyCount.toLocaleString()}`, color: 'text-[#2DD4BF]', delay: 0 },
-                    { label: 'Yearly Cost', value: `$${yearlyCount.toLocaleString()}`, color: 'text-[#F6C66A]', delay: 100 },
-                    { label: 'Required Income', value: `$${incomeCount.toLocaleString()}`, color: 'text-white', delay: 200 },
-                    { label: 'Affordability', value: `${affordabilityWidth}%`, color: 'text-[#2DD4BF]', delay: 300 },
+                    { label: 'Monthly Cost', value: `$${monthlyCount.toLocaleString()}`, color: 'var(--accent-gold)', delay: 0 },
+                    { label: 'Yearly Cost', value: `$${yearlyCount.toLocaleString()}`, color: 'var(--accent-gold-muted)', delay: 100 },
+                    { label: 'Required Income', value: `$${incomeCount.toLocaleString()}`, color: 'var(--text-primary)', delay: 200 },
+                    { label: 'Affordability', value: `${affordabilityWidth}%`, color: 'var(--accent-gold)', delay: 300 },
                   ].map((tile, idx) => (
                     <div
                       key={idx}
-                      className="bg-gradient-to-br from-white/8 to-white/4 border border-white/10 rounded-xl p-4 group-hover:border-white/20 transition-all duration-300 group-hover:scale-105"
+                      className="border rounded-xl p-4 transition-all duration-300 group-hover:scale-105"
                       style={{
                         animation: isBlueprintVisible ? `popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${600 + tile.delay}ms forwards` : 'none',
                         opacity: isBlueprintVisible ? 1 : 0,
+                        backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                        borderColor: 'var(--border-color)',
                       }}
                     >
-                      <p className="text-xs text-slate-400 uppercase tracking-wider mb-2">{tile.label}</p>
-                      <p className={`text-xl font-bold ${tile.color}`}>{tile.value}</p>
+                      <p className="text-xs uppercase tracking-wider mb-2" style={{ color: 'var(--text-secondary)' }}>{tile.label}</p>
+                      <p className="text-xl font-bold" style={{ color: tile.color }}>{tile.value}</p>
                     </div>
                   ))}
                 </div>
 
                 {/* Itemized Picks */}
-                <div className="space-y-1 mb-6 pb-6 border-b border-white/10">
+                <div className="space-y-1 mb-6 pb-6 border-b" style={{ borderColor: 'var(--border-color)' }}>
                   {[
                     { category: 'Home', item: 'Malibu Waterfront Mansion', price: 12500 },
                     { category: 'Vehicle', item: 'Mercedes G63 AMG', price: 2400 },
@@ -574,25 +595,27 @@ export default function HomePage() {
                   ].map((item, idx) => (
                     <div
                       key={idx}
-                      className="flex items-center justify-between py-2 px-2 rounded-lg hover:bg-white/5 transition-colors duration-200"
+                      className="flex items-center justify-between py-2 px-2 rounded-lg transition-colors duration-200"
                       style={{
                         animation: isBlueprintVisible ? `slideUp 0.4s ease-out ${800 + idx * 50}ms forwards` : 'none',
                         opacity: isBlueprintVisible ? 1 : 0,
                       }}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)')}
+                      onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       <div className="flex-1">
-                        <p className="text-xs text-slate-400 font-medium">{item.category}</p>
-                        <p className="text-sm text-slate-200">{item.item}</p>
+                        <p className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>{item.category}</p>
+                        <p className="text-sm" style={{ color: 'var(--text-primary)' }}>{item.item}</p>
                       </div>
-                      <p className="text-sm font-semibold text-[#2DD4BF] ml-4">+${item.price.toLocaleString()}</p>
+                      <p className="text-sm font-semibold ml-4" style={{ color: 'var(--accent-gold)' }}>+${item.price.toLocaleString()}</p>
                     </div>
                   ))}
                 </div>
 
                 {/* Footer Hint */}
-                <div className="flex items-center justify-center gap-2 text-slate-400 text-sm">
+                <div className="flex items-center justify-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
                   <span>Try yours</span>
-                  <span className="text-[#2DD4BF]">→</span>
+                  <span style={{ color: 'var(--accent-gold)' }}>→</span>
                 </div>
               </div>
             </button>
@@ -643,23 +666,23 @@ export default function HomePage() {
               { handle: '@sasha.studies', initials: 'SS', text: 'The custom items feature let me add exactly what I want. So flexible.', monthly: '$9,800' },
               { handle: '@jaydensteps', initials: 'JS', text: 'Required income breakdown was a reality check I needed. Highly recommend.', monthly: '$28,000' },
             ].map((review, idx) => (
-              <div key={idx} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+              <div key={idx} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2DD4BF] to-[#F6C66A] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold), var(--accent-gold-muted))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white">{review.handle}</p>
-                      <p className="text-xs text-slate-400">Verified Build</p>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{review.handle}</p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
                 </div>
-                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
-                <div className="pt-3 border-t border-white/10">
-                  <p className="text-xs text-slate-400">Monthly total:</p>
-                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
+                <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -672,23 +695,23 @@ export default function HomePage() {
               { handle: '@sasha.studies', initials: 'SS', text: 'The custom items feature let me add exactly what I want. So flexible.', monthly: '$9,800' },
               { handle: '@jaydensteps', initials: 'JS', text: 'Required income breakdown was a reality check I needed. Highly recommend.', monthly: '$28,000' },
             ].map((review, idx) => (
-              <div key={`repeat-a-${idx}`} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+              <div key={`repeat-a-${idx}`} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2DD4BF] to-[#F6C66A] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold), var(--accent-gold-muted))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white">{review.handle}</p>
-                      <p className="text-xs text-slate-400">Verified Build</p>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{review.handle}</p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
                 </div>
-                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
-                <div className="pt-3 border-t border-white/10">
-                  <p className="text-xs text-slate-400">Monthly total:</p>
-                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
+                <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -706,23 +729,23 @@ export default function HomePage() {
               { handle: '@ari.plans', initials: 'AP', text: 'Instant. No waiting. No complexity. Just the number.', monthly: '$22,500' },
               { handle: '@noahmetrics', initials: 'NM', text: 'Bookmarked it. Going back to check my progress monthly.', monthly: '$15,600' },
             ].map((review, idx) => (
-              <div key={idx} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+              <div key={idx} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F6C66A] to-[#2DD4BF] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold-muted), var(--accent-gold))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white">{review.handle}</p>
-                      <p className="text-xs text-slate-400">Verified Build</p>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{review.handle}</p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
                 </div>
-                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
-                <div className="pt-3 border-t border-white/10">
-                  <p className="text-xs text-slate-400">Monthly total:</p>
-                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
+                <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -735,23 +758,23 @@ export default function HomePage() {
               { handle: '@ari.plans', initials: 'AP', text: 'Instant. No waiting. No complexity. Just the number.', monthly: '$22,500' },
               { handle: '@noahmetrics', initials: 'NM', text: 'Bookmarked it. Going back to check my progress monthly.', monthly: '$15,600' },
             ].map((review, idx) => (
-              <div key={`repeat-b-${idx}`} className="flex-shrink-0 w-80 bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-5 hover:border-white/25 transition-all duration-300 shadow-lg">
+              <div key={`repeat-b-${idx}`} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#F6C66A] to-[#2DD4BF] flex items-center justify-center text-xs font-bold text-[#060A0F]">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold-muted), var(--accent-gold))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-white">{review.handle}</p>
-                      <p className="text-xs text-slate-400">Verified Build</p>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{review.handle}</p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-[#F6C66A] text-sm">★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
                 </div>
-                <p className="text-sm text-slate-300 mb-3">{review.text}</p>
-                <div className="pt-3 border-t border-white/10">
-                  <p className="text-xs text-slate-400">Monthly total:</p>
-                  <p className="text-lg font-bold text-[#2DD4BF]">{review.monthly}</p>
+                <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
+                <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                  <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -762,8 +785,8 @@ export default function HomePage() {
         <div className={`text-center transition-all duration-700 ${
           isProofVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         }`}>
-          <p className="text-sm text-slate-400">
-            <span className="text-[#2DD4BF] font-semibold">4.8/5</span> average — based on <span className="text-[#F6C66A] font-semibold">9,400+</span> builds
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            <span className="font-semibold" style={{ color: 'var(--accent-gold)' }}>4.8/5</span> average — based on <span className="font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>9,400+</span> builds
           </p>
         </div>
       </section>
@@ -801,11 +824,14 @@ export default function HomePage() {
                 <button
                   key={idx}
                   onClick={() => setActiveFaqTab(idx)}
-                  className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 ${
-                    activeFaqTab === idx
-                      ? 'bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white border border-[#2DD4BF]'
-                      : 'bg-white/5 border border-white/10 text-slate-300 hover:border-white/20'
+                  className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 border ${
+                    activeFaqTab === idx ? '' : ''
                   }`}
+                  style={{
+                    backgroundColor: activeFaqTab === idx ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.05)',
+                    color: activeFaqTab === idx ? 'var(--bg-primary)' : 'var(--text-secondary)',
+                    borderColor: activeFaqTab === idx ? 'var(--accent-gold)' : 'var(--border-color)',
+                  }}
                 >
                   <p className="text-sm font-medium">{question}</p>
                 </button>
@@ -816,57 +842,57 @@ export default function HomePage() {
             <div className={`lg:col-span-2 transition-all duration-700 ${
               isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 pointer-events-none'
             }`} style={{ transitionDelay: isFaqVisible ? '200ms' : '0ms' }}>
-              <div className="bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-sm border border-white/15 rounded-2xl p-8 min-h-64 flex flex-col justify-between">
+              <div className="backdrop-blur-sm border rounded-2xl p-8 min-h-64 flex flex-col justify-between" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
                 {/* Answer Content */}
                 <div className="fade-in">
                   {activeFaqTab === 0 && (
                     <div className="animate-fade-in">
-                      <h3 className="text-xl font-bold text-white mb-4">How does LifeSpec estimate monthly costs?</h3>
-                      <p className="text-slate-300 mb-4">We sum up the monthly prices of all items you select. Each item has a base price, and you can customize any of them. The total is your estimated monthly lifestyle cost.</p>
-                      <p className="text-slate-400 text-sm">This is for inspiration and planning — not financial advice.</p>
+                      <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>How does LifeSpec estimate monthly costs?</h3>
+                      <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>We sum up the monthly prices of all items you select. Each item has a base price, and you can customize any of them. The total is your estimated monthly lifestyle cost.</p>
+                      <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>This is for inspiration and planning — not financial advice.</p>
                     </div>
                   )}
                   {activeFaqTab === 1 && (
                     <div className="animate-fade-in">
-                      <h3 className="text-xl font-bold text-white mb-4">Are these numbers exact or averages?</h3>
-                      <p className="text-slate-300 mb-4">They're realistic estimates based on market research. A Malibu mansion might cost $12,500/mo, but your actual costs could vary. Use these as a starting point, not gospel.</p>
-                      <p className="text-slate-400 text-sm">Customize prices to match your local market or preferences.</p>
+                      <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Are these numbers exact or averages?</h3>
+                      <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>They're realistic estimates based on market research. A Malibu mansion might cost $12,500/mo, but your actual costs could vary. Use these as a starting point, not gospel.</p>
+                      <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Customize prices to match your local market or preferences.</p>
                     </div>
                   )}
                   {activeFaqTab === 2 && (
                     <div className="animate-fade-in">
-                      <h3 className="text-xl font-bold text-white mb-4">Can I customize items and prices?</h3>
-                      <p className="text-slate-300 mb-4">Yes. Every step lets you add custom items with your own monthly price. Want a $5,000/mo car instead of the preset? Add it. Your blueprint, your rules.</p>
-                      <p className="text-slate-400 text-sm">Custom items are stored locally during your session.</p>
+                      <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Can I customize items and prices?</h3>
+                      <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>Yes. Every step lets you add custom items with your own monthly price. Want a $5,000/mo car instead of the preset? Add it. Your blueprint, your rules.</p>
+                      <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Custom items are stored locally during your session.</p>
                     </div>
                   )}
                   {activeFaqTab === 3 && (
                     <div className="animate-fade-in">
-                      <h3 className="text-xl font-bold text-white mb-4">Why do you show required income?</h3>
-                      <p className="text-slate-300 mb-4">We work backward from your lifestyle cost. We assume 25% taxes and 30% savings, so your gross income needs to cover the rest. It's a reality check.</p>
-                      <p className="text-slate-400 text-sm">Use the affordability meter to compare your income to your dream lifestyle.</p>
+                      <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Why do you show required income?</h3>
+                      <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>We work backward from your lifestyle cost. We assume 25% taxes and 30% savings, so your gross income needs to cover the rest. It's a reality check.</p>
+                      <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Use the affordability meter to compare your income to your dream lifestyle.</p>
                     </div>
                   )}
                   {activeFaqTab === 4 && (
                     <div className="animate-fade-in">
-                      <h3 className="text-xl font-bold text-white mb-4">Do I need an account to use it?</h3>
-                      <p className="text-slate-300 mb-4">Nope. Build your blueprint, see your numbers, and leave. No sign-up required. (Saving blueprints for later will require an account — coming soon.)</p>
-                      <p className="text-slate-400 text-sm">Screenshot your blueprint and share it with anyone.</p>
+                      <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Do I need an account to use it?</h3>
+                      <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>Nope. Build your blueprint, see your numbers, and leave. No sign-up required. (Saving blueprints for later will require an account — coming soon.)</p>
+                      <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Screenshot your blueprint and share it with anyone.</p>
                     </div>
                   )}
                   {activeFaqTab === 5 && (
                     <div className="animate-fade-in">
-                      <h3 className="text-xl font-bold text-white mb-4">Can I save and share my blueprint?</h3>
-                      <p className="text-slate-300 mb-4">You can screenshot your blueprint and share it instantly. Saving to your account for later is a future feature we're building.</p>
-                      <p className="text-slate-400 text-sm">For now, your blueprint lives in your browser session.</p>
+                      <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Can I save and share my blueprint?</h3>
+                      <p className="mb-4" style={{ color: 'var(--text-secondary)' }}>You can screenshot your blueprint and share it instantly. Saving to your account for later is a future feature we're building.</p>
+                      <p className="text-sm" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>For now, your blueprint lives in your browser session.</p>
                     </div>
                   )}
                 </div>
 
                 {/* Tip Row */}
-                <div className="mt-6 pt-6 border-t border-white/10">
-                  <p className="text-xs text-slate-400 mb-1">💡 Tip:</p>
-                  <p className="text-sm text-slate-300">Try entering your net income on the Blueprint screen to see your affordability %.</p>
+                <div className="mt-6 pt-6 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                  <p className="text-xs mb-1" style={{ color: 'var(--text-secondary)' }}>💡 Tip:</p>
+                  <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Try entering your net income on the Blueprint screen to see your affordability %.</p>
                 </div>
               </div>
             </div>
@@ -876,21 +902,41 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
             <button
               onClick={() => router.push('/loading-screen')}
-              className={`px-8 py-4 bg-gradient-to-r from-[#0F766E] to-[#2DD4BF] text-white font-semibold rounded-xl hover:from-[#0D5F5B] hover:to-[#1BA39F] transition-all duration-300 shadow-lg shadow-[rgba(45,212,191,0.25)] hover:shadow-xl transform hover:scale-105 ${
+              className={`px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg transform hover:scale-105 ${
                 isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
-              style={{ transitionDelay: isFaqVisible ? '300ms' : '0ms' }}
+              style={{
+                transitionDelay: isFaqVisible ? '300ms' : '0ms',
+                backgroundColor: 'var(--accent-gold)',
+                color: 'var(--bg-primary)',
+                boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+              }}
             >
               Start building
             </button>
             <button
               onClick={() => blueprintRef.current?.scrollIntoView({ behavior: 'smooth' })}
-              className={`px-8 py-4 bg-transparent border border-white/20 text-white font-semibold rounded-xl hover:border-white/40 hover:bg-white/5 transition-all duration-300 ${
+              className={`px-8 py-4 border font-semibold rounded-xl transition-all duration-300 ${
                 isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
-              style={{ transitionDelay: isFaqVisible ? '400ms' : '0ms' }}
+              style={{
+                transitionDelay: isFaqVisible ? '400ms' : '0ms',
+                backgroundColor: 'transparent',
+                borderColor: 'var(--border-color)',
+                color: 'var(--text-secondary)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'var(--accent-gold)';
+                e.currentTarget.style.color = 'var(--accent-gold)';
+                e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--border-color)';
+                e.currentTarget.style.color = 'var(--text-secondary)';
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
             >
-              See example blueprint
+              Learn more
             </button>
           </div>
         </div>
