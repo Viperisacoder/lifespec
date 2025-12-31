@@ -427,9 +427,17 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
   const progressPct = netMonthly > 0 ? Math.min((spendableMonthly / totalMonthly) * 100, 100) : 0;
 
   return (
-    <div className={`py-8 sm:py-16 transition-all duration-300 ease-out opacity-100 translate-y-0`}>
+    <div className={`py-8 sm:py-16 transition-all duration-300 ease-out opacity-100 translate-y-0 relative`}>
+      {/* Graffiti Background Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-10 right-10 text-6xl sm:text-8xl opacity-5 font-black" style={{ color: 'var(--accent-gold)', transform: 'rotate(-15deg)' }}>✓</div>
+        <div className="absolute bottom-20 left-5 text-5xl sm:text-7xl opacity-5 font-black" style={{ color: 'var(--accent-gold)', transform: 'rotate(25deg)' }}>★</div>
+        <div className="absolute top-1/3 left-1/4 text-4xl opacity-5" style={{ color: 'var(--accent-gold)' }}>→</div>
+        <div className="absolute bottom-1/3 right-1/4 text-6xl opacity-5 font-bold" style={{ color: 'var(--accent-gold)' }}>!</div>
+      </div>
+
       {/* Top Row: Title + Button */}
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-8 sm:mb-12 gap-4 sm:gap-0">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-8 sm:mb-12 gap-4 sm:gap-0 relative z-10">
         <div>
           <h1 className="text-3xl sm:text-5xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>LifeSpec Blueprint</h1>
           <p className="text-sm sm:text-lg" style={{ color: 'var(--text-secondary)' }}>Your lifestyle cost breakdown</p>
