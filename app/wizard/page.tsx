@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { LegacyIcon, SafetyIcon } from '@/app/components/icons/LifeSpecIcons';
-import { MobileCalculatorDropdown } from '@/app/components/MobileCalculatorDropdown';
+import { TotalsCard } from '@/app/components/TotalsCard';
+import { TotalsMobileBar } from '@/app/components/TotalsMobileBar';
 
 type PricingType = 'purchase' | 'monthly' | 'yearly';
 type CategoryId = 'home' | 'vehicles' | 'jewellery' | 'services' | 'travel' | 'wardrobe' | 'food' | 'wellness' | 'legacy' | 'safety';
@@ -985,24 +986,15 @@ export default function LifeSpecWizard() {
 
       {!isFinished && (
         <>
-          {/* Mobile Calculator Dropdown */}
-          <MobileCalculatorDropdown
+          {/* Premium Totals Components */}
+          <TotalsCard
             totalMonthly={totalMonthly}
             totalYearly={roundToNearest10(totalMonthly * 12)}
-            requiredIncome={Math.round(totalMonthly / 0.65)}
           />
-
-          {/* Desktop Calculator Box */}
-          <div className="hidden sm:block fixed top-24 left-6 z-30">
-            <div className="bg-gradient-to-br from-[#0B1220] to-[#0E1A2B] backdrop-blur-md border border-[rgba(45,212,191,0.14)] rounded-2xl px-6 py-4 shadow-2xl">
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-[#2DD4BF] to-[#F6C66A] opacity-30 rounded-t-2xl"></div>
-              <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Monthly Total</div>
-              <div className="text-2xl font-semibold text-[#2DD4BF] mt-1">{formatMonthly(totalMonthly)}</div>
-              <div className="border-t border-[rgba(45,212,191,0.14)] my-3"></div>
-              <div className="text-xs font-medium text-[#A8B3C7] uppercase tracking-wide">Yearly Total</div>
-              <div className="text-xl font-semibold text-[#F6C66A] mt-1">{formatMoney(roundToNearest10(totalMonthly * 12))}/yr</div>
-            </div>
-          </div>
+          <TotalsMobileBar
+            totalMonthly={totalMonthly}
+            totalYearly={roundToNearest10(totalMonthly * 12)}
+          />
         </>
       )}
 
