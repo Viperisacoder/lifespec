@@ -412,16 +412,12 @@ export default function HomePage() {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
           }
-          @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
           @keyframes popIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
           }
           .animate-shimmer {
-            background: linear-gradient(90deg, transparent 0%, rgba(45,212,191,0.3) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 50%, transparent 100%);
             background-size: 1000px 100%;
             animation: shimmer 3s infinite;
           }
@@ -605,7 +601,7 @@ export default function HomePage() {
       </section>
 
       {/* Social Proof Section - Marquee Reviews */}
-      <section ref={proofRef} className="relative py-16 md:py-20 px-8 md:px-12 bg-[#060A0F] overflow-hidden">
+      <section ref={proofRef} className="relative py-16 md:py-20 px-8 md:px-12 overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <style>{`
           @keyframes marqueeLeft {
             0% { transform: translateX(0); }
@@ -623,14 +619,14 @@ export default function HomePage() {
 
         <div className="relative z-10 max-w-7xl mx-auto mb-12">
           <div className="text-center mb-8">
-            <h2 className={`text-4xl md:text-5xl font-bold text-white mb-3 transition-all duration-700 ${
+            <h2 className={`text-4xl md:text-5xl font-bold mb-3 transition-all duration-700 ${
               isProofVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}>
+            }`} style={{ color: 'var(--text-primary)' }}>
               Real people. Real wake-up call.
             </h2>
-            <p className={`text-lg text-slate-300 transition-all duration-700 ${
+            <p className={`text-lg transition-all duration-700 ${
               isProofVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`} style={{ transitionDelay: isProofVisible ? '100ms' : '0ms' }}>
+            }`} style={{ transitionDelay: isProofVisible ? '100ms' : '0ms', color: 'var(--text-secondary)' }}>
               LifeSpec turns "one day" into a number you can actually work with.
             </p>
           </div>
@@ -772,18 +768,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ Section - Tabbed Layout */}
-      <section ref={faqRef} className="relative py-16 md:py-20 px-8 md:px-12 bg-[#060A0F]">
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className={`text-4xl md:text-5xl font-bold text-white mb-3 transition-all duration-700 ${
-              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
-            }`}>
-              Questions, answered.
+      {/* FAQ Section */}
+      <section ref={faqRef} className="relative py-16 md:py-20 px-8 md:px-12 overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className={`text-4xl md:text-5xl font-bold mb-3 transition-all duration-700 ${
+              isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`} style={{ color: 'var(--text-primary)' }}>
+              Questions?
             </h2>
-            <p className={`text-lg text-slate-300 transition-all duration-700 ${
+            <p className={`text-lg transition-all duration-700 ${
               isFaqVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8 pointer-events-none'
-            }`} style={{ transitionDelay: isFaqVisible ? '100ms' : '0ms' }}>
+            }`} style={{ transitionDelay: isFaqVisible ? '100ms' : '0ms', color: 'var(--text-secondary)' }}>
               Quick clarity before you build.
             </p>
           </div>
