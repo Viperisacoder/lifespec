@@ -6,6 +6,7 @@ import { useAuth } from '@/app/contexts/AuthContext';
 import { getBlueprint } from '@/lib/blueprintService';
 import { SavedBlueprint } from '@/lib/blueprintTypes';
 import { createBrowserClient } from '@supabase/ssr';
+import { CustomTooltip } from '@/app/components/dashboard/CustomTooltip';
 
 interface FinanceData {
   annual_income: number | null;
@@ -532,6 +533,8 @@ function calculateDreamCompletionAge(financeData: FinanceData, blueprint: SavedB
 
 function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; blueprint: SavedBlueprint | null }) {
   const [hoveredAge, setHoveredAge] = React.useState<number | null>(null);
+  const [tooltipPos, setTooltipPos] = React.useState<{ x: number; y: number } | null>(null);
+  const svgRef = React.useRef<SVGSVGElement>(null);
 
   if (!financeData.age || !financeData.monthly_savings || !financeData.monthly_investing) {
     return (
@@ -577,9 +580,9 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
   if (yAxisMax >= 2000000) yTicks.push(2000000);
   if (yAxisMax >= 3000000) yTicks.push(3000000);
 
-  const graphHeight = 420;
+  const graphHeight = 480;
   const graphWidth = 1200;
-  const padding = { top: 30, right: 40, bottom: 80, left: 100 };
+  const padding = { top: 40, right: 50, bottom: 120, left: 120 };
   const innerWidth = graphWidth - padding.left - padding.right;
   const innerHeight = graphHeight - padding.top - padding.bottom;
 
@@ -602,25 +605,30 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
   return (
     <div style={{ marginTop: '24px', width: '100%' }}>
       <div style={{ marginBottom: '16px' }}>
-        <p style={{ fontSize: '12px', color: '#888', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        <p style={{ fontSize: '12px', color: 'rgb(var(--muted-2))', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           Total Capital ($)
         </p>
       </div>
       
-      <div style={{ width: '100%', overflowX: 'auto', display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '100%', overflowX: 'auto', display: 'flex', justifyContent: 'center', overflow: 'visible' }}>
         <svg 
+          ref={svgRef}
           width={graphWidth} 
           height={graphHeight} 
-          style={{ minWidth: '100%', maxWidth: '100%', cursor: 'crosshair' }}
+          style={{ minWidth: '100%', maxWidth: '100%', cursor: 'crosshair', overflow: 'visible' }}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const age = Math.round(currentAge + ((x - padding.left) / innerWidth) * ageRange);
             if (age >= currentAge && age <= maxAge) {
               setHoveredAge(age);
+              setTooltipPos({ x: e.clientX, y: e.clientY });
             }
           }}
-          onMouseLeave={() => setHoveredAge(null)}
+          onMouseLeave={() => {
+            setHoveredAge(null);
+            setTooltipPos(null);
+          }}
         >
           <defs>
             {/* Gradient for line */}
@@ -667,7 +675,7 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
                 x={padding.left - 16}
                 y={y + 5}
                 textAnchor="end"
-                style={{ fontSize: '12px', fill: '#777', fontWeight: tick === 1000000 ? '500' : '400' }}
+                style={{ fontSize: '13px', fill: 'rgb(var(--muted))', fontWeight: tick === 1000000 ? '600' : '400' }}
               >
                 {label}
               </text>
@@ -683,9 +691,9 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
               <text
                 key={`x-label-${i}`}
                 x={x}
-                y={graphHeight - 30}
+                y={graphHeight - 50}
                 textAnchor="middle"
-                style={{ fontSize: '12px', fill: '#777' }}
+                style={{ fontSize: '13px', fill: 'rgb(var(--muted))' }}
               >
                 {age}
               </text>
@@ -752,16 +760,25 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
           {/* Millionaire marker */}
           {millionaireX !== null && millionaireY !== null && (
             <>
-              <line x1={millionaireX} y1={padding.top} x2={millionaireX} y2={graphHeight - padding.bottom} stroke="rgba(255, 255, 255, 0.35)" strokeWidth="2" strokeDasharray="6,4" />
-              <circle cx={millionaireX} cy={millionaireY} r="6.5" fill="rgba(255, 255, 255, 0.95)" />
-              <circle cx={millionaireX} cy={millionaireY} r="6.5" fill="none" stroke="rgba(255, 255, 255, 0.3)" strokeWidth="2" />
+              <line x1={millionaireX} y1={padding.top} x2={millionaireX} y2={graphHeight - padding.bottom} stroke="rgb(var(--gold))" strokeWidth="2.5" strokeDasharray="8,4" opacity="0.6" />
+              <circle cx={millionaireX} cy={millionaireY} r="8" fill="rgb(var(--gold))" opacity="0.3" />
+              <circle cx={millionaireX} cy={millionaireY} r="5.5" fill="rgb(var(--gold))" />
+              <circle cx={millionaireX} cy={millionaireY} r="5.5" fill="none" stroke="rgb(var(--text))" strokeWidth="2" />
               <text
                 x={millionaireX}
-                y={graphHeight - padding.bottom + 35}
+                y={graphHeight - padding.bottom + 25}
                 textAnchor="middle"
-                style={{ fontSize: '12px', fill: '#FFFFFF', fontWeight: '600' }}
+                style={{ fontSize: '13px', fill: 'rgb(var(--gold))', fontWeight: '700' }}
               >
-                Millionaire @ {millionaireAge}
+                ✓ Millionaire
+              </text>
+              <text
+                x={millionaireX}
+                y={graphHeight - padding.bottom + 42}
+                textAnchor="middle"
+                style={{ fontSize: '12px', fill: 'rgb(var(--text))', fontWeight: '600' }}
+              >
+                Age {millionaireAge}
               </text>
             </>
           )}
@@ -769,37 +786,61 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
           {/* Dream completion marker */}
           {dreamCompletionX !== null && dreamCompletionY !== null && (
             <>
-              <line x1={dreamCompletionX} y1={padding.top} x2={dreamCompletionX} y2={graphHeight - padding.bottom} stroke="rgba(255, 255, 255, 0.2)" strokeWidth="1.5" strokeDasharray="4,3" />
-              <circle cx={dreamCompletionX} cy={dreamCompletionY} r="5" fill="rgba(255, 255, 255, 0.7)" />
+              <line x1={dreamCompletionX} y1={padding.top} x2={dreamCompletionX} y2={graphHeight - padding.bottom} stroke="rgb(var(--gold))" strokeWidth="2" strokeDasharray="6,3" opacity="0.4" />
+              <circle cx={dreamCompletionX} cy={dreamCompletionY} r="7" fill="rgb(var(--gold))" opacity="0.2" />
+              <circle cx={dreamCompletionX} cy={dreamCompletionY} r="4.5" fill="rgb(var(--gold))" />
+              <circle cx={dreamCompletionX} cy={dreamCompletionY} r="4.5" fill="none" stroke="rgb(var(--text))" strokeWidth="1.5" />
               <text
                 x={dreamCompletionX}
-                y={graphHeight - padding.bottom + 50}
+                y={graphHeight - padding.bottom + 25}
                 textAnchor="middle"
-                style={{ fontSize: '12px', fill: '#BBBBBB', fontWeight: '500' }}
+                style={{ fontSize: '13px', fill: 'rgb(var(--gold))', fontWeight: '700' }}
               >
-                Dream @ {dreamCompletionAge}
+                ✓ Dream
+              </text>
+              <text
+                x={dreamCompletionX}
+                y={graphHeight - padding.bottom + 42}
+                textAnchor="middle"
+                style={{ fontSize: '12px', fill: 'rgb(var(--text))', fontWeight: '600' }}
+              >
+                Age {dreamCompletionAge}
               </text>
             </>
           )}
         </svg>
       </div>
 
+      {/* Render CustomTooltip if hovering */}
+      {hoveredPoint && tooltipPos && (
+        <CustomTooltip
+          age={hoveredPoint.age}
+          money={hoveredPoint.money}
+          x={tooltipPos.x}
+          y={tooltipPos.y}
+          containerWidth={typeof window !== 'undefined' ? window.innerWidth : 1200}
+          containerHeight={typeof window !== 'undefined' ? window.innerHeight : 800}
+          millionaireAge={millionaireAge}
+          dreamCompletionAge={dreamCompletionAge}
+        />
+      )}
+
       {/* Legend */}
       <div style={{ marginTop: '32px', display: 'flex', gap: '40px', fontSize: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8))' }} />
-          <span style={{ color: '#999' }}>Net Worth Over Time</span>
+          <span style={{ color: 'rgb(var(--muted))' }}>Net Worth Over Time</span>
         </div>
         {millionaireX !== null && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgba(255, 255, 255, 0.95)', border: '2px solid rgba(255, 255, 255, 0.3)' }} />
-            <span style={{ color: '#999' }}>Millionaire Age</span>
+            <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: 'rgb(var(--gold))', border: '2px solid rgb(var(--text))' }} />
+            <span style={{ color: 'rgb(var(--muted))' }}>Millionaire Age</span>
           </div>
         )}
         {dreamCompletionX !== null && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'rgba(255, 255, 255, 0.7)' }} />
-            <span style={{ color: '#999' }}>Dream Completion Age</span>
+            <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'rgb(var(--gold))' }} />
+            <span style={{ color: 'rgb(var(--muted))' }}>Dream Completion Age</span>
           </div>
         )}
       </div>
