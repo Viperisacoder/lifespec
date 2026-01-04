@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import { BlueprintPayload } from '@/lib/blueprintTypes';
 import { saveBlueprint, deleteBlueprint, PENDING_BLUEPRINT_KEY } from '@/lib/blueprintService';
 import { ResultsLoader } from './ResultsLoader';
+import { GraffitiHeader } from './GraffitiHeader';
+import { FinancialCard } from './FinancialCard';
+import { ActionBar } from './ActionBar';
 import { toast } from 'react-hot-toast';
 
 interface BlueprintResultsPanelProps {
@@ -28,7 +31,6 @@ export function BlueprintResultsPanel({
   const [saveState, setSaveState] = useState<SaveState>('idle');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
 
   const handleSaveBlueprint = async () => {
     setSaveState('saving');
@@ -54,7 +56,6 @@ export function BlueprintResultsPanel({
 
       toast.success('Blueprint saved successfully!');
       setSaveState('saved');
-      setIsSaved(true);
       onBlueprintSaved?.();
       setTimeout(() => setSaveState('idle'), 2000);
     } catch (error) {
@@ -79,7 +80,6 @@ export function BlueprintResultsPanel({
 
       toast.success('Blueprint deleted');
       setShowDeleteConfirm(false);
-      setIsSaved(false);
       setSaveState('idle');
       onBlueprintSaved?.();
     } catch (error) {
@@ -89,8 +89,25 @@ export function BlueprintResultsPanel({
     }
   };
 
+  // Transform results into selections format
+  const selections = blueprintPayload.selections
+    ? Object.entries(blueprintPayload.selections).map(([category, items]: [string, any]) => ({
+        category: category.charAt(0).toUpperCase() + category.slice(1),
+        items: Array.isArray(items)
+          ? items.map((item: any) => ({
+              name: typeof item === 'string' ? item : item.name || '',
+              monthly: typeof item === 'object' ? item.monthly || 0 : 0,
+            }))
+          : [],
+      }))
+    : [];
+
+  const monthlyTotal = blueprintPayload.totalMonthly || 0;
+  const yearlyTotal = blueprintPayload.totalYearly || monthlyTotal * 12;
+  const requiredIncome = yearlyTotal / 0.6;
+
   return (
-    <div className="relative">
+    <div className="relative min-h-screen" style={{ backgroundColor: 'rgb(var(--bg))' }}>
       {/* Loading State */}
       {isLoading && (
         <div className="py-12">
@@ -101,57 +118,28 @@ export function BlueprintResultsPanel({
       {/* Results Display */}
       {!isLoading && results && (
         <>
-          {/* Save/Delete Buttons - Bottom Left */}
-          <div className="fixed bottom-8 left-8 z-50 flex gap-3">
-            <button
-              onClick={handleSaveBlueprint}
-              disabled={saveState === 'saving'}
-              className="px-6 py-3 rounded-xl font-medium transition-all duration-300"
-              style={{
-                backgroundColor: 'var(--white)',
-                color: 'var(--bg-primary)',
-                opacity: saveState === 'saving' ? 0.7 : 1,
-                cursor: saveState === 'saving' ? 'not-allowed' : 'pointer',
-              }}
-              onMouseEnter={(e) => {
-                if (saveState !== 'saving') {
-                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.3)';
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              {saveState === 'saving' && 'Saving...'}
-              {saveState === 'saved' && 'Saved ✓'}
-              {saveState === 'error' && 'Error'}
-              {saveState === 'idle' && (isSaved ? 'Update blueprint' : 'Save blueprint')}
-            </button>
+          {/* Graffiti Header */}
+          <GraffitiHeader />
 
-            {isSaved && (
-              <button
-                onClick={() => setShowDeleteConfirm(true)}
-                className="p-3 rounded-xl transition-all duration-200"
-                style={{
-                  backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                  color: '#ef4444',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-                }}
-                title="Delete blueprint"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
-            )}
-          </div>
+          {/* Financial Card */}
+          <FinancialCard
+            monthlyTotal={monthlyTotal}
+            yearlyTotal={yearlyTotal}
+            requiredIncome={requiredIncome}
+            taxRate={25}
+            savingsRate={15}
+            selections={selections}
+          />
+
+          {/* Spacer for Action Bar */}
+          <div style={{ height: '100px' }} />
+
+          {/* Action Bar */}
+          <ActionBar
+            onBack={() => router.back()}
+            onFinish={handleSaveBlueprint}
+            isLoading={saveState === 'saving'}
+          />
 
           {/* Delete Confirmation Modal */}
           {showDeleteConfirm && (
@@ -163,22 +151,22 @@ export function BlueprintResultsPanel({
               />
               <div
                 className="fixed top-1/2 left-1/2 z-50 w-full max-w-md rounded-2xl p-6 sm:p-8 transform -translate-x-1/2 -translate-y-1/2"
-                style={{ backgroundColor: 'var(--bg-secondary)' }}
+                style={{ backgroundColor: 'rgb(var(--panel))' }}
               >
-                <h2 className="text-2xl font-semibold mb-2" style={{ color: 'var(--text-primary)' }}>
+                <h2 className="text-2xl font-semibold mb-2" style={{ color: 'rgb(var(--text))' }}>
                   Delete blueprint?
                 </h2>
-                <p className="mb-6" style={{ color: 'var(--text-secondary)' }}>
+                <p className="mb-6" style={{ color: 'rgb(var(--muted))' }}>
                   This removes your saved blueprint. This can't be undone.
                 </p>
                 <div className="flex gap-3">
                   <button
                     onClick={() => setShowDeleteConfirm(false)}
-                    className="flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all"
+                    className="flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all border"
                     style={{
-                      backgroundColor: 'var(--bg-primary)',
-                      color: 'var(--text-secondary)',
-                      border: '1px solid var(--border-color)',
+                      backgroundColor: 'transparent',
+                      color: 'rgb(var(--muted))',
+                      borderColor: 'rgb(var(--border))',
                     }}
                   >
                     Cancel
@@ -188,7 +176,7 @@ export function BlueprintResultsPanel({
                     disabled={isDeleting}
                     className="flex-1 px-4 py-2 rounded-lg text-sm font-medium transition-all"
                     style={{
-                      backgroundColor: '#ef4444',
+                      backgroundColor: 'rgb(239, 68, 68)',
                       color: 'white',
                       opacity: isDeleting ? 0.7 : 1,
                       cursor: isDeleting ? 'not-allowed' : 'pointer',
