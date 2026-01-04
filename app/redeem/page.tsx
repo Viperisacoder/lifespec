@@ -109,15 +109,15 @@ export default function RedeemPage() {
   // Payment step
   if (step === 'payment') {
     return (
-      <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ backgroundColor: '#0E0E0E' }}>
+      <div className="min-h-screen flex items-center justify-center px-4 py-12" style={{ backgroundColor: 'rgb(var(--bg))' }}>
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4" style={{ color: '#FFFFFF' }}>
-              Create Your LifeSpec Account
+            <h1 className="text-4xl font-bold mb-4" style={{ color: 'rgb(var(--text))' }}>
+              Unlock Pro Access
             </h1>
-            <p style={{ color: '#888' }}>
-              Pay once, access forever.
+            <p style={{ color: 'rgb(var(--muted))' }}>
+              One-time payment. Lifetime access.
             </p>
           </div>
 
@@ -125,16 +125,16 @@ export default function RedeemPage() {
           <div
             className="rounded-2xl p-8 mb-8 border"
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
-              borderColor: 'rgba(255, 255, 255, 0.2)',
+              backgroundColor: `rgb(var(--panel) / 0.6)`,
+              borderColor: 'rgb(var(--border))',
             }}
           >
             {/* Price */}
-            <div className="text-center mb-8 pb-8 border-b" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
-              <div className="text-5xl font-bold mb-2" style={{ color: '#D4AF37' }}>
+            <div className="text-center mb-8 pb-8 border-b" style={{ borderColor: 'rgb(var(--border))' }}>
+              <div className="text-5xl font-bold mb-2" style={{ color: 'rgb(var(--gold))' }}>
                 $2.99
               </div>
-              <p style={{ color: '#888' }}>
+              <p style={{ color: 'rgb(var(--muted))' }}>
                 One-time payment. Lifetime access.
               </p>
             </div>
@@ -142,22 +142,22 @@ export default function RedeemPage() {
             {/* Features */}
             <div className="mb-8 space-y-3">
               <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#D4AF37' }} fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(var(--gold))' }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span style={{ color: '#FFFFFF' }}>Unlimited Lifestyle Blueprints</span>
+                <span style={{ color: 'rgb(var(--text))' }}>Unlimited Blueprints</span>
               </div>
               <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#D4AF37' }} fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(var(--gold))' }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span style={{ color: '#FFFFFF' }}>Save & Edit Blueprints</span>
+                <span style={{ color: 'rgb(var(--text))' }}>Save & Edit Blueprints</span>
               </div>
               <div className="flex items-start gap-3">
-                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#D4AF37' }} fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(var(--gold))' }} fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                <span style={{ color: '#FFFFFF' }}>Affordability Timeline & Calculators</span>
+                <span style={{ color: 'rgb(var(--text))' }}>Affordability Tools & Calculators</span>
               </div>
             </div>
 
@@ -166,29 +166,29 @@ export default function RedeemPage() {
               onClick={handlePaymentClick}
               className="w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300"
               style={{
-                backgroundColor: '#D4AF37',
-                color: '#0E0E0E',
-                boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
+                backgroundColor: 'rgb(var(--gold))',
+                color: 'rgb(var(--bg))',
+                boxShadow: '0 10px 25px rgba(213, 160, 33, 0.25)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
-                e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 255, 255, 0.35)';
+                e.currentTarget.style.boxShadow = '0 15px 35px rgba(213, 160, 33, 0.35)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.25)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(213, 160, 33, 0.25)';
               }}
             >
               Pay with PayPal
             </button>
 
             {/* Microcopy */}
-            <div className="mt-6 pt-6 border-t space-y-3" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
-              <p className="text-xs text-center" style={{ color: '#888' }}>
-                💡 After payment, click "Already Paid?" below to create your account.
+            <div className="mt-6 pt-6 border-t space-y-3" style={{ borderColor: 'rgb(var(--border))' }}>
+              <p className="text-xs text-center" style={{ color: 'rgb(var(--muted-2))' }}>
+                After payment, you'll be redirected to create your account.
               </p>
-              <p className="text-xs text-center" style={{ color: '#888' }}>
-                Unable to login? Contact support: <span style={{ color: '#D4AF37' }}>mylifespec@outlook.com</span> and we will give you access ASAP!
+              <p className="text-xs text-center" style={{ color: 'rgb(var(--muted-2))' }}>
+                Questions? Email: <span style={{ color: 'rgb(var(--gold))' }}>mylifespec@outlook.com</span>
               </p>
             </div>
           </div>
