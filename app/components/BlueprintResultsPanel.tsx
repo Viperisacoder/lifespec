@@ -33,7 +33,7 @@ export function BlueprintResultsPanel({
   const handleSaveBlueprint = async () => {
     setSaveState('saving');
     try {
-      const result = await saveBlueprint(blueprintPayload, 'My Blueprint');
+      const result = await saveBlueprint(blueprintPayload);
 
       if (!result.success) {
         if (result.reason === 'UNAUTHENTICATED') {

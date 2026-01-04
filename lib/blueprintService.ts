@@ -70,8 +70,7 @@ function validateBlueprint(payload: any): boolean {
  * @returns Result with full error details on failure
  */
 export async function saveBlueprint(
-  payload: BlueprintPayload,
-  name: string = 'My Blueprint'
+  payload: BlueprintPayload
 ): Promise<ServiceResult<any>> {
   try {
     // Validate payload
@@ -113,8 +112,8 @@ export async function saveBlueprint(
 
     // Upsert blueprint with onConflict on user_id
     // This atomically replaces any existing blueprint for this user
-    const { data, error } = await supabase
-      .from('blueprints')
+    const { data, error } = await (supabase
+      .from('blueprints') as any)
       .upsert(
         {
           user_id: user.id,
@@ -271,7 +270,7 @@ export async function importPendingBlueprint(): Promise<boolean> {
     if (!pendingData) return false;
 
     const pendingBlueprint = JSON.parse(pendingData);
-    const result = await saveBlueprint(pendingBlueprint.blueprint_json, pendingBlueprint.name || 'My Blueprint');
+    const result = await saveBlueprint(pendingBlueprint.blueprint_json);
 
     if (result.success) {
       localStorage.removeItem(PENDING_BLUEPRINT_KEY);

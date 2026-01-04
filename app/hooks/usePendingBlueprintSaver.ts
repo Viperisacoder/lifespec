@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/app/contexts/AuthContext';
 import { saveBlueprint, PENDING_BLUEPRINT_KEY } from '@/lib/blueprintService';
-import { getDefaultInputs } from '@/lib/calculationEngine';
 import { toast } from 'react-hot-toast';
 
 /**
@@ -33,11 +32,8 @@ export function usePendingBlueprintSaver() {
 
         setIsAutoSaving(true);
         
-        // Generate default inputs based on blueprint data
-        const defaultInputs = getDefaultInputs(pendingBlueprint);
-
         // Save the blueprint to Supabase using the saveBlueprint function
-        const result = await saveBlueprint(pendingBlueprint, 'Lifestyle Blueprint');
+        const result = await saveBlueprint(pendingBlueprint);
         
         if (!result.success) {
           throw new Error(`Failed to save blueprint: ${result.reason}`);

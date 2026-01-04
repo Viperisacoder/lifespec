@@ -12,8 +12,8 @@ export function calculateFinancialMetrics(
 ): CalculatedMetrics {
   // Extract values from inputs with defaults for missing values
   const {
-    annualGrossIncome = 0,
-    effectiveTaxRatePercent = 25, // Default 25% tax rate if not provided
+    monthlyIncome = 0,
+    taxRatePercent = 25, // Default 25% tax rate if not provided
     monthlySavings = 0,
     otherMonthlyIncome = 0,
     monthlyDebtPayments = 0
@@ -23,10 +23,10 @@ export function calculateFinancialMetrics(
   const monthlyTotalCost = blueprintData.totalMonthly || 0;
 
   // Ensure tax rate is valid (between 0 and 100%)
-  const taxRate = Math.min(Math.max(effectiveTaxRatePercent, 0), 60) / 100;
+  const taxRate = Math.min(Math.max(taxRatePercent, 0), 60) / 100;
 
   // 1) After-tax monthly income
-  const netMonthlyIncome = (annualGrossIncome * (1 - taxRate)) / 12;
+  const netMonthlyIncome = monthlyIncome * (1 - taxRate);
 
   // 2) Total monthly inflows
   const totalMonthlyInflows = netMonthlyIncome + otherMonthlyIncome;
@@ -39,20 +39,19 @@ export function calculateFinancialMetrics(
   const marginYearly = marginMonthly * 12;
 
   // 5) Required gross income to sustain blueprint
-  // We need gross such that: (gross*(1-tax_rate)/12) + other_income >= monthly_total_cost + monthly_savings + monthly_debt
-  // Solve for gross: required_annual_gross_income = ((monthly_total_cost + monthly_savings + monthly_debt_payments - other_monthly_income) * 12) / (1 - tax_rate)
-  const requiredAnnualGrossIncome = taxRate >= 1 
+  // We need gross such that: (gross*(1-tax_rate)) + other_income >= monthly_total_cost + monthly_savings + monthly_debt
+  // Solve for gross: required_monthly_gross_income = (monthly_total_cost + monthly_savings + monthly_debt_payments - other_monthly_income) / (1 - tax_rate)
+  const requiredMonthlyGrossIncome = taxRate >= 1 
     ? Infinity // Avoid division by zero
-    : Math.max(0, ((monthlyTotalCost + monthlySavings + monthlyDebtPayments - otherMonthlyIncome) * 12) / (1 - taxRate));
+    : Math.max(0, (monthlyTotalCost + monthlySavings + monthlyDebtPayments - otherMonthlyIncome) / (1 - taxRate));
 
   // 6) Income Reality gap
-  const incomeGap = annualGrossIncome - requiredAnnualGrossIncome;
+  const incomeGap = monthlyIncome - requiredMonthlyGrossIncome;
   const incomeGapLabel = incomeGap >= 0 ? 'Surplus' : 'Shortfall';
 
   // 7) "Time Pressure" / "Not achievable"
   let timeToEquilibrium: number | null = null;
   let monthsTo100k: number | null = null;
-  let monthsTo1M: number | null = null;
 
   if (marginMonthly >= 0) {
     timeToEquilibrium = 0; // Already at equilibrium
@@ -60,23 +59,21 @@ export function calculateFinancialMetrics(
     // Calculate time to savings milestones if saving
     if (monthlySavings > 0) {
       monthsTo100k = Math.ceil(100000 / monthlySavings);
-      monthsTo1M = Math.ceil(1000000 / monthlySavings);
     }
   }
 
-  // 8) Savings Viability
-  const savingsRate = totalMonthlyInflows > 0 
-    ? (monthlySavings / totalMonthlyInflows) 
-    : 0;
-  
-  let savingsViabilityLabel: 'Low' | 'Medium' | 'Strong';
-  if (savingsRate < 0.1) {
-    savingsViabilityLabel = 'Low';
-  } else if (savingsRate < 0.2) {
-    savingsViabilityLabel = 'Medium';
+  // Calculate affordability status
+  let affordabilityStatus: 'Sustainable' | 'Tight' | 'Not sustainable';
+  if (marginMonthly >= 0) {
+    affordabilityStatus = 'Sustainable';
+  } else if (marginMonthly >= -500) {
+    affordabilityStatus = 'Tight';
   } else {
-    savingsViabilityLabel = 'Strong';
+    affordabilityStatus = 'Not sustainable';
   }
+
+  // Calculate buffer ratio
+  const bufferRatio = totalMonthlyInflows > 0 ? marginMonthly / totalMonthlyInflows : 0;
 
   return {
     netMonthlyIncome,
@@ -84,14 +81,13 @@ export function calculateFinancialMetrics(
     totalMonthlyOutflows,
     marginMonthly,
     marginYearly,
-    requiredAnnualGrossIncome,
-    incomeGap,
-    incomeGapLabel,
-    timeToEquilibrium,
-    savingsRate,
-    savingsViabilityLabel,
-    monthsTo100k,
-    monthsTo1M
+    requiredGrossYearly: requiredMonthlyGrossIncome * 12,
+    monthlyGap: incomeGap,
+    monthlyGapLabel: incomeGapLabel === 'Surplus' ? 'extra' : 'short',
+    affordabilityStatus,
+    bufferRatio,
+    timeToSustainable: timeToEquilibrium ?? undefined,
+    savingsRunwayProxy: monthsTo100k ?? undefined
   };
 }
 
@@ -183,14 +179,13 @@ export function formatTimePeriod(months: number | null): string {
 export function getDefaultInputs(blueprintData: BlueprintPayload): BlueprintInputs {
   // Estimate a reasonable income based on expenses
   const monthlyExpenses = blueprintData.totalMonthly || 0;
-  const yearlyExpenses = blueprintData.totalYearly || monthlyExpenses * 12;
   
   // Assume 25% tax rate and 15% savings rate for default values
-  const estimatedGrossIncome = yearlyExpenses / 0.6; // Accounting for taxes and savings
+  const estimatedGrossMonthlyIncome = monthlyExpenses / 0.6; // Accounting for taxes and savings
   
   return {
-    annualGrossIncome: Math.round(estimatedGrossIncome),
-    effectiveTaxRatePercent: 25,
+    monthlyIncome: Math.round(estimatedGrossMonthlyIncome),
+    taxRatePercent: 25,
     monthlySavings: Math.round(monthlyExpenses * 0.15), // 15% of expenses as savings
     otherMonthlyIncome: 0,
     monthlyDebtPayments: 0
