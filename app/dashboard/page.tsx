@@ -713,7 +713,7 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
           {/* Main line with gradient */}
           <path d={pathData} stroke="url(#lineGradient)" strokeWidth="3.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
 
-          {/* Hover line and tooltip */}
+          {/* Hover line and dot */}
           {hoveredPoint && (
             <>
               <line 
@@ -728,35 +728,17 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
               <circle 
                 cx={getX(hoveredPoint.age)} 
                 cy={getY(hoveredPoint.money)} 
-                r="5" 
-                fill="rgba(255, 255, 255, 0.9)" 
+                r="6" 
+                fill="rgb(var(--text))" 
               />
-              <rect 
-                x={getX(hoveredPoint.age) - 60} 
-                y={getY(hoveredPoint.money) - 35} 
-                width="120" 
-                height="30" 
-                rx="6" 
-                fill="rgba(0, 0, 0, 0.8)" 
-                stroke="rgba(255, 255, 255, 0.3)" 
-                strokeWidth="1"
+              <circle 
+                cx={getX(hoveredPoint.age)} 
+                cy={getY(hoveredPoint.money)} 
+                r="6" 
+                fill="none" 
+                stroke="rgb(var(--gold))" 
+                strokeWidth="2"
               />
-              <text 
-                x={getX(hoveredPoint.age)} 
-                y={getY(hoveredPoint.money) - 15} 
-                textAnchor="middle" 
-                style={{ fontSize: '11px', fill: '#FFFFFF', fontWeight: '500' }}
-              >
-                Age {hoveredPoint.age}
-              </text>
-              <text 
-                x={getX(hoveredPoint.age)} 
-                y={getY(hoveredPoint.money) - 2} 
-                textAnchor="middle" 
-                style={{ fontSize: '11px', fill: '#AAAAAA' }}
-              >
-                ${(hoveredPoint.money / 1000000).toFixed(2)}M
-              </text>
             </>
           )}
 
