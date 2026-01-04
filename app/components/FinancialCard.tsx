@@ -49,12 +49,23 @@ export function FinancialCard({
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
           {/* LEFT: Core Numbers (3 cols) */}
           <div className="lg:col-span-3 p-12 border-r" style={{ borderColor: 'rgb(var(--border))' }}>
-            <h2
-              className="text-sm font-semibold uppercase tracking-widest mb-8"
-              style={{ color: 'rgb(var(--muted-2))' }}
-            >
-              Core Numbers
-            </h2>
+            <div className="mb-8">
+              <h2
+                className="text-sm font-semibold uppercase tracking-widest mb-3"
+                style={{ color: 'rgb(var(--muted-2))' }}
+              >
+                Core Numbers
+              </h2>
+              <div
+                style={{
+                  width: '28px',
+                  height: '2px',
+                  backgroundColor: 'rgb(var(--gold))',
+                  opacity: 0.4,
+                  borderRadius: '1px',
+                }}
+              />
+            </div>
 
             <div className="space-y-8">
               {/* Monthly Cost */}
@@ -71,8 +82,8 @@ export function FinancialCard({
                     <p className="text-sm font-medium mb-1" style={{ color: 'rgb(var(--muted))' }}>
                       Monthly Lifestyle Cost
                     </p>
-                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--gold))' }}>
-                      ${monthlyTotal.toLocaleString()}
+                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--text))' }}>
+                      <span style={{ color: 'rgb(var(--gold))' }}>$</span>{monthlyTotal.toLocaleString()}
                     </p>
                   </div>
                 </div>
@@ -92,8 +103,8 @@ export function FinancialCard({
                     <p className="text-sm font-medium mb-1" style={{ color: 'rgb(var(--muted))' }}>
                       Yearly Lifestyle Cost
                     </p>
-                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--gold))' }}>
-                      ${yearlyTotal.toLocaleString()}
+                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--text))' }}>
+                      <span style={{ color: 'rgb(var(--gold))' }}>$</span>{yearlyTotal.toLocaleString()}
                     </p>
                   </div>
                 </div>
@@ -113,8 +124,8 @@ export function FinancialCard({
                     <p className="text-sm font-medium mb-1" style={{ color: 'rgb(var(--muted))' }}>
                       Required Gross Income (Yearly)
                     </p>
-                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--gold))' }}>
-                      ${requiredIncome.toLocaleString()}
+                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--text))' }}>
+                      <span style={{ color: 'rgb(var(--gold))' }}>$</span>{requiredIncome.toLocaleString()}
                     </p>
                   </div>
                 </div>
@@ -131,12 +142,23 @@ export function FinancialCard({
 
           {/* RIGHT: Selections (2 cols) */}
           <div className="lg:col-span-2 p-12">
-            <h2
-              className="text-sm font-semibold uppercase tracking-widest mb-8"
-              style={{ color: 'rgb(var(--muted-2))' }}
-            >
-              Your Selections
-            </h2>
+            <div className="mb-8">
+              <h2
+                className="text-sm font-semibold uppercase tracking-widest mb-3"
+                style={{ color: 'rgb(var(--muted-2))' }}
+              >
+                Your Selections
+              </h2>
+              <div
+                style={{
+                  width: '28px',
+                  height: '2px',
+                  backgroundColor: 'rgb(var(--gold))',
+                  opacity: 0.4,
+                  borderRadius: '1px',
+                }}
+              />
+            </div>
 
             <div className="space-y-6">
               {selections.map((section) => (
@@ -150,12 +172,22 @@ export function FinancialCard({
                       borderLeft: '3px solid rgb(var(--gold))',
                     }}
                   >
-                    <p
-                      className="text-sm font-semibold uppercase tracking-wider"
-                      style={{ color: 'rgb(var(--gold))' }}
-                    >
-                      {section.category}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <div
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          backgroundColor: 'rgb(var(--gold))',
+                          borderRadius: '1px',
+                        }}
+                      />
+                      <p
+                        className="text-sm font-semibold uppercase tracking-wider"
+                        style={{ color: 'rgb(var(--muted))' }}
+                      >
+                        {section.category}
+                      </p>
+                    </div>
                     <span
                       style={{ color: 'rgb(var(--gold))' }}
                       className={`transition-transform duration-300 ${
@@ -181,8 +213,8 @@ export function FinancialCard({
                           <p className="text-sm" style={{ color: 'rgb(var(--muted))' }}>
                             {item.name}
                           </p>
-                          <p className="text-sm font-semibold" style={{ color: 'rgb(var(--gold))' }}>
-                            +${item.monthly.toLocaleString()}
+                          <p className="text-sm font-semibold" style={{ color: 'rgb(var(--text))' }}>
+                            <span style={{ color: 'rgb(var(--gold))' }}>+$</span>{item.monthly.toLocaleString()}
                           </p>
                         </div>
                       ))}

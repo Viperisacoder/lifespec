@@ -97,19 +97,19 @@ export function GraffitiHeader() {
             LifeSpec Blueprint
           </p>
 
-          {/* Main Number with Glow */}
+          {/* Main Number with Subtle Gold Glow */}
           <div className="mb-8">
             <h1
               className="text-7xl md:text-8xl font-black mb-4"
               style={{
-                color: 'rgb(var(--gold))',
-                textShadow: '0 0 40px rgba(213, 160, 33, 0.6), 0 0 80px rgba(213, 160, 33, 0.3)',
+                color: 'rgb(var(--text))',
+                textShadow: '0 0 40px rgba(213, 160, 33, 0.15)',
                 letterSpacing: '-0.02em',
               }}
             >
               $95,740
             </h1>
-            <p className="text-2xl md:text-3xl font-light" style={{ color: 'rgb(var(--gold))' }}>
+            <p className="text-2xl md:text-3xl font-light" style={{ color: 'rgb(var(--muted))' }}>
               / month
             </p>
           </div>
