@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     ];
     return config;
   },
+  // Force Vercel rebuild - framer-motion completely removed
 };
 
 export default nextConfig;
