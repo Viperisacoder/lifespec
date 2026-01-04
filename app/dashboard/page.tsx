@@ -664,26 +664,6 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
             );
           })}
 
-          {/* Y-axis labels */}
-          {yTicks.map((tick, i) => {
-            const y = getY(tick);
-            let label = '';
-            if (tick === 0) label = '$0';
-            else if (tick < 1000000) label = `$${(tick / 1000).toFixed(0)}k`;
-            else label = `$${(tick / 1000000).toFixed(1)}M`;
-
-            return (
-              <text
-                key={`y-label-${i}`}
-                x={padding.left - 16}
-                y={y + 5}
-                textAnchor="end"
-                style={{ fontSize: '13px', fill: 'rgb(var(--muted))', fontWeight: tick === 1000000 ? '600' : '400' }}
-              >
-                {label}
-              </text>
-            );
-          })}
 
           {/* X-axis labels - spaced every 5 years for better readability */}
           {Array.from({ length: Math.ceil(ageRange / 5) + 1 }).map((_, i) => {
