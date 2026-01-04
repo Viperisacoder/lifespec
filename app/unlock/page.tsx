@@ -63,10 +63,10 @@ export default function UnlockPage() {
   // Loading state
   if (loading || authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-8" style={{ backgroundColor: '#0E0E0E' }}>
+      <div className="min-h-screen flex items-center justify-center px-8" style={{ backgroundColor: 'rgb(var(--bg))' }}>
         <div className="text-center">
-          <div className="w-12 h-12 rounded-full animate-pulse mx-auto mb-4" style={{ background: 'linear-gradient(to bottom right, #D4AF37, #B8860B)' }} />
-          <p style={{ color: '#888' }}>Loading...</p>
+          <div className="w-12 h-12 rounded-full animate-pulse mx-auto mb-4" style={{ background: 'linear-gradient(to bottom right, rgb(var(--gold)), rgb(var(--gold)))' }} />
+          <p style={{ color: 'rgb(var(--muted))' }}>Loading...</p>
         </div>
       </div>
     );
@@ -75,20 +75,20 @@ export default function UnlockPage() {
   // Not logged in (shouldn't reach here due to redirect, but safety check)
   if (!user || !session) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-8" style={{ backgroundColor: '#0E0E0E' }}>
+      <div className="min-h-screen flex items-center justify-center px-8" style={{ backgroundColor: 'rgb(var(--bg))' }}>
         <div className="text-center max-w-md">
-          <h1 className="text-3xl font-bold mb-4" style={{ color: '#FFFFFF' }}>
+          <h1 className="text-3xl font-bold mb-4" style={{ color: 'rgb(var(--text))' }}>
             Please Log In
           </h1>
-          <p className="mb-8" style={{ color: '#888' }}>
+          <p className="mb-8" style={{ color: 'rgb(var(--muted))' }}>
             You need to be logged in to unlock Pro.
           </p>
           <button
             onClick={() => router.push('/login?next=/unlock')}
             className="px-8 py-3 rounded-lg font-semibold transition-all duration-300"
             style={{
-              backgroundColor: '#D4AF37',
-              color: '#0E0E0E',
+              backgroundColor: 'rgb(var(--gold))',
+              color: 'rgb(var(--bg))',
             }}
           >
             Go to Login
