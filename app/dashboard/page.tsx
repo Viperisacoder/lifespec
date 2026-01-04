@@ -557,7 +557,10 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
   if (millionaireAge && millionaireAge + 10 > maxAge) maxAge = millionaireAge + 10;
   if (dreamCompletionAge && dreamCompletionAge + 10 > maxAge) maxAge = dreamCompletionAge + 10;
 
-  const ageRange = maxAge - currentAge;
+  // Ensure minimum age range for better spacing (avoid cramping at start)
+  const minAgeRange = 50;
+  const baseAgeRange = maxAge - currentAge;
+  const ageRange = Math.max(baseAgeRange, minAgeRange);
   const points: Array<{ age: number; money: number }> = [];
 
   // Year-by-year data resolution
@@ -581,8 +584,8 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
   if (yAxisMax >= 3000000) yTicks.push(3000000);
 
   const graphHeight = 480;
-  const graphWidth = 1200;
-  const padding = { top: 40, right: 50, bottom: 120, left: 120 };
+  const graphWidth = 1400;
+  const padding = { top: 40, right: 60, bottom: 120, left: 140 };
   const innerWidth = graphWidth - padding.left - padding.right;
   const innerHeight = graphHeight - padding.top - padding.bottom;
 
@@ -682,10 +685,10 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
             );
           })}
 
-          {/* X-axis labels */}
-          {Array.from({ length: Math.min(14, ageRange + 1) }).map((_, i) => {
-            const age = currentAge + Math.floor((ageRange / 13) * i);
-            if (age > maxAge) return null;
+          {/* X-axis labels - spaced every 5 years for better readability */}
+          {Array.from({ length: Math.ceil(ageRange / 5) + 1 }).map((_, i) => {
+            const age = currentAge + i * 5;
+            if (age > currentAge + ageRange) return null;
             const x = getX(age);
             return (
               <text
