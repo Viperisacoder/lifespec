@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
 
 interface GradientOrbProps {
   savingsViability?: number; // 0-100
@@ -163,12 +162,7 @@ export default function GradientOrb({
 
   return (
     <div className="relative flex items-center justify-center">
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="relative"
-      >
+      <div className="relative">
         <canvas 
           ref={canvasRef} 
           width={400} 
@@ -182,7 +176,7 @@ export default function GradientOrb({
             mixBlendMode: 'overlay'
           }}
         />
-      </motion.div>
+      </div>
     </div>
   );
 }
