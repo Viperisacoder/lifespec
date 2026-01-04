@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 interface Milestone {
   id: string;
@@ -74,12 +73,7 @@ export default function LifeTimeline({
   }, []);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 1.1 }}
-      className="w-full"
-    >
+    <div className="w-full animate-fade-in">
       <h2 className="text-2xl font-light tracking-wide text-[var(--text-primary)] mb-8">
         Your Life Timeline
       </h2>
@@ -100,12 +94,9 @@ export default function LifeTimeline({
           
           {/* Milestones */}
           {milestones.map((milestone, index) => (
-            <motion.div 
+            <div 
               key={milestone.id}
-              className="relative"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 1.2 + (index * 0.2) }}
+              className="relative animate-fade-in"
             >
               {/* Timeline dot */}
               <div 
@@ -122,8 +113,8 @@ export default function LifeTimeline({
               />
               
               {/* Milestone card */}
-              <motion.div 
-                className={`relative w-64 rounded-xl p-6 ${
+              <div 
+                className={`relative w-64 rounded-xl p-6 hover:shadow-lg transition-shadow ${
                   milestone.isLocked 
                     ? "bg-[rgba(20,20,22,0.7)]" 
                     : "bg-[rgba(20,20,22,0.9)]"
@@ -135,13 +126,6 @@ export default function LifeTimeline({
                   marginTop: index % 2 === 0 ? '40px' : '0',
                   marginBottom: index % 2 === 0 ? '0' : '40px'
                 }}
-                whileHover={{ 
-                  y: -2,
-                  boxShadow: milestone.isAchievable 
-                    ? '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.2)' 
-                    : '0 12px 40px rgba(0, 0, 0, 0.3)'
-                }}
-                transition={{ duration: 0.5 }}
               >
                 {/* Lock icon for locked milestones */}
                 {milestone.isLocked && (
@@ -179,8 +163,8 @@ export default function LifeTimeline({
                     {milestone.timeframe}
                   </p>
                 </div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           ))}
         </div>
       </div>
@@ -210,6 +194,6 @@ export default function LifeTimeline({
           background: rgba(212, 175, 55, 0.5);
         }
       `}</style>
-    </motion.div>
+    </div>
   );
 }

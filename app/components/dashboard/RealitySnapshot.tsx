@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 interface RealitySnapshotProps {
@@ -79,29 +78,19 @@ export default function RealitySnapshot({
   }, [lifestyleCost.yearly, lifestyleCost.monthly, incomeReality.required, incomeReality.current]);
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.3 }}
-      className="w-full space-y-8"
-    >
+    <div className="w-full space-y-8 animate-fade-in">
       <h2 className="text-2xl font-light tracking-wide text-[var(--text-primary)]">
         Reality Snapshot
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Lifestyle Cost */}
-        <motion.div 
-          className="relative overflow-hidden rounded-2xl p-8"
+        <div 
+          className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow"
           style={{ 
             background: 'rgba(20, 20, 22, 0.7)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
           }}
-          whileHover={{ 
-            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.1)',
-            y: -2
-          }}
-          transition={{ duration: 0.5 }}
         >
           <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Lifestyle Cost</h3>
           
@@ -123,11 +112,9 @@ export default function RealitySnapshot({
                 <span className="text-[var(--text-secondary)]">{lifestyleCost.composition.housing}%</span>
               </div>
               <div className="h-1.5 bg-[rgba(212,175,55,0.1)] rounded-full overflow-hidden">
-                <motion.div 
-                  className="h-full bg-gradient-to-r from-[#D4AF37] to-[#C8A24D]"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${lifestyleCost.composition.housing}%` }}
-                  transition={{ duration: 1, delay: 0.5 }}
+                <div 
+                  className="h-full bg-gradient-to-r from-[#D4AF37] to-[#C8A24D] animate-fade-in"
+                  style={{ width: `${lifestyleCost.composition.housing}%` }}
                 />
               </div>
             </div>
@@ -138,11 +125,9 @@ export default function RealitySnapshot({
                 <span className="text-[var(--text-secondary)]">{lifestyleCost.composition.lifestyle}%</span>
               </div>
               <div className="h-1.5 bg-[rgba(212,175,55,0.1)] rounded-full overflow-hidden">
-                <motion.div 
-                  className="h-full bg-gradient-to-r from-[#D4AF37] to-[#B89B5E]"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${lifestyleCost.composition.lifestyle}%` }}
-                  transition={{ duration: 1, delay: 0.7 }}
+                <div 
+                  className="h-full bg-gradient-to-r from-[#D4AF37] to-[#B89B5E] animate-fade-in"
+                  style={{ width: `${lifestyleCost.composition.lifestyle}%` }}
                 />
               </div>
             </div>
@@ -153,29 +138,22 @@ export default function RealitySnapshot({
                 <span className="text-[var(--text-secondary)]">{lifestyleCost.composition.fixed}%</span>
               </div>
               <div className="h-1.5 bg-[rgba(212,175,55,0.1)] rounded-full overflow-hidden">
-                <motion.div 
-                  className="h-full bg-gradient-to-r from-[#C8A24D] to-[#B89B5E]"
-                  initial={{ width: 0 }}
-                  animate={{ width: `${lifestyleCost.composition.fixed}%` }}
-                  transition={{ duration: 1, delay: 0.9 }}
+                <div 
+                  className="h-full bg-gradient-to-r from-[#C8A24D] to-[#B89B5E] animate-fade-in"
+                  style={{ width: `${lifestyleCost.composition.fixed}%` }}
                 />
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
         
         {/* Income Reality */}
-        <motion.div 
-          className="relative overflow-hidden rounded-2xl p-8"
+        <div 
+          className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow"
           style={{ 
             background: 'rgba(20, 20, 22, 0.7)',
             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
           }}
-          whileHover={{ 
-            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.1)',
-            y: -2
-          }}
-          transition={{ duration: 0.5 }}
         >
           <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Income Reality</h3>
           
@@ -199,39 +177,30 @@ export default function RealitySnapshot({
             <div className="absolute top-0 left-0 right-0 h-1.5 bg-[rgba(212,175,55,0.1)] rounded-full" />
             
             {/* Required Income Marker */}
-            <motion.div 
-              className="absolute top-0 h-6 w-1 bg-[var(--text-primary)] rounded-full"
+            <div 
+              className="absolute top-0 h-6 w-1 bg-[var(--text-primary)] rounded-full animate-fade-in"
               style={{ left: '70%' }}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1 }}
             >
               <div className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
                 <p className="text-xs text-[var(--text-secondary)]">Required</p>
               </div>
-            </motion.div>
+            </div>
             
             {/* Current Income Marker */}
-            <motion.div 
-              className="absolute top-0 h-6 w-1 bg-[var(--accent-gold)] rounded-full"
+            <div 
+              className="absolute top-0 h-6 w-1 bg-[var(--accent-gold)] rounded-full animate-fade-in"
               style={{ 
                 left: `${Math.max(5, Math.min(95, (incomeReality.current / incomeReality.required) * 70))}%` 
               }}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
             >
               <div className="absolute top-full mt-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
                 <p className="text-xs text-[var(--text-secondary)]">Current</p>
               </div>
-            </motion.div>
+            </div>
             
             {/* Gap Label */}
-            <motion.div 
-              className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.5 }}
+            <div 
+              className="absolute bottom-0 left-1/2 transform -translate-x-1/2 animate-fade-in"
             >
               <p className={`text-sm font-medium ${
                 incomeGapLabel === "Surplus" 
@@ -242,29 +211,18 @@ export default function RealitySnapshot({
               }`}>
                 {incomeGapLabel}
               </p>
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
       
       {/* Time Pressure */}
-      <motion.div 
-        className="relative overflow-hidden rounded-2xl p-8"
+      <div 
+        className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow animate-fade-in"
         style={{ 
           background: 'rgba(20, 20, 22, 0.7)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
         }}
-        whileHover={{ 
-          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.1)',
-          y: -2
-        }}
-        transition={{ 
-          duration: 0.5,
-          opacity: { duration: 0.8, delay: 0.5 },
-          y: { duration: 0.8, delay: 0.5 }
-        }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
       >
         <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Time Pressure</h3>
         
@@ -282,7 +240,7 @@ export default function RealitySnapshot({
             Not achievable at current inputs
           </p>
         )}
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

@@ -1,6 +1,5 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
 import { useMemo } from 'react';
 
 // Base64 encoded tiny SVG noise pattern
@@ -17,8 +16,6 @@ export default function HeroAmbient({
   incomeGap = 0,
   lifestyleStress = 50
 }: HeroAmbientProps) {
-  const prefersReducedMotion = useReducedMotion();
-  
   // Memoize gradient values based on inputs to prevent unnecessary recalculations
   const gradientStyles = useMemo(() => {
     // Normalize values
@@ -61,33 +58,15 @@ export default function HeroAmbient({
   return (
     <div className="relative w-full h-64 md:h-80 rounded-3xl overflow-hidden">
       {/* Base gradient layer */}
-      <motion.div
+      <div
         className="absolute inset-0"
         style={gradientStyles.baseGradient}
-        animate={prefersReducedMotion ? {} : {
-          backgroundPosition: ['0% 0%', '100% 100%'],
-        }}
-        transition={{
-          duration: 60,
-          ease: "linear",
-          repeat: Infinity,
-          repeatType: "reverse"
-        }}
       />
       
       {/* Accent gradient layer */}
-      <motion.div
+      <div
         className="absolute inset-0"
         style={gradientStyles.accentGradient}
-        animate={prefersReducedMotion ? {} : {
-          opacity: [0.2, 0.4, 0.2],
-        }}
-        transition={{
-          duration: 30,
-          ease: "easeInOut",
-          repeat: Infinity,
-          repeatType: "reverse"
-        }}
       />
       
       {/* Noise texture overlay */}

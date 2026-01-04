@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 interface InteractionControlsProps {
   initialValues?: {
@@ -75,12 +74,7 @@ export default function InteractionControls({
   };
 
   return (
-    <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.7 }}
-      className="w-full"
-    >
+    <div className="w-full animate-fade-in">
       <h2 className="text-2xl font-light tracking-wide text-[var(--text-primary)] mb-8">
         Tune Your Life
       </h2>
@@ -213,6 +207,6 @@ export default function InteractionControls({
       </div>
       
       {/* Removed 'Recalculate My Life' button - updates happen automatically when sliders change */}
-    </motion.div>
+    </div>
   );
 }
