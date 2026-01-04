@@ -3,18 +3,32 @@
 @tailwind utilities;
 
 :root {
-  /* Dark Grey + Premium White Theme */
-  --bg-primary: #0E0F11;
-  --bg-secondary: #1A1D22;
-  --bg-tertiary: #1F2329;
-  --text-primary: #E6E6E6;
-  --text-secondary: #9AA0A6;
-  --accent-gold: #FFFFFF;
-  --accent-gold-muted: #F5F5F5;
-  --accent-gold-subtle: #E8E8E8;
-  --white: #FFFFFF;
-  --border-color: rgba(255, 255, 255, 0.12);
-  --border-color-hover: rgba(255, 255, 255, 0.25);
+  /* Premium Dark Theme with Gold Accent */
+  --bg: 10 10 10;
+  --panel: 18 18 18;
+  --panel-2: 22 22 22;
+  --text: 245 245 245;
+  --muted: 165 165 165;
+  --muted-2: 120 120 120;
+  --border: 45 45 45;
+  --gold: 213 160 33;
+  --gold-soft: 213 160 33;
+  --danger: 239 68 68;
+  --success: 34 197 94;
+  --shadow: 0 20px 60px rgba(0,0,0,.55);
+  
+  /* Legacy support */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #121212;
+  --bg-tertiary: #161616;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a5a5a5;
+  --accent-gold: #d5a021;
+  --accent-gold-muted: #d5a021;
+  --accent-gold-subtle: #d5a021;
+  --white: #ffffff;
+  --border-color: rgba(45, 45, 45, 0.5);
+  --border-color-hover: rgba(213, 160, 33, 0.2);
 }
 
 * {

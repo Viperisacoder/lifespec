@@ -159,7 +159,7 @@ export default function HomePage() {
                 }`}
                 style={{ color: 'var(--text-primary)' }}
               >
-                Ready to Spec your life?
+                Design your life. Price it out.
               </h1>
               <p
                 className={`text-lg md:text-xl mb-8 transition-all duration-1000 ease-out ${
@@ -167,7 +167,7 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: '100ms', color: 'var(--text-secondary)' }}
               >
-                Build your dream lifestyle. See what it costs. Get clarity on your future.
+                Pick what you want—home, travel, cars, habits—and LifeSpec estimates what it really costs per month and year.
               </p>
 
               {/* LifeSpec Meter */}
@@ -234,12 +234,12 @@ export default function HomePage() {
                   onClick={() => router.push('/loading-screen')}
                   className="px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg transform hover:scale-105 mb-4"
                   style={{
-                    backgroundColor: 'var(--white)',
-                    color: 'var(--bg-primary)',
-                    boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
+                    backgroundColor: 'rgb(var(--gold))',
+                    color: '#0a0a0a',
+                    boxShadow: '0 10px 25px rgba(213, 160, 33, 0.25)',
                   }}
                 >
-                  Start Building
+                  Build My LifeSpec
                 </button>
 
                 {/* Secondary Link */}
@@ -279,8 +279,8 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>How It Works</h2>
-            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Three simple steps to build and share your LifeSpec.</p>
+            <h2 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--text-primary)' }}>Your Path to Clarity</h2>
+            <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>Three steps to turn your dream into a real number.</p>
           </div>
 
           {/* Timeline */}
@@ -305,8 +305,8 @@ export default function HomePage() {
                       <img src="/image1.webp" alt="Choose your life" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Choose your life.</h3>
-                      <p style={{ color: 'var(--text-secondary)' }}>Home, cars, travel, style — pick what your life looks like.</p>
+                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Build your blueprint.</h3>
+                      <p style={{ color: 'var(--text-secondary)' }}>Select the lifestyle elements that matter to you—home, travel, hobbies, everything.</p>
                     </div>
                   </div>
                 </div>
@@ -328,8 +328,8 @@ export default function HomePage() {
                       <img src="/image2.webp" alt="See your numbers" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>See your numbers.</h3>
-                      <p style={{ color: 'var(--text-secondary)' }}>Monthly cost, yearly total, and required income — instantly.</p>
+                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Get the real cost.</h3>
+                      <p style={{ color: 'var(--text-secondary)' }}>See your monthly expenses, yearly total, and the income needed to make it happen.</p>
                     </div>
                   </div>
                 </div>
@@ -351,8 +351,8 @@ export default function HomePage() {
                       <img src="/image3.webp" alt="Lock it in" className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Lock it in.</h3>
-                      <p style={{ color: 'var(--text-secondary)' }}>Finish with a clean summary you can screenshot and share.</p>
+                      <h3 className="text-2xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>Share your vision.</h3>
+                      <p style={{ color: 'var(--text-secondary)' }}>Get a clean, shareable summary of your LifeSpec to keep or send to others.</p>
                     </div>
                   </div>
                 </div>
@@ -369,12 +369,12 @@ export default function HomePage() {
               }`}
               style={{
                 transitionDelay: '300ms',
-                backgroundColor: 'var(--white)',
-                color: 'var(--bg-primary)',
-                boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
+                backgroundColor: 'rgb(var(--gold))',
+                color: '#0a0a0a',
+                boxShadow: '0 10px 25px rgba(213, 160, 33, 0.25)',
               }}
             >
-              Start Building
+              Build My LifeSpec
             </button>
           </div>
         </div>
@@ -1064,7 +1064,7 @@ export default function HomePage() {
                 Pro
               </h3>
               <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
-                Turn your blueprint into a real financial plan
+                Unlock deeper insights and planning tools
               </p>
 
               {/* Price */}
@@ -1100,20 +1100,20 @@ export default function HomePage() {
                 onClick={() => router.push('/redeem')}
                 className="w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 mb-4"
                 style={{
-                  backgroundColor: 'var(--white)',
-                  color: 'var(--bg-primary)',
-                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
+                  backgroundColor: 'rgb(var(--gold))',
+                  color: '#0a0a0a',
+                  boxShadow: '0 10px 25px rgba(213, 160, 33, 0.25)',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 255, 255, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(213, 160, 33, 0.35)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.25)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(213, 160, 33, 0.25)';
                 }}
               >
-                Get Pro Access
+                Unlock Pro
               </button>
 
               {/* Subtext */}
