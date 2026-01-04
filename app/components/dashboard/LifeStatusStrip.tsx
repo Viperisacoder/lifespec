@@ -34,7 +34,7 @@ export default function LifeStatusStrip({
              lifestyleStress < 60 ? 'Balanced' : 
              lifestyleStress < 80 ? 'Premium' : 'Luxury',
       color: lifestyleStress < 30 ? '#34d399' : 
-             lifestyleStress < 60 ? 'var(--accent-gold)' : 
+             lifestyleStress < 60 ? 'var(--white)' : 
              lifestyleStress < 80 ? '#fbbf24' : '#f87171'
     };
 
@@ -45,7 +45,7 @@ export default function LifeStatusStrip({
              marginPercentage < 25 ? 'Good' : 'High',
       color: marginPercentage < 5 ? '#f87171' :
              marginPercentage < 15 ? '#fbbf24' :
-             marginPercentage < 25 ? 'var(--accent-gold)' : '#34d399'
+             marginPercentage < 25 ? 'var(--white)' : '#34d399'
     };
 
     // Calculate stress level
@@ -64,7 +64,7 @@ export default function LifeStatusStrip({
              incomeGap >= 0 ? 'Stable' :
              incomeGap >= -20000 ? 'At Risk' : 'Declining',
       color: incomeGap >= 10000 ? '#34d399' :
-             incomeGap >= 0 ? 'var(--accent-gold)' :
+             incomeGap >= 0 ? 'var(--white)' :
              incomeGap >= -20000 ? '#fbbf24' : '#f87171'
     };
 
@@ -79,7 +79,7 @@ export default function LifeStatusStrip({
           className="px-4 py-2 rounded-full animate-fade-in"
           style={{ 
             backgroundColor: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: `0 0 15px rgba(${metrics.lifestyle.color === 'var(--accent-gold)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
+            boxShadow: `0 0 15px rgba(${metrics.lifestyle.color === 'var(--white)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
           }}
         >
           <div className="flex items-center space-x-2">
@@ -95,7 +95,7 @@ export default function LifeStatusStrip({
           className="px-4 py-2 rounded-full animate-fade-in"
           style={{ 
             backgroundColor: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: `0 0 15px rgba(${metrics.flexibility.color === 'var(--accent-gold)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
+            boxShadow: `0 0 15px rgba(${metrics.flexibility.color === 'var(--white)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
           }}
         >
           <div className="flex items-center space-x-2">
@@ -111,7 +111,7 @@ export default function LifeStatusStrip({
           className="px-4 py-2 rounded-full animate-fade-in"
           style={{ 
             backgroundColor: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: `0 0 15px rgba(${metrics.stress.color === 'var(--accent-gold)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
+            boxShadow: `0 0 15px rgba(${metrics.stress.color === 'var(--white)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
           }}
         >
           <div className="flex items-center space-x-2">
@@ -127,7 +127,7 @@ export default function LifeStatusStrip({
           className="px-4 py-2 rounded-full animate-fade-in"
           style={{ 
             backgroundColor: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: `0 0 15px rgba(${metrics.trajectory.color === 'var(--accent-gold)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
+            boxShadow: `0 0 15px rgba(${metrics.trajectory.color === 'var(--white)' ? '212, 175, 55' : '255, 255, 255'}, 0.1)`
           }}
         >
           <div className="flex items-center space-x-2">

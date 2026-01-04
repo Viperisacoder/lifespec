@@ -53,7 +53,7 @@ export function TotalsMobileBar({ totalMonthly, totalYearly }: TotalsMobileBarPr
         `}
       >
         <div className="text-left flex-1">
-          <p className="text-sm font-semibold" style={{ color: 'var(--accent-gold)' }}>
+          <p className="text-sm font-semibold" style={{ color: 'var(--white)' }}>
             {formatMoney(animatedMonthly)}<span className="text-xs font-medium ml-1" style={{ color: 'var(--text-secondary)' }}>/mo</span>
           </p>
           <p className="text-xs mt-0.5" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>Tap to expand</p>
@@ -94,14 +94,14 @@ export function TotalsMobileBar({ totalMonthly, totalYearly }: TotalsMobileBarPr
             <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>
               Monthly Total
             </div>
-            <div className="text-3xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+            <div className="text-3xl font-bold" style={{ color: 'var(--white)' }}>
               {formatMoney(animatedMonthly)}
             </div>
           </div>
 
           {/* Divider */}
           <div className="h-px" style={{
-            background: `linear-gradient(to right, var(--accent-gold) 0%, transparent 100%)`,
+            background: `linear-gradient(to right, var(--white) 0%, transparent 100%)`,
             opacity: 0.2,
           }} />
 
@@ -110,7 +110,7 @@ export function TotalsMobileBar({ totalMonthly, totalYearly }: TotalsMobileBarPr
             <div className="text-xs font-semibold uppercase tracking-widest" style={{ color: 'var(--text-secondary)' }}>
               Yearly Total
             </div>
-            <div className="text-2xl font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>
+            <div className="text-2xl font-semibold" style={{ color: 'var(--white)' }}>
               {formatMoney(animatedYearly)}
             </div>
           </div>

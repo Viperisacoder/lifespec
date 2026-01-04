@@ -88,7 +88,7 @@ export default function LifeTimeline({
           <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-[rgba(212,175,55,0.15)]" />
           
           {/* Current position marker */}
-          <div className="absolute top-1/2 left-0 h-6 w-6 rounded-full bg-[var(--accent-gold)] transform -translate-y-1/2 z-10 flex items-center justify-center">
+          <div className="absolute top-1/2 left-0 h-6 w-6 rounded-full bg-[var(--white)] transform -translate-y-1/2 z-10 flex items-center justify-center">
             <div className="h-2 w-2 rounded-full bg-[var(--bg-primary)]" />
           </div>
           
@@ -102,12 +102,12 @@ export default function LifeTimeline({
               <div 
                 className={`absolute top-0 left-1/2 h-4 w-4 rounded-full transform -translate-x-1/2 -translate-y-1/2 ${
                   milestone.isAchievable 
-                    ? "bg-[var(--accent-gold)]" 
+                    ? "bg-[var(--white)]" 
                     : "bg-[rgba(212,175,55,0.3)]"
                 }`}
                 style={{
                   boxShadow: milestone.isAchievable 
-                    ? '0 0 15px rgba(212, 175, 55, 0.5)' 
+                    ? '0 0 15px rgba(255, 255, 255, 0.5)' 
                     : 'none'
                 }}
               />
@@ -121,7 +121,7 @@ export default function LifeTimeline({
                 }`}
                 style={{
                   boxShadow: milestone.isAchievable 
-                    ? '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.1)' 
+                    ? '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.1)' 
                     : '0 8px 32px rgba(0, 0, 0, 0.2)',
                   marginTop: index % 2 === 0 ? '40px' : '0',
                   marginBottom: index % 2 === 0 ? '0' : '40px'
@@ -152,12 +152,12 @@ export default function LifeTimeline({
                 <div className="flex items-center">
                   <div className={`w-2 h-2 rounded-full mr-2 ${
                     milestone.isAchievable 
-                      ? "bg-[var(--accent-gold)]" 
+                      ? "bg-[var(--white)]" 
                       : "bg-[rgba(212,175,55,0.3)]"
                   }`} />
                   <p className={`text-sm ${
                     milestone.isAchievable 
-                      ? "text-[var(--accent-gold)]" 
+                      ? "text-[var(--white)]" 
                       : "text-[var(--text-secondary)]"
                   }`}>
                     {milestone.timeframe}
@@ -181,17 +181,17 @@ export default function LifeTimeline({
         }
         
         .hide-scrollbar::-webkit-scrollbar-track {
-          background: rgba(212, 175, 55, 0.05);
+          background: rgba(255, 255, 255, 0.05);
           border-radius: 10px;
         }
         
         .hide-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(212, 175, 55, 0.3);
+          background: rgba(255, 255, 255, 0.3);
           border-radius: 10px;
         }
         
         .hide-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: rgba(212, 175, 55, 0.5);
+          background: rgba(255, 255, 255, 0.5);
         }
       `}</style>
     </div>

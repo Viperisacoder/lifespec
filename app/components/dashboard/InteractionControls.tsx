@@ -100,7 +100,7 @@ export default function InteractionControls({
                 // Custom slider styling
                 WebkitAppearance: 'none',
                 height: '2px',
-                background: 'linear-gradient(to right, var(--accent-gold-subtle), var(--accent-gold))',
+                background: 'linear-gradient(to right, var(--accent-gold-subtle), var(--white))',
               }}
             />
             <style jsx>{`
@@ -110,23 +110,23 @@ export default function InteractionControls({
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                background: var(--accent-gold);
-                box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+                background: var(--white);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
                 cursor: pointer;
                 transition: all 0.2s ease;
               }
               
               input[type=range]::-webkit-slider-thumb:hover {
                 transform: scale(1.1);
-                box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
               }
               
               input[type=range]::-moz-range-thumb {
                 width: 20px;
                 height: 20px;
                 border-radius: 50%;
-                background: var(--accent-gold);
-                box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+                background: var(--white);
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
                 cursor: pointer;
                 transition: all 0.2s ease;
                 border: none;
@@ -134,7 +134,7 @@ export default function InteractionControls({
               
               input[type=range]::-moz-range-thumb:hover {
                 transform: scale(1.1);
-                box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+                box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
               }
             `}</style>
           </div>
@@ -164,7 +164,7 @@ export default function InteractionControls({
               style={{
                 WebkitAppearance: 'none',
                 height: '2px',
-                background: 'linear-gradient(to right, var(--accent-gold-subtle), var(--accent-gold))',
+                background: 'linear-gradient(to right, var(--accent-gold-subtle), var(--white))',
               }}
             />
           </div>
@@ -194,7 +194,7 @@ export default function InteractionControls({
               style={{
                 WebkitAppearance: 'none',
                 height: '2px',
-                background: 'linear-gradient(to right, var(--accent-gold-subtle), var(--accent-gold))',
+                background: 'linear-gradient(to right, var(--accent-gold-subtle), var(--white))',
               }}
             />
           </div>

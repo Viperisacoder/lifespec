@@ -50,7 +50,7 @@ export function ProGate({ children, fallback }: ProGateProps) {
   if (!isPro) {
     return (
       fallback || (
-        <div className="rounded-2xl p-8 border text-center" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'rgba(212, 175, 55, 0.2)' }}>
+        <div className="rounded-2xl p-8 border text-center" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
           <h3 className="text-xl font-semibold mb-2" style={{ color: '#FFFFFF' }}>
             Pro Feature
           </h3>
@@ -66,7 +66,7 @@ export function ProGate({ children, fallback }: ProGateProps) {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.25)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.25)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';

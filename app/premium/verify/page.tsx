@@ -130,8 +130,8 @@ export default function VerifyPaymentPage() {
                   color: '#FFFFFF',
                 }}
                 onFocus={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.5)';
-                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.1)';
                 }}
                 onBlur={(e) => {
                   e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
@@ -182,12 +182,12 @@ export default function VerifyPaymentPage() {
               onMouseEnter={(e) => {
                 if (status !== 'loading' && status !== 'success') {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(212, 175, 55, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 255, 255, 0.35)';
                 }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.25)';
+                e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.25)';
               }}
             >
               {status === 'loading' ? 'Verifying...' : status === 'success' ? 'Success! Redirecting...' : 'Verify & Unlock'}

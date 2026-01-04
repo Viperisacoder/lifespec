@@ -27,19 +27,19 @@ export function ResultsLoader({ stage }: ResultsLoaderProps) {
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
                   isCompleted
-                    ? 'bg-[var(--accent-gold)] text-[var(--bg-primary)]'
+                    ? 'bg-[var(--white)] text-[var(--bg-primary)]'
                     : isActive
-                    ? 'bg-[var(--accent-gold)] text-[var(--bg-primary)] animate-pulse'
+                    ? 'bg-[var(--white)] text-[var(--bg-primary)] animate-pulse'
                     : 'bg-[var(--bg-secondary)] text-[var(--text-secondary)]'
                 }`}
                 style={
                   isCompleted
-                    ? { backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }
+                    ? { backgroundColor: 'var(--white)', color: 'var(--bg-primary)' }
                     : isActive
                     ? {
-                        backgroundColor: 'var(--accent-gold)',
+                        backgroundColor: 'var(--white)',
                         color: 'var(--bg-primary)',
-                        boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
+                        boxShadow: '0 0 20px rgba(255, 255, 255, 0.5)',
                       }
                     : { backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }
                 }

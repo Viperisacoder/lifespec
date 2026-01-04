@@ -140,7 +140,7 @@ export default function HomePage() {
         <div
           className="absolute inset-0 opacity-30"
           style={{
-            background: 'radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
           }}
         />
 
@@ -177,17 +177,17 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: '200ms' }}
               >
-                <div className="group backdrop-blur-xl border rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-1" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+                <div className="group backdrop-blur-xl border rounded-2xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-1" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                   {/* Meter Values */}
                   <div className="grid grid-cols-3 gap-6 mb-8">
                     <div className="text-center">
                       <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>Monthly</p>
-                      <p className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--accent-gold)' }}>$18,750</p>
+                      <p className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--white)' }}>$18,750</p>
                       <p className="text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>/mo</p>
                     </div>
                     <div className="text-center border-l border-r" style={{ borderColor: 'var(--border-color)' }}>
                       <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>Yearly</p>
-                      <p className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--accent-gold-muted)' }}>$225,000</p>
+                      <p className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--white)' }}>$225,000</p>
                       <p className="text-xs" style={{ color: 'var(--text-secondary)', opacity: 0.7 }}>/yr</p>
                     </div>
                     <div className="text-center">
@@ -198,20 +198,20 @@ export default function HomePage() {
                   </div>
 
                   {/* Divider */}
-                  <div className="h-px mb-6" style={{ background: `linear-gradient(to right, transparent, var(--accent-gold), transparent)`, opacity: 0.2 }} />
+                  <div className="h-px mb-6" style={{ background: `linear-gradient(to right, transparent, var(--white), transparent)`, opacity: 0.2 }} />
 
                   {/* Affordability Index */}
                   <div className="mb-4">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--text-secondary)' }}>Affordability Index</span>
-                      <span className="text-sm font-bold" style={{ color: 'var(--accent-gold)' }}>64%</span>
+                      <span className="text-sm font-bold" style={{ color: 'var(--white)' }}>64%</span>
                     </div>
                     <div className="w-full h-2.5 rounded-full overflow-hidden border" style={{ backgroundColor: 'var(--bg-tertiary)', borderColor: 'var(--border-color)' }}>
                       <div
                         className="h-full rounded-full transition-all duration-1000"
                         style={{
                           width: isLoaded ? '64%' : '0%',
-                          background: `linear-gradient(to right, var(--accent-gold-muted), var(--accent-gold))`,
+                          background: `linear-gradient(to right, var(--white), var(--white))`,
                         }}
                       />
                     </div>
@@ -234,9 +234,9 @@ export default function HomePage() {
                   onClick={() => router.push('/loading-screen')}
                   className="px-8 py-4 font-semibold rounded-xl transition-all duration-300 shadow-lg transform hover:scale-105 mb-4"
                   style={{
-                    backgroundColor: 'var(--accent-gold)',
+                    backgroundColor: 'var(--white)',
                     color: 'var(--bg-primary)',
-                    boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                    boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
                   }}
                 >
                   Start Building
@@ -255,16 +255,16 @@ export default function HomePage() {
 
                 {/* Feature Chips */}
                 <div className="flex flex-wrap justify-center gap-3">
-                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--accent-gold)' }} />
+                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--white)' }} />
                     No sign-up required
                   </div>
-                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--accent-gold)' }} />
+                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--white)' }} />
                     Takes under 3 minutes
                   </div>
-                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
-                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--accent-gold)' }} />
+                  <div className="px-4 py-2 backdrop-blur-sm border rounded-full text-sm flex items-center gap-2" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)', color: 'var(--text-secondary)' }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: 'var(--white)' }} />
                     Realistic cost estimates
                   </div>
                 </div>
@@ -286,7 +286,7 @@ export default function HomePage() {
           {/* Timeline */}
           <div className="relative">
             {/* Vertical Line */}
-            <div className="hidden md:block absolute left-8 top-0 bottom-0 w-px" style={{ background: 'linear-gradient(to bottom, var(--accent-gold) 0%, var(--accent-gold) 30%, transparent 100%)', opacity: 0.5 }} />
+            <div className="hidden md:block absolute left-8 top-0 bottom-0 w-px" style={{ background: 'linear-gradient(to bottom, var(--white) 0%, var(--white) 30%, transparent 100%)', opacity: 0.5 }} />
 
             {/* Timeline Items */}
             <div className="space-y-12 md:space-y-16">
@@ -296,10 +296,10 @@ export default function HomePage() {
                   isLoaded ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
                 }`}
               >
-                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }}>
+                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--white)', color: 'var(--bg-primary)' }}>
                   1
                 </div>
-                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                   <div className="flex flex-col md:flex-row gap-6">
                     <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
                       <img src="/image1.webp" alt="Choose your life" className="w-full h-full object-cover" />
@@ -319,10 +319,10 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: '100ms' }}
               >
-                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }}>
+                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--white)', color: 'var(--bg-primary)' }}>
                   2
                 </div>
-                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                   <div className="flex flex-col md:flex-row gap-6">
                     <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
                       <img src="/image2.webp" alt="See your numbers" className="w-full h-full object-cover" />
@@ -342,10 +342,10 @@ export default function HomePage() {
                 }`}
                 style={{ transitionDelay: '200ms' }}
               >
-                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }}>
+                <div className="hidden md:block absolute left-0 top-0 w-16 h-16 rounded-full flex items-center justify-center text-sm font-bold -translate-x-8" style={{ backgroundColor: 'var(--white)', color: 'var(--bg-primary)' }}>
                   3
                 </div>
-                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+                <div className="group backdrop-blur-sm border rounded-2xl p-8 hover:-translate-y-1 transition-all duration-300 shadow-lg hover:shadow-xl" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                   <div className="flex flex-col md:flex-row gap-6">
                     <div className="w-full md:w-32 h-32 rounded-lg flex items-center justify-center flex-shrink-0 border overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
                       <img src="/image3.webp" alt="Lock it in" className="w-full h-full object-cover" />
@@ -369,9 +369,9 @@ export default function HomePage() {
               }`}
               style={{
                 transitionDelay: '300ms',
-                backgroundColor: 'var(--accent-gold)',
+                backgroundColor: 'var(--white)',
                 color: 'var(--bg-primary)',
-                boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
               }}
             >
               Start Building
@@ -385,18 +385,18 @@ export default function HomePage() {
         {/* Background Gradient + Glow */}
         <div className="absolute inset-0 opacity-40 pointer-events-none">
           <div className="absolute top-1/2 right-0 w-96 h-96 rounded-full blur-3xl" style={{
-            background: 'linear-gradient(to bottom right, rgba(212, 175, 55, 0.2), rgba(200, 162, 77, 0.1))',
+            background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(200, 162, 77, 0.1))',
             animation: 'pulse 8s ease-in-out infinite',
           }} />
           <div className="absolute top-1/3 left-1/4 w-80 h-80 rounded-full blur-3xl" style={{
-            background: 'linear-gradient(to bottom right, rgba(212, 175, 55, 0.15), transparent)',
+            background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.15), transparent)',
             animation: 'pulse 10s ease-in-out infinite 1s',
           }} />
         </div>
 
         {/* Diagonal Gradient Overlay */}
         <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
-          background: 'linear-gradient(135deg, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%)',
+          background: 'linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)',
         }} />
 
         <style>{`
@@ -417,7 +417,7 @@ export default function HomePage() {
             to { opacity: 1; transform: scale(1); }
           }
           .animate-shimmer {
-            background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.3) 50%, transparent 100%);
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
             background-size: 1000px 100%;
             animation: shimmer 3s infinite;
           }
@@ -437,7 +437,7 @@ export default function HomePage() {
           <div className="text-center mb-16">
             <div className={`inline-block px-4 py-2 backdrop-blur-sm border rounded-full text-xs font-semibold uppercase tracking-wider mb-6 transition-all duration-700 ${
               isBlueprintVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-            }`} style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', borderColor: 'var(--border-color)', color: 'var(--accent-gold)' }}>
+            }`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', borderColor: 'var(--border-color)', color: 'var(--white)' }}>
               Example Blueprint
             </div>
             <h2 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 transition-all duration-700 ${
@@ -473,7 +473,7 @@ export default function HomePage() {
                       opacity: isBlueprintVisible ? 1 : 0,
                     }}
                   >
-                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--accent-gold)' }} />
+                    <div className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ backgroundColor: 'var(--white)' }} />
                     <p className="text-lg" style={{ color: 'var(--text-secondary)' }}>{bullet}</p>
                   </div>
                 ))}
@@ -487,9 +487,9 @@ export default function HomePage() {
                   style={{
                     animation: isBlueprintVisible ? 'slideUp 0.6s ease-out 600ms forwards' : 'none',
                     opacity: isBlueprintVisible ? 1 : 0,
-                    backgroundColor: 'var(--accent-gold)',
+                    backgroundColor: 'var(--white)',
                     color: 'var(--bg-primary)',
-                    boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                    boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
                   }}
                 >
                   Create My LifeSpec
@@ -505,9 +505,9 @@ export default function HomePage() {
                     color: 'var(--text-secondary)',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = 'var(--accent-gold)';
-                    e.currentTarget.style.color = 'var(--accent-gold)';
-                    e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+                    e.currentTarget.style.borderColor = 'var(--white)';
+                    e.currentTarget.style.color = 'var(--white)';
+                    e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = 'var(--border-color)';
@@ -528,7 +528,7 @@ export default function HomePage() {
                     style={{
                       animation: isBlueprintVisible ? `slideUp 0.6s ease-out ${800 + idx * 100}ms forwards` : 'none',
                       opacity: isBlueprintVisible ? 1 : 0,
-                      backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
                       borderColor: 'var(--border-color)',
                       color: 'var(--text-secondary)',
                     }}
@@ -547,7 +547,7 @@ export default function HomePage() {
               }`}
               style={{ transitionDelay: isBlueprintVisible ? '200ms' : '0ms' }}
             >
-              <div className="absolute inset-0 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(to bottom right, rgba(212, 175, 55, 0.1), rgba(200, 162, 77, 0.05))' }} />
+              <div className="absolute inset-0 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.1), rgba(200, 162, 77, 0.05))' }} />
 
               <div className="relative backdrop-blur-xl border rounded-3xl p-8 shadow-2xl group-hover:shadow-3xl transition-all duration-300 group-hover:-translate-y-2 group-hover:animate-float" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
                 {/* Blueprint Header */}
@@ -556,16 +556,16 @@ export default function HomePage() {
                     <p className="text-xs font-semibold uppercase tracking-wider mb-1" style={{ color: 'var(--text-secondary)' }}>LifeSpec Blueprint</p>
                     <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>Example</p>
                   </div>
-                  <div className="w-10 h-10 rounded-full" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold), var(--accent-gold-muted))', opacity: 0.2 }} />
+                  <div className="w-10 h-10 rounded-full" style={{ background: 'linear-gradient(to bottom right, var(--white), var(--white))', opacity: 0.2 }} />
                 </div>
 
                 {/* Stat Tiles Grid */}
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   {[
-                    { label: 'Monthly Cost', value: `$${monthlyCount.toLocaleString()}`, color: 'var(--accent-gold)', delay: 0 },
-                    { label: 'Yearly Cost', value: `$${yearlyCount.toLocaleString()}`, color: 'var(--accent-gold-muted)', delay: 100 },
+                    { label: 'Monthly Cost', value: `$${monthlyCount.toLocaleString()}`, color: 'var(--white)', delay: 0 },
+                    { label: 'Yearly Cost', value: `$${yearlyCount.toLocaleString()}`, color: 'var(--white)', delay: 100 },
                     { label: 'Required Income', value: `$${incomeCount.toLocaleString()}`, color: 'var(--text-primary)', delay: 200 },
-                    { label: 'Affordability', value: `${affordabilityWidth}%`, color: 'var(--accent-gold)', delay: 300 },
+                    { label: 'Affordability', value: `${affordabilityWidth}%`, color: 'var(--white)', delay: 300 },
                   ].map((tile, idx) => (
                     <div
                       key={idx}
@@ -573,7 +573,7 @@ export default function HomePage() {
                       style={{
                         animation: isBlueprintVisible ? `popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) ${600 + tile.delay}ms forwards` : 'none',
                         opacity: isBlueprintVisible ? 1 : 0,
-                        backgroundColor: 'rgba(212, 175, 55, 0.05)',
+                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
                         borderColor: 'var(--border-color)',
                       }}
                     >
@@ -600,14 +600,14 @@ export default function HomePage() {
                         animation: isBlueprintVisible ? `slideUp 0.4s ease-out ${800 + idx * 50}ms forwards` : 'none',
                         opacity: isBlueprintVisible ? 1 : 0,
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)')}
+                      onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)')}
                       onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'transparent')}
                     >
                       <div className="flex-1">
                         <p className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>{item.category}</p>
                         <p className="text-sm" style={{ color: 'var(--text-primary)' }}>{item.item}</p>
                       </div>
-                      <p className="text-sm font-semibold ml-4" style={{ color: 'var(--accent-gold)' }}>+${item.price.toLocaleString()}</p>
+                      <p className="text-sm font-semibold ml-4" style={{ color: 'var(--white)' }}>+${item.price.toLocaleString()}</p>
                     </div>
                   ))}
                 </div>
@@ -615,7 +615,7 @@ export default function HomePage() {
                 {/* Footer Hint */}
                 <div className="flex items-center justify-center gap-2 text-sm" style={{ color: 'var(--text-secondary)' }}>
                   <span>Try yours</span>
-                  <span style={{ color: 'var(--accent-gold)' }}>→</span>
+                  <span style={{ color: 'var(--white)' }}>→</span>
                 </div>
               </div>
             </button>
@@ -666,10 +666,10 @@ export default function HomePage() {
               { handle: '@sasha.studies', initials: 'SS', text: 'The custom items feature let me add exactly what I want. So flexible.', monthly: '$9,800' },
               { handle: '@jaydensteps', initials: 'JS', text: 'Required income breakdown was a reality check I needed. Highly recommend.', monthly: '$28,000' },
             ].map((review, idx) => (
-              <div key={idx} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+              <div key={idx} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold), var(--accent-gold-muted))', color: 'var(--bg-primary)' }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--white), var(--white))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
@@ -677,12 +677,12 @@ export default function HomePage() {
                       <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--white)' }}>★★★★★</div>
                 </div>
                 <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
                 <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
                   <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
-                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--white)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -695,10 +695,10 @@ export default function HomePage() {
               { handle: '@sasha.studies', initials: 'SS', text: 'The custom items feature let me add exactly what I want. So flexible.', monthly: '$9,800' },
               { handle: '@jaydensteps', initials: 'JS', text: 'Required income breakdown was a reality check I needed. Highly recommend.', monthly: '$28,000' },
             ].map((review, idx) => (
-              <div key={`repeat-a-${idx}`} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+              <div key={`repeat-a-${idx}`} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold), var(--accent-gold-muted))', color: 'var(--bg-primary)' }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--white), var(--white))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
@@ -706,12 +706,12 @@ export default function HomePage() {
                       <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--white)' }}>★★★★★</div>
                 </div>
                 <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
                 <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
                   <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
-                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--white)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -729,10 +729,10 @@ export default function HomePage() {
               { handle: '@ari.plans', initials: 'AP', text: 'Instant. No waiting. No complexity. Just the number.', monthly: '$22,500' },
               { handle: '@noahmetrics', initials: 'NM', text: 'Bookmarked it. Going back to check my progress monthly.', monthly: '$15,600' },
             ].map((review, idx) => (
-              <div key={idx} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+              <div key={idx} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold-muted), var(--accent-gold))', color: 'var(--bg-primary)' }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--white), var(--white))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
@@ -740,12 +740,12 @@ export default function HomePage() {
                       <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--white)' }}>★★★★★</div>
                 </div>
                 <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
                 <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
                   <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
-                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--white)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -758,10 +758,10 @@ export default function HomePage() {
               { handle: '@ari.plans', initials: 'AP', text: 'Instant. No waiting. No complexity. Just the number.', monthly: '$22,500' },
               { handle: '@noahmetrics', initials: 'NM', text: 'Bookmarked it. Going back to check my progress monthly.', monthly: '$15,600' },
             ].map((review, idx) => (
-              <div key={`repeat-b-${idx}`} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+              <div key={`repeat-b-${idx}`} className="flex-shrink-0 w-80 backdrop-blur-sm border rounded-2xl p-5 transition-all duration-300 shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold-muted), var(--accent-gold))', color: 'var(--bg-primary)' }}>
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold" style={{ background: 'linear-gradient(to bottom right, var(--white), var(--white))', color: 'var(--bg-primary)' }}>
                       {review.initials}
                     </div>
                     <div>
@@ -769,12 +769,12 @@ export default function HomePage() {
                       <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Verified Build</p>
                     </div>
                   </div>
-                  <div className="text-sm" style={{ color: 'var(--accent-gold)' }}>★★★★★</div>
+                  <div className="text-sm" style={{ color: 'var(--white)' }}>★★★★★</div>
                 </div>
                 <p className="text-sm mb-3" style={{ color: 'var(--text-secondary)' }}>{review.text}</p>
                 <div className="pt-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
                   <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>Monthly total:</p>
-                  <p className="text-lg font-bold" style={{ color: 'var(--accent-gold)' }}>{review.monthly}</p>
+                  <p className="text-lg font-bold" style={{ color: 'var(--white)' }}>{review.monthly}</p>
                 </div>
               </div>
             ))}
@@ -786,7 +786,7 @@ export default function HomePage() {
           isProofVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
         }`}>
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            <span className="font-semibold" style={{ color: 'var(--accent-gold)' }}>4.8/5</span> average — based on <span className="font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>9,400+</span> builds
+            <span className="font-semibold" style={{ color: 'var(--white)' }}>4.8/5</span> average — based on <span className="font-semibold" style={{ color: 'var(--white)' }}>9,400+</span> builds
           </p>
         </div>
       </section>
@@ -828,9 +828,9 @@ export default function HomePage() {
                     activeFaqTab === idx ? '' : ''
                   }`}
                   style={{
-                    backgroundColor: activeFaqTab === idx ? 'var(--accent-gold)' : 'rgba(212, 175, 55, 0.05)',
+                    backgroundColor: activeFaqTab === idx ? 'var(--white)' : 'rgba(255, 255, 255, 0.05)',
                     color: activeFaqTab === idx ? 'var(--bg-primary)' : 'var(--text-secondary)',
-                    borderColor: activeFaqTab === idx ? 'var(--accent-gold)' : 'var(--border-color)',
+                    borderColor: activeFaqTab === idx ? 'var(--white)' : 'var(--border-color)',
                   }}
                 >
                   <p className="text-sm font-medium">{question}</p>
@@ -842,7 +842,7 @@ export default function HomePage() {
             <div className={`lg:col-span-2 transition-all duration-700 ${
               isFaqVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8 pointer-events-none'
             }`} style={{ transitionDelay: isFaqVisible ? '200ms' : '0ms' }}>
-              <div className="backdrop-blur-sm border rounded-2xl p-8 min-h-64 flex flex-col justify-between" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'var(--border-color)' }}>
+              <div className="backdrop-blur-sm border rounded-2xl p-8 min-h-64 flex flex-col justify-between" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'var(--border-color)' }}>
                 {/* Answer Content */}
                 <div className="fade-in">
                   {activeFaqTab === 0 && (
@@ -907,9 +907,9 @@ export default function HomePage() {
               }`}
               style={{
                 transitionDelay: isFaqVisible ? '300ms' : '0ms',
-                backgroundColor: 'var(--accent-gold)',
+                backgroundColor: 'var(--white)',
                 color: 'var(--bg-primary)',
-                boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
               }}
             >
               Start building
@@ -926,9 +926,9 @@ export default function HomePage() {
                 color: 'var(--text-secondary)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = 'var(--accent-gold)';
-                e.currentTarget.style.color = 'var(--accent-gold)';
-                e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.05)';
+                e.currentTarget.style.borderColor = 'var(--white)';
+                e.currentTarget.style.color = 'var(--white)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.borderColor = 'var(--border-color)';
@@ -999,7 +999,7 @@ export default function HomePage() {
                   'Blueprint not saveable',
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgba(212, 175, 55, 0.5)' }} fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgba(255, 255, 255, 0.5)' }} fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                     <span style={{ color: 'var(--text-secondary)' }}>{feature}</span>
@@ -1034,16 +1034,16 @@ export default function HomePage() {
             <div
               className="relative backdrop-blur-sm border rounded-3xl p-10 md:p-12 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col"
               style={{
-                backgroundColor: 'rgba(212, 175, 55, 0.08)',
-                borderColor: 'rgba(212, 175, 55, 0.3)',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                borderColor: 'rgba(255, 255, 255, 0.3)',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.12)';
-                e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.4)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.08)';
-                e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
               }}
             >
               {/* Most Popular Badge */}
@@ -1051,8 +1051,8 @@ export default function HomePage() {
                 <span
                   className="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider"
                   style={{
-                    backgroundColor: 'rgba(212, 175, 55, 0.2)',
-                    color: 'var(--accent-gold)',
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    color: 'var(--white)',
                   }}
                 >
                   Most Popular
@@ -1069,7 +1069,7 @@ export default function HomePage() {
 
               {/* Price */}
               <div className="mb-2">
-                <span className="text-5xl font-bold" style={{ color: 'var(--accent-gold)' }}>$2.99</span>
+                <span className="text-5xl font-bold" style={{ color: 'var(--white)' }}>$2.99</span>
                 <span style={{ color: 'var(--text-secondary)' }}> — one-time payment</span>
               </div>
               <p className="text-sm mb-10" style={{ color: 'var(--text-secondary)' }}>
@@ -1087,7 +1087,7 @@ export default function HomePage() {
                   'Editable finance panels',
                 ].map((feature, idx) => (
                   <div key={idx} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'var(--accent-gold)' }} fill="currentColor" viewBox="0 0 20 20">
+                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'var(--white)' }} fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                     <span style={{ color: 'var(--text-secondary)' }}>{feature}</span>
@@ -1100,17 +1100,17 @@ export default function HomePage() {
                 onClick={() => router.push('/redeem')}
                 className="w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 mb-4"
                 style={{
-                  backgroundColor: 'var(--accent-gold)',
+                  backgroundColor: 'var(--white)',
                   color: 'var(--bg-primary)',
-                  boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(212, 175, 55, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 255, 255, 0.35)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.25)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.25)';
                 }}
               >
                 Get Pro Access

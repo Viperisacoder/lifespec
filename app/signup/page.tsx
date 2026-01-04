@@ -46,7 +46,7 @@ function SignupContent() {
           disabled={isCreatingAccount}
           className="px-6 py-3 rounded-lg font-medium transition-all duration-300 disabled:opacity-50"
           style={{
-            backgroundColor: 'var(--accent-gold)',
+            backgroundColor: 'var(--white)',
             color: 'var(--bg-primary)',
           }}
         >

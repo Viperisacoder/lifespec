@@ -103,7 +103,7 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
       className="rounded-2xl p-6 sm:p-8 border transition-all duration-200 mb-8"
       style={{
         backgroundColor: 'var(--bg-secondary)',
-        borderColor: 'rgba(212, 175, 55, 0.2)',
+        borderColor: 'rgba(255, 255, 255, 0.2)',
       }}
     >
       <h2 className="text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>Your Inputs</h2>
@@ -122,16 +122,16 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
             className="w-full px-4 py-2 rounded-lg border transition-all focus:outline-none"
             style={{
               backgroundColor: 'var(--bg-primary)',
-              borderColor: errors.currentGrossIncomeYearly ? '#ef4444' : 'rgba(212, 175, 55, 0.2)',
+              borderColor: errors.currentGrossIncomeYearly ? '#ef4444' : 'rgba(255, 255, 255, 0.2)',
               color: 'var(--text-primary)',
               boxShadow: errors.currentGrossIncomeYearly ? 'none' : 'none',
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent-gold)';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.1)';
+              e.currentTarget.style.borderColor = 'var(--white)';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.1)';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = errors.currentGrossIncomeYearly ? '#ef4444' : 'rgba(212, 175, 55, 0.2)';
+              e.currentTarget.style.borderColor = errors.currentGrossIncomeYearly ? '#ef4444' : 'rgba(255, 255, 255, 0.2)';
               e.currentTarget.style.boxShadow = 'none';
             }}
           />
@@ -153,15 +153,15 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
             className="w-full px-4 py-2 rounded-lg border transition-all focus:outline-none"
             style={{
               backgroundColor: 'var(--bg-primary)',
-              borderColor: errors.plannedSavingsMonthly ? '#ef4444' : 'rgba(212, 175, 55, 0.2)',
+              borderColor: errors.plannedSavingsMonthly ? '#ef4444' : 'rgba(255, 255, 255, 0.2)',
               color: 'var(--text-primary)',
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent-gold)';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.1)';
+              e.currentTarget.style.borderColor = 'var(--white)';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.1)';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = errors.plannedSavingsMonthly ? '#ef4444' : 'rgba(212, 175, 55, 0.2)';
+              e.currentTarget.style.borderColor = errors.plannedSavingsMonthly ? '#ef4444' : 'rgba(255, 255, 255, 0.2)';
               e.currentTarget.style.boxShadow = 'none';
             }}
           />
@@ -185,15 +185,15 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
             className="w-full px-4 py-2 rounded-lg border transition-all focus:outline-none"
             style={{
               backgroundColor: 'var(--bg-primary)',
-              borderColor: errors.effectiveTaxRatePercent ? '#ef4444' : 'rgba(212, 175, 55, 0.2)',
+              borderColor: errors.effectiveTaxRatePercent ? '#ef4444' : 'rgba(255, 255, 255, 0.2)',
               color: 'var(--text-primary)',
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent-gold)';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.1)';
+              e.currentTarget.style.borderColor = 'var(--white)';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.1)';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = errors.effectiveTaxRatePercent ? '#ef4444' : 'rgba(212, 175, 55, 0.2)';
+              e.currentTarget.style.borderColor = errors.effectiveTaxRatePercent ? '#ef4444' : 'rgba(255, 255, 255, 0.2)';
               e.currentTarget.style.boxShadow = 'none';
             }}
           />
@@ -215,15 +215,15 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
             className="w-full px-4 py-2 rounded-lg border transition-all focus:outline-none"
             style={{
               backgroundColor: 'var(--bg-primary)',
-              borderColor: errors.otherMonthlyIncome ? '#ef4444' : 'rgba(212, 175, 55, 0.2)',
+              borderColor: errors.otherMonthlyIncome ? '#ef4444' : 'rgba(255, 255, 255, 0.2)',
               color: 'var(--text-primary)',
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent-gold)';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.1)';
+              e.currentTarget.style.borderColor = 'var(--white)';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.1)';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = errors.otherMonthlyIncome ? '#ef4444' : 'rgba(212, 175, 55, 0.2)';
+              e.currentTarget.style.borderColor = errors.otherMonthlyIncome ? '#ef4444' : 'rgba(255, 255, 255, 0.2)';
               e.currentTarget.style.boxShadow = 'none';
             }}
           />
@@ -245,15 +245,15 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
             className="w-full px-4 py-2 rounded-lg border transition-all focus:outline-none"
             style={{
               backgroundColor: 'var(--bg-primary)',
-              borderColor: errors.monthlyDebtPayments ? '#ef4444' : 'rgba(212, 175, 55, 0.2)',
+              borderColor: errors.monthlyDebtPayments ? '#ef4444' : 'rgba(255, 255, 255, 0.2)',
               color: 'var(--text-primary)',
             }}
             onFocus={(e) => {
-              e.currentTarget.style.borderColor = 'var(--accent-gold)';
-              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(212, 175, 55, 0.1)';
+              e.currentTarget.style.borderColor = 'var(--white)';
+              e.currentTarget.style.boxShadow = '0 0 0 3px rgba(255, 255, 255, 0.1)';
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = errors.monthlyDebtPayments ? '#ef4444' : 'rgba(212, 175, 55, 0.2)';
+              e.currentTarget.style.borderColor = errors.monthlyDebtPayments ? '#ef4444' : 'rgba(255, 255, 255, 0.2)';
               e.currentTarget.style.boxShadow = 'none';
             }}
           />
@@ -270,14 +270,14 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
           disabled={isSaving || Object.keys(errors).length > 0}
           className="flex-1 px-6 py-2 rounded-lg font-medium transition-all"
           style={{
-            backgroundColor: 'var(--accent-gold)',
+            backgroundColor: 'var(--white)',
             color: 'var(--bg-primary)',
             opacity: isSaving || Object.keys(errors).length > 0 ? 0.5 : 1,
             cursor: isSaving || Object.keys(errors).length > 0 ? 'not-allowed' : 'pointer',
           }}
           onMouseEnter={(e) => {
             if (!isSaving && Object.keys(errors).length === 0) {
-              e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.3)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.3)';
               e.currentTarget.style.transform = 'translateY(-2px)';
             }
           }}
@@ -294,14 +294,14 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
           style={{
             backgroundColor: 'transparent',
             color: 'var(--text-secondary)',
-            border: '1px solid rgba(212, 175, 55, 0.2)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--accent-gold)';
-            e.currentTarget.style.color = 'var(--accent-gold)';
+            e.currentTarget.style.borderColor = 'var(--white)';
+            e.currentTarget.style.color = 'var(--white)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.2)';
+            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
             e.currentTarget.style.color = 'var(--text-secondary)';
           }}
         >
@@ -311,7 +311,7 @@ export function YourInputsCard({ onInputsChange, isVisible }: YourInputsCardProp
 
       {/* Save Message */}
       {saveMessage && (
-        <p className="text-sm" style={{ color: saveMessage.includes('success') ? 'var(--accent-gold)' : '#ef4444' }}>
+        <p className="text-sm" style={{ color: saveMessage.includes('success') ? 'var(--white)' : '#ef4444' }}>
           {saveMessage}
         </p>
       )}

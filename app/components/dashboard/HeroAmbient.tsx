@@ -82,7 +82,7 @@ export default function HeroAmbient({
       {/* Subtle glow effect */}
       <div className="absolute inset-0 opacity-30"
         style={{
-          boxShadow: 'inset 0 0 100px rgba(212, 175, 55, 0.3)'
+          boxShadow: 'inset 0 0 100px rgba(255, 255, 255, 0.3)'
         }}
       />
     </div>

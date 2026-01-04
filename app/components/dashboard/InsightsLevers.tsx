@@ -88,7 +88,7 @@ export default function InsightsLevers({
           className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow"
           style={{ 
             background: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)'
           }}
         >
           <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Margin After Life</h3>
@@ -120,7 +120,7 @@ export default function InsightsLevers({
           className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow"
           style={{ 
             background: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)'
           }}
         >
           <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Lifestyle Stress Index</h3>
@@ -136,7 +136,7 @@ export default function InsightsLevers({
                   cy="50" 
                   r="40" 
                   fill="none" 
-                  stroke="rgba(212, 175, 55, 0.1)" 
+                  stroke="rgba(255, 255, 255, 0.1)" 
                   strokeWidth="8" 
                 />
                 <circle 
@@ -176,7 +176,7 @@ export default function InsightsLevers({
         className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow"
         style={{ 
           background: 'rgba(20, 20, 22, 0.7)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)'
         }}
       >
         <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Freedom Levers</h3>
@@ -188,12 +188,12 @@ export default function InsightsLevers({
               className="flex items-start animate-fade-in"
             >
               <div className="w-8 h-8 rounded-full flex items-center justify-center mr-4 mt-1" 
-                style={{ background: 'linear-gradient(135deg, var(--accent-gold), var(--accent-gold-muted))' }}>
+                style={{ background: 'linear-gradient(135deg, var(--white), var(--white))' }}>
                 <span className="text-sm font-medium text-[var(--bg-primary)]">{index + 1}</span>
               </div>
               <div>
                 <p className="text-lg font-light text-[var(--text-primary)] mb-1">{lever.description}</p>
-                <p className="text-sm text-[var(--accent-gold)]">{lever.impact}</p>
+                <p className="text-sm text-[var(--white)]">{lever.impact}</p>
               </div>
             </div>
           ))}

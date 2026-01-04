@@ -118,9 +118,9 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full px-4 py-3 font-semibold rounded-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
             style={{
-              backgroundColor: 'var(--accent-gold)',
+              backgroundColor: 'var(--white)',
               color: 'var(--bg-primary)',
-              boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+              boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
             }}
           >
             {loading ? 'Signing in...' : 'Sign in'}
@@ -133,9 +133,9 @@ export default function LoginPage() {
             <button
               onClick={() => router.push('/redeem')}
               className="font-medium transition-colors"
-              style={{ color: 'var(--accent-gold)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold-muted)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
+              style={{ color: 'var(--white)' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--white)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--white)')}
             >
               Create account after payment
             </button>

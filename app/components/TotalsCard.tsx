@@ -50,7 +50,7 @@ export function TotalsCard({ totalMonthly, totalYearly }: TotalsCardProps) {
         `}
         style={{
           backgroundColor: 'var(--bg-secondary)',
-          borderColor: isHovered ? 'var(--accent-gold)' : 'var(--border-color)',
+          borderColor: isHovered ? 'var(--white)' : 'var(--border-color)',
           borderWidth: '1px',
         }}
       >
@@ -61,13 +61,13 @@ export function TotalsCard({ totalMonthly, totalYearly }: TotalsCardProps) {
             ${isHovered ? 'opacity-100' : 'opacity-0'}
           `}
           style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08) 0%, transparent 70%)',
           }}
         />
 
         {/* Top border gradient */}
         <div className="absolute top-0 left-0 right-0 h-px" style={{
-          background: `linear-gradient(to right, var(--accent-gold) 0%, var(--accent-gold) 50%, transparent 100%)`,
+          background: `linear-gradient(to right, var(--white) 0%, var(--white) 50%, transparent 100%)`,
           opacity: isHovered ? 0.3 : 0.15,
         }} />
 
@@ -80,7 +80,7 @@ export function TotalsCard({ totalMonthly, totalYearly }: TotalsCardProps) {
 
           {/* Monthly (Hero) */}
           <div className="space-y-2">
-            <div className="text-4xl font-bold tracking-tight" style={{ color: 'var(--accent-gold)' }}>
+            <div className="text-4xl font-bold tracking-tight" style={{ color: 'var(--white)' }}>
               {formatMoney(animatedMonthly)}
             </div>
             <div className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>
@@ -90,13 +90,13 @@ export function TotalsCard({ totalMonthly, totalYearly }: TotalsCardProps) {
 
           {/* Divider */}
           <div className="h-px" style={{
-            background: `linear-gradient(to right, var(--accent-gold) 0%, transparent 100%)`,
+            background: `linear-gradient(to right, var(--white) 0%, transparent 100%)`,
             opacity: 0.2,
           }} />
 
           {/* Yearly (Secondary) */}
           <div className="space-y-2">
-            <div className="text-2xl font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>
+            <div className="text-2xl font-semibold" style={{ color: 'var(--white)' }}>
               {formatMoney(animatedYearly)}
             </div>
             <div className="text-xs font-medium uppercase tracking-wide" style={{ color: 'var(--text-secondary)' }}>

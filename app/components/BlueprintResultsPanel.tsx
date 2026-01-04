@@ -108,14 +108,14 @@ export function BlueprintResultsPanel({
               disabled={saveState === 'saving'}
               className="px-6 py-3 rounded-xl font-medium transition-all duration-300"
               style={{
-                backgroundColor: 'var(--accent-gold)',
+                backgroundColor: 'var(--white)',
                 color: 'var(--bg-primary)',
                 opacity: saveState === 'saving' ? 0.7 : 1,
                 cursor: saveState === 'saving' ? 'not-allowed' : 'pointer',
               }}
               onMouseEnter={(e) => {
                 if (saveState !== 'saving') {
-                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.3)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.3)';
                   e.currentTarget.style.transform = 'translateY(-2px)';
                 }
               }}

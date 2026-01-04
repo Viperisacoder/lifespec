@@ -156,7 +156,7 @@ export default function BlueprintsPage() {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <div className="text-center">
-          <div className="w-12 h-12 rounded-full animate-pulse mx-auto mb-4" style={{ background: 'linear-gradient(to bottom right, var(--accent-gold), var(--accent-gold-muted))' }} />
+          <div className="w-12 h-12 rounded-full animate-pulse mx-auto mb-4" style={{ background: 'linear-gradient(to bottom right, var(--white), var(--white))' }} />
           <p style={{ color: 'var(--text-secondary)' }}>Loading...</p>
         </div>
       </div>
@@ -173,11 +173,11 @@ export default function BlueprintsPage() {
             onClick={() => router.push('/wizard')}
             className="px-6 py-3 rounded-xl font-medium transition-all duration-300"
             style={{
-              backgroundColor: 'var(--accent-gold)',
+              backgroundColor: 'var(--white)',
               color: 'var(--bg-primary)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.3)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.3)';
               e.currentTarget.style.transform = 'translateY(-2px)';
             }}
             onMouseLeave={(e) => {
@@ -239,7 +239,7 @@ export default function BlueprintsPage() {
 
               <div className="flex items-start justify-between mb-4 pr-12">
                 <h2 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>Your Lifestyle Blueprint</h2>
-                <span className="text-sm px-3 py-1 rounded-full" style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent-gold)' }}>
+                <span className="text-sm px-3 py-1 rounded-full" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'var(--white)' }}>
                   Saved
                 </span>
               </div>
@@ -249,13 +249,13 @@ export default function BlueprintsPage() {
               <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6">
                 <div>
                   <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Monthly Cost</p>
-                  <p className="text-2xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+                  <p className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
                     ${blueprint.blueprint?.totalMonthly?.toLocaleString() || '0'}
                   </p>
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Yearly Cost</p>
-                  <p className="text-2xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+                  <p className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
                     ${blueprint.blueprint?.totalYearly?.toLocaleString() || '0'}
                   </p>
                 </div>
@@ -298,7 +298,7 @@ export default function BlueprintsPage() {
                       ...(prev || { taxRatePercent: 0, monthlySavings: 0 }), 
                       monthlyIncome: parseFloat(e.target.value) || 0 
                     }) as BlueprintInputs)}
-                    className="w-full px-8 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] transition-all"
+                    className="w-full px-8 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--white)] transition-all"
                     style={{
                       backgroundColor: 'rgba(255, 255, 255, 0.05)',
                       borderColor: 'var(--border-color)',
@@ -323,7 +323,7 @@ export default function BlueprintsPage() {
                       ...(prev || { monthlyIncome: 0, monthlySavings: 0 }), 
                       taxRatePercent: parseFloat(e.target.value) || 0 
                     }) as BlueprintInputs)}
-                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] transition-all"
+                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--white)] transition-all"
                     style={{
                       backgroundColor: 'rgba(255, 255, 255, 0.05)',
                       borderColor: 'var(--border-color)',
@@ -347,7 +347,7 @@ export default function BlueprintsPage() {
                       ...(prev || { monthlyIncome: 0, taxRatePercent: 0 }), 
                       monthlySavings: parseFloat(e.target.value) || 0 
                     }) as BlueprintInputs)}
-                    className="w-full px-8 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] transition-all"
+                    className="w-full px-8 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--white)] transition-all"
                     style={{
                       backgroundColor: 'rgba(255, 255, 255, 0.05)',
                       borderColor: 'var(--border-color)',
@@ -370,7 +370,7 @@ export default function BlueprintsPage() {
                     const val = e.target.value ? parseInt(e.target.value) : null;
                     setCurrentAge(val && val >= 0 && val <= 120 ? val : null);
                   }}
-                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] transition-all"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--white)] transition-all"
                   style={{
                     backgroundColor: 'rgba(255, 255, 255, 0.05)',
                     borderColor: 'var(--border-color)',
@@ -391,7 +391,7 @@ export default function BlueprintsPage() {
                     step="0.1"
                     value={annualIncomeGrowth}
                     onChange={(e) => setAnnualIncomeGrowth(parseFloat(e.target.value) || 0)}
-                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent-gold)] transition-all"
+                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--white)] transition-all"
                     style={{
                       backgroundColor: 'rgba(255, 255, 255, 0.05)',
                       borderColor: 'var(--border-color)',
@@ -441,7 +441,7 @@ export default function BlueprintsPage() {
                       {/* Net Monthly Income */}
                       <div className="rounded-xl p-4 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)]">
                         <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Net Monthly Income</p>
-                        <p className="text-2xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+                        <p className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
                           ${net_monthly.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                         </p>
                       </div>
@@ -471,7 +471,7 @@ export default function BlueprintsPage() {
                       {/* Buffer Ratio */}
                       <div className="rounded-xl p-4 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)]">
                         <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Buffer Ratio</p>
-                        <p className="text-2xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+                        <p className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
                           {((bufferRatio || 0) * 100).toFixed(1)}%
                         </p>
                         <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
@@ -486,7 +486,7 @@ export default function BlueprintsPage() {
                           <div className="rounded-xl p-4 bg-[rgba(255,255,255,0.03)] border border-[rgba(255,255,255,0.06)]">
                             <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Millionaire Age</p>
                             <p className="text-2xl font-bold" style={{ 
-                              color: millionaireData.age === 'NA' ? 'var(--text-secondary)' : 'var(--accent-gold)'
+                              color: millionaireData.age === 'NA' ? 'var(--text-secondary)' : 'var(--white)'
                             }}>
                               {millionaireData.age}
                             </p>
@@ -512,7 +512,7 @@ export default function BlueprintsPage() {
                             <p className="text-2xl font-bold" style={{ 
                               color: goalData.age === 'NA' ? 'var(--text-secondary)' : 
                                      goalData.age === 'Not possible' ? '#EF4444' :
-                                     'var(--accent-gold)'
+                                     'var(--white)'
                             }}>
                               {goalData.age}
                             </p>

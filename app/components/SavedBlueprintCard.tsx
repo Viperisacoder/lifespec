@@ -45,7 +45,7 @@ export function SavedBlueprintCard({ blueprint }: SavedBlueprintCardProps) {
           <h2 className="text-2xl font-semibold" style={{ color: 'var(--text-primary)' }}>
             {blueprint.title}
           </h2>
-          <span className="text-sm px-3 py-1 rounded-full" style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)', color: 'var(--accent-gold)' }}>
+          <span className="text-sm px-3 py-1 rounded-full" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)', color: 'var(--white)' }}>
             Saved
           </span>
         </div>
@@ -55,13 +55,13 @@ export function SavedBlueprintCard({ blueprint }: SavedBlueprintCardProps) {
         <div className="grid grid-cols-2 gap-4 sm:gap-6 mb-6">
           <div>
             <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Monthly Cost</p>
-            <p className="text-2xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+            <p className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
               {formatMoney(blueprint.payload.totalMonthly)}
             </p>
           </div>
           <div>
             <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Yearly Cost</p>
-            <p className="text-2xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+            <p className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
               {formatMoney(blueprint.payload.totalYearly)}
             </p>
           </div>

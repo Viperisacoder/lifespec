@@ -73,7 +73,7 @@ export function ProPaywall({ children, fallback }: ProPaywallProps) {
   if (!isPro) {
     return (
       fallback || (
-        <div className="rounded-2xl p-8 border" style={{ backgroundColor: 'rgba(212, 175, 55, 0.05)', borderColor: 'rgba(212, 175, 55, 0.2)' }}>
+        <div className="rounded-2xl p-8 border" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
           <div className="text-center max-w-md mx-auto">
             <h3 className="text-2xl font-bold mb-3" style={{ color: '#FFFFFF' }}>
               Pro Feature
@@ -89,15 +89,15 @@ export function ProPaywall({ children, fallback }: ProPaywallProps) {
                 style={{
                   backgroundColor: '#D4AF37',
                   color: '#0E0E0E',
-                  boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                  boxShadow: '0 10px 25px rgba(255, 255, 255, 0.25)',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(212, 175, 55, 0.35)';
+                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(255, 255, 255, 0.35)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.25)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(255, 255, 255, 0.25)';
                 }}
               >
                 Pay $2.99 for Pro
@@ -109,15 +109,15 @@ export function ProPaywall({ children, fallback }: ProPaywallProps) {
                 style={{
                   backgroundColor: 'transparent',
                   color: '#D4AF37',
-                  borderColor: 'rgba(212, 175, 55, 0.3)',
+                  borderColor: 'rgba(255, 255, 255, 0.3)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.1)';
-                  e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.5)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.5)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
                 }}
               >
                 Already paid? Create account

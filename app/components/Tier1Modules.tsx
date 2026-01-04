@@ -18,11 +18,11 @@ export function Tier1Modules({ results }: Tier1ModulesProps) {
             className="rounded-2xl p-6 border transition-all duration-200"
             style={{
               backgroundColor: 'var(--bg-secondary)',
-              borderColor: 'rgba(212, 175, 55, 0.2)',
+              borderColor: 'rgba(255, 255, 255, 0.2)',
             }}
           >
             <p className="text-xs uppercase tracking-wide mb-3" style={{ color: 'var(--text-secondary)' }}>{key}</p>
-            <p className="text-2xl font-bold" style={{ color: 'var(--accent-gold)' }}>
+            <p className="text-2xl font-bold" style={{ color: 'var(--white)' }}>
               {typeof value === 'number' ? value.toLocaleString() : JSON.stringify(value)}
             </p>
           </div>

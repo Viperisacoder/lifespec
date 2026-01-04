@@ -74,7 +74,7 @@ export function AppHeader() {
           onClick={() => router.push('/')}
           className="text-xl md:text-2xl font-light tracking-widest transition-colors duration-300"
           style={{ color: 'var(--text-primary)' }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
+          onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--white)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
         >
           Life<span className="font-semibold">Spec</span>
@@ -83,7 +83,7 @@ export function AppHeader() {
         {/* Right: Auth State */}
         <div className="flex items-center gap-4">
           {loading ? (
-            <div className="w-10 h-10 rounded-full animate-pulse" style={{ backgroundColor: 'rgba(212, 175, 55, 0.1)' }} />
+            <div className="w-10 h-10 rounded-full animate-pulse" style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }} />
           ) : user ? (
             /* Logged In: Profile Dropdown */
             <div className="relative" ref={dropdownRef}>
@@ -91,12 +91,12 @@ export function AppHeader() {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="flex items-center gap-3 px-4 py-2 rounded-full border transition-all duration-300"
                 style={{
-                  backgroundColor: 'rgba(212, 175, 55, 0.08)',
-                  borderColor: dropdownOpen ? 'var(--accent-gold)' : 'var(--border-color)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  borderColor: dropdownOpen ? 'var(--white)' : 'var(--border-color)',
                 }}
               >
                 {/* Avatar Circle */}
-                <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold" style={{ backgroundColor: 'var(--accent-gold)', color: 'var(--bg-primary)' }}>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold" style={{ backgroundColor: 'var(--white)', color: 'var(--bg-primary)' }}>
                   {initials}
                 </div>
                 {/* Name */}
@@ -130,7 +130,7 @@ export function AppHeader() {
                     className="w-full px-4 py-3 text-left text-sm transition-colors duration-200 flex items-center gap-2 hover:bg-white/5"
                     style={{ color: 'var(--text-primary)' }}
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--accent-gold)' }}>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style={{ color: 'var(--white)' }}>
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h12a1 1 0 001-1V9m-9 11l4-4m0 0l4 4m-4-4V3" />
                     </svg>
                     Dashboard
@@ -161,9 +161,9 @@ export function AppHeader() {
                   borderWidth: '1px',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--accent-gold)';
-                  e.currentTarget.style.borderColor = 'var(--accent-gold)';
-                  e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.08)';
+                  e.currentTarget.style.color = 'var(--white)';
+                  e.currentTarget.style.borderColor = 'var(--white)';
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.color = 'var(--text-secondary)';
@@ -178,7 +178,7 @@ export function AppHeader() {
                   onClick={() => router.push('/signup')}
                   className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300"
                   style={{
-                    backgroundColor: 'var(--accent-gold)',
+                    backgroundColor: 'var(--white)',
                     color: 'var(--bg-primary)',
                   }}
                 >

@@ -16,7 +16,7 @@ export default function ContactPage() {
         <div
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-96 opacity-20"
           style={{
-            background: 'radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%)',
+            background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
           }}
         />
       </div>
@@ -42,10 +42,10 @@ export default function ContactPage() {
           {/* Email Section */}
           <div>
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: 'rgba(212, 175, 55, 0.15)' }}>
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)' }}>
                 <svg
                   className="w-6 h-6"
-                  style={{ color: 'var(--accent-gold)' }}
+                  style={{ color: 'var(--white)' }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -66,7 +66,7 @@ export default function ContactPage() {
                   href="mailto:mylifespec@outlook.com"
                   className="transition-colors duration-300 break-all"
                   style={{ color: 'var(--text-secondary)' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--white)')}
                   onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
                 >
                   mylifespec@outlook.com
@@ -79,10 +79,10 @@ export default function ContactPage() {
           <div>
             <div className="flex items-start gap-4">
               {/* Location Icon */}
-              <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: 'rgba(212, 175, 55, 0.15)' }}>
+              <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 mt-1" style={{ backgroundColor: 'rgba(255, 255, 255, 0.15)' }}>
                 <svg
                   className="w-6 h-6"
-                  style={{ color: 'var(--accent-gold)' }}
+                  style={{ color: 'var(--white)' }}
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

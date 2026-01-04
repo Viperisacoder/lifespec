@@ -107,7 +107,7 @@ export default function BlueprintViewPage() {
 
         {/* Main Stats */}
         <div className="mb-8 sm:mb-12">
-          <div className="text-4xl sm:text-6xl font-bold mb-2" style={{ color: 'var(--accent-gold)' }}>
+          <div className="text-4xl sm:text-6xl font-bold mb-2" style={{ color: 'var(--white)' }}>
             {formatMonthly(blueprint.blueprint?.totalMonthly || 0)}
           </div>
           <p className="text-xs sm:text-sm" style={{ color: 'var(--text-secondary)' }}>Monthly Lifestyle Cost</p>
@@ -117,7 +117,7 @@ export default function BlueprintViewPage() {
         <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-12">
           <div className="backdrop-blur-sm border rounded-xl p-3 sm:p-4" style={{ backgroundColor: 'var(--bg-secondary)', borderColor: 'var(--border-color)' }}>
             <p className="text-xs uppercase tracking-wide mb-1" style={{ color: 'var(--text-secondary)' }}>Yearly Lifestyle Cost</p>
-            <p className="text-lg sm:text-2xl font-semibold" style={{ color: 'var(--accent-gold-muted)' }}>
+            <p className="text-lg sm:text-2xl font-semibold" style={{ color: 'var(--white)' }}>
               {formatMoney(blueprint.blueprint?.totalYearly || 0)}
             </p>
           </div>

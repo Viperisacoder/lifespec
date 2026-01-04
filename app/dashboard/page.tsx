@@ -138,14 +138,14 @@ export default function DashboardPage() {
             style={{
               backgroundColor: '#D4AF37',
               color: '#0E0E0E',
-              boxShadow: '0 8px 24px rgba(212, 175, 55, 0.3)',
+              boxShadow: '0 8px 24px rgba(255, 255, 255, 0.3)',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 12px 32px rgba(212, 175, 55, 0.4)';
+              e.currentTarget.style.boxShadow = '0 12px 32px rgba(255, 255, 255, 0.4)';
               e.currentTarget.style.transform = 'translateY(-2px)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 8px 24px rgba(212, 175, 55, 0.3)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(255, 255, 255, 0.3)';
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
@@ -625,7 +625,7 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
           <defs>
             {/* Gradient for line */}
             <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="rgba(212, 175, 55, 0.6)" />
+              <stop offset="0%" stopColor="rgba(255, 255, 255, 0.6)" />
               <stop offset="100%" stopColor="rgba(255, 255, 255, 0.8)" />
             </linearGradient>
             
@@ -787,7 +787,7 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
       {/* Legend */}
       <div style={{ marginTop: '32px', display: 'flex', gap: '40px', fontSize: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(to right, rgba(212, 175, 55, 0.6), rgba(255, 255, 255, 0.8))' }} />
+          <div style={{ width: '24px', height: '2.5px', background: 'linear-gradient(to right, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.8))' }} />
           <span style={{ color: '#999' }}>Net Worth Over Time</span>
         </div>
         {millionaireX !== null && (

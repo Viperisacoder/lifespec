@@ -89,7 +89,7 @@ export default function RealitySnapshot({
           className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow"
           style={{ 
             background: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)'
           }}
         >
           <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Lifestyle Cost</h3>
@@ -152,7 +152,7 @@ export default function RealitySnapshot({
           className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow"
           style={{ 
             background: 'rgba(20, 20, 22, 0.7)',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)'
           }}
         >
           <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Income Reality</h3>
@@ -188,7 +188,7 @@ export default function RealitySnapshot({
             
             {/* Current Income Marker */}
             <div 
-              className="absolute top-0 h-6 w-1 bg-[var(--accent-gold)] rounded-full animate-fade-in"
+              className="absolute top-0 h-6 w-1 bg-[var(--white)] rounded-full animate-fade-in"
               style={{ 
                 left: `${Math.max(5, Math.min(95, (incomeReality.current / incomeReality.required) * 70))}%` 
               }}
@@ -221,7 +221,7 @@ export default function RealitySnapshot({
         className="relative overflow-hidden rounded-2xl p-8 hover:shadow-lg transition-shadow animate-fade-in"
         style={{ 
           background: 'rgba(20, 20, 22, 0.7)',
-          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(212, 175, 55, 0.05)'
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.05)'
         }}
       >
         <h3 className="text-lg font-light mb-6 text-[var(--text-secondary)]">Time Pressure</h3>
