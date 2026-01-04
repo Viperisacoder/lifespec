@@ -8,7 +8,20 @@ export function AppHeader() {
   const router = useRouter();
   const { user, loading, signOut } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [hasPaypalCookie, setHasPaypalCookie] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const checkPaypalCookie = () => {
+      const cookies = document.cookie.split(';');
+      const hasPaypal = cookies.some(cookie => 
+        cookie.trim().startsWith('ls_paypal_return=')
+      );
+      setHasPaypalCookie(hasPaypal);
+    };
+
+    checkPaypalCookie();
+  }, []);
 
   const displayName = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
   const initials = displayName
@@ -141,23 +154,37 @@ export function AppHeader() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => router.push('/login')}
-                className="px-4 py-2 text-sm font-medium transition-colors duration-300"
-                style={{ color: 'var(--text-secondary)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-primary)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-secondary)')}
+                className="px-4 py-2 text-sm font-medium rounded-lg border transition-all duration-300 hover:border-opacity-100"
+                style={{
+                  color: 'var(--text-secondary)',
+                  borderColor: 'var(--border-color)',
+                  borderWidth: '1px',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = 'var(--accent-gold)';
+                  e.currentTarget.style.borderColor = 'var(--accent-gold)';
+                  e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                  e.currentTarget.style.borderColor = 'var(--border-color)';
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
               >
                 Log in
               </button>
-              <button
-                onClick={() => router.push('/signup')}
-                className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300"
-                style={{
-                  backgroundColor: 'var(--accent-gold)',
-                  color: 'var(--bg-primary)',
-                }}
-              >
-                Sign up
-              </button>
+              {hasPaypalCookie && (
+                <button
+                  onClick={() => router.push('/signup')}
+                  className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300"
+                  style={{
+                    backgroundColor: 'var(--accent-gold)',
+                    color: 'var(--bg-primary)',
+                  }}
+                >
+                  Sign up
+                </button>
+              )}
             </div>
           )}
         </div>

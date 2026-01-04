@@ -942,6 +942,192 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Pricing Section */}
+      <section className="relative py-20 md:py-28 px-8 md:px-12 overflow-hidden" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <div className="relative z-10 max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16 md:mb-20">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
+              Start Free. Upgrade When You're Ready.
+            </h2>
+            <p className="text-lg max-w-3xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
+              LifeSpec is free to start — build your first lifestyle blueprint, see your lifestyle cost, then upgrade to understand how to afford it.
+            </p>
+          </div>
+
+          {/* Pricing Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+            {/* Free Plan Card */}
+            <div
+              className="relative backdrop-blur-sm border rounded-3xl p-10 md:p-12 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col"
+              style={{
+                backgroundColor: 'rgba(255, 255, 255, 0.03)',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.03)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              }}
+            >
+              {/* Plan Title */}
+              <h3 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                Free
+              </h3>
+              <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
+                Build your first lifestyle blueprint
+              </p>
+
+              {/* Price */}
+              <div className="mb-2">
+                <span className="text-5xl font-bold" style={{ color: 'var(--text-primary)' }}>$0</span>
+              </div>
+              <p className="text-sm mb-10" style={{ color: 'var(--text-secondary)' }}>
+                Forever free
+              </p>
+
+              {/* Features List */}
+              <div className="space-y-4 mb-10 flex-1">
+                {[
+                  '1 Lifestyle Blueprint',
+                  'View monthly lifestyle cost',
+                  'Required income estimate',
+                  'Basic affordability snapshot',
+                  'Blueprint not saveable',
+                ].map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgba(212, 175, 55, 0.5)' }} fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    <span style={{ color: 'var(--text-secondary)' }}>{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <button
+                className="w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 border"
+                style={{
+                  backgroundColor: 'transparent',
+                  borderColor: 'rgba(255, 255, 255, 0.2)',
+                  color: 'var(--text-secondary)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.05)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                  e.currentTarget.style.color = 'var(--text-primary)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                }}
+              >
+                Start Free
+              </button>
+            </div>
+
+            {/* Pro Plan Card */}
+            <div
+              className="relative backdrop-blur-sm border rounded-3xl p-10 md:p-12 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col"
+              style={{
+                backgroundColor: 'rgba(212, 175, 55, 0.08)',
+                borderColor: 'rgba(212, 175, 55, 0.3)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.12)';
+                e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(212, 175, 55, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+              }}
+            >
+              {/* Most Popular Badge */}
+              <div className="mb-6 inline-block">
+                <span
+                  className="px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider"
+                  style={{
+                    backgroundColor: 'rgba(212, 175, 55, 0.2)',
+                    color: 'var(--accent-gold)',
+                  }}
+                >
+                  Most Popular
+                </span>
+              </div>
+
+              {/* Plan Title */}
+              <h3 className="text-3xl font-bold mb-2" style={{ color: 'var(--text-primary)' }}>
+                Pro
+              </h3>
+              <p className="text-lg mb-8" style={{ color: 'var(--text-secondary)' }}>
+                Turn your blueprint into a real financial plan
+              </p>
+
+              {/* Price */}
+              <div className="mb-2">
+                <span className="text-5xl font-bold" style={{ color: 'var(--accent-gold)' }}>$2.99</span>
+                <span style={{ color: 'var(--text-secondary)' }}> — one-time payment</span>
+              </div>
+              <p className="text-sm mb-10" style={{ color: 'var(--text-secondary)' }}>
+                Pay once. Lifetime access.
+              </p>
+
+              {/* Features List */}
+              <div className="space-y-4 mb-10 flex-1">
+                {[
+                  'Unlimited Lifestyle Blueprints',
+                  'Save & edit blueprints',
+                  'Affordability timeline',
+                  'Millionaire age calculator',
+                  'Personal finance calculator',
+                  'Editable finance panels',
+                ].map((feature, idx) => (
+                  <div key={idx} className="flex items-start gap-3">
+                    <svg className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'var(--accent-gold)' }} fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                    <span style={{ color: 'var(--text-secondary)' }}>{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <button
+                onClick={() => router.push('/redeem')}
+                className="w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 mb-4"
+                style={{
+                  backgroundColor: 'var(--accent-gold)',
+                  color: 'var(--bg-primary)',
+                  boxShadow: '0 10px 25px rgba(212, 175, 55, 0.25)',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 15px 35px rgba(212, 175, 55, 0.35)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.25)';
+                }}
+              >
+                Get Pro Access
+              </button>
+
+              {/* Subtext */}
+              <p className="text-xs text-center mb-3" style={{ color: 'var(--text-secondary)' }}>
+                No subscription. No recurring fees.
+              </p>
+              <p className="text-xs text-center" style={{ color: 'rgba(255, 255, 255, 0.5)' }}>
+                Pay once, access forever.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

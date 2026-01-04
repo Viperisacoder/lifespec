@@ -1,9 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { LegacyIcon, SafetyIcon } from '@/app/components/icons/LifeSpecIcons';
 import { TotalsCard } from '@/app/components/TotalsCard';
 import { TotalsMobileBar } from '@/app/components/TotalsMobileBar';
+import { supabase } from '@/lib/supabaseClient';
+import { saveBlueprint, PENDING_BLUEPRINT_KEY } from '@/lib/blueprintService';
+import { BlueprintPayload } from '@/lib/blueprintTypes';
 
 type PricingType = 'purchase' | 'monthly' | 'yearly';
 type CategoryId = 'home' | 'vehicles' | 'jewellery' | 'services' | 'travel' | 'wardrobe' | 'food' | 'wellness' | 'legacy' | 'safety' | 'toys';
@@ -476,8 +480,10 @@ interface ResultsScreenProps {
 }
 
 function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCategory }: ResultsScreenProps) {
+  const router = useRouter();
   const [showAffordability, setShowAffordability] = useState(false);
   const [netMonthlyInput, setNetMonthlyInput] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   const requiredGrossMonthly = totalMonthly / 0.45;
   const requiredGrossYearly = requiredGrossMonthly * 12;
@@ -486,6 +492,58 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
   const grossMonthly = netMonthly > 0 ? netMonthly / 0.75 : 0;
   const spendableMonthly = grossMonthly * 0.70;
   const progressPct = netMonthly > 0 ? Math.min((spendableMonthly / totalMonthly) * 100, 100) : 0;
+
+  // These functions are not used in the simplified version
+
+  const handleSaveBlueprint = async () => {
+    setIsSaving(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      const requiredGrossMonthly = totalMonthly / 0.45;
+      const requiredGrossYearly = requiredGrossMonthly * 12;
+
+      const payload: BlueprintPayload = {
+        totalMonthly,
+        totalYearly: Math.round(totalMonthly * 12 / 10) * 10,
+        requiredGrossYearly: Math.round(requiredGrossYearly),
+        timestamp: new Date().toISOString(),
+      };
+
+      if (user) {
+        const result = await saveBlueprint(payload);
+        if (result.success) {
+          alert('Blueprint saved successfully!');
+        } else {
+          // Extract user-friendly error message
+          const errorMsg = result.error?.message || result.reason || 'Unknown error';
+          const errorCode = result.error?.code ? ` (${result.error.code})` : '';
+          const errorHint = result.error?.hint ? `\n\nTip: ${result.error.hint}` : '';
+          
+          console.error('[handleSaveBlueprint] Save failed:', {
+            reason: result.reason,
+            error: result.error,
+          });
+          
+          alert(`Failed to save blueprint: ${errorMsg}${errorCode}${errorHint}`);
+        }
+      } else {
+        // Store in localStorage for later retrieval
+        localStorage.setItem(PENDING_BLUEPRINT_KEY, JSON.stringify({
+          blueprint_json: payload,
+          name: 'My Blueprint'
+        }));
+        alert('Blueprint saved temporarily. Please sign up to save permanently.');
+        router.push('/signup?next=/blueprints');
+      }
+    } catch (error) {
+      console.error('[handleSaveBlueprint] Unexpected error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      alert(`Failed to save blueprint: ${errorMessage}`);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <div className={`py-8 sm:py-16 transition-all duration-300 ease-out opacity-100 translate-y-0 relative`}>
@@ -650,6 +708,33 @@ function ResultsScreen({ totalMonthly, steps, allSelections, customOptionsByCate
             })}
           </div>
         </div>
+      </div>
+
+      {/* Save Blueprint Button - Bottom Left */}
+      <div className="fixed bottom-8 left-8 z-50">
+        <button
+          onClick={handleSaveBlueprint}
+          disabled={isSaving}
+          className="group relative px-6 py-3 text-sm font-medium transition-all duration-300 rounded-xl overflow-hidden"
+          style={{
+            backgroundColor: 'var(--accent-gold)',
+            color: 'var(--bg-primary)',
+            opacity: isSaving ? 0.7 : 1,
+            cursor: isSaving ? 'not-allowed' : 'pointer',
+          }}
+          onMouseEnter={(e) => {
+            if (!isSaving) {
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.3)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.boxShadow = 'none';
+            e.currentTarget.style.transform = 'translateY(0)';
+          }}
+        >
+          {isSaving ? 'Saving...' : 'Save blueprint'}
+        </button>
       </div>
 
     </div>

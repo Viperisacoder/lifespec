@@ -129,15 +129,15 @@ export default function LoginPage() {
 
         <div className="mt-6 text-center">
           <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-            Don't have an account?{' '}
+            New to LifeSpec?{' '}
             <button
-              onClick={() => router.push('/signup')}
+              onClick={() => router.push('/redeem')}
               className="font-medium transition-colors"
               style={{ color: 'var(--accent-gold)' }}
               onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent-gold-muted)')}
               onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--accent-gold)')}
             >
-              Sign up
+              Create account after payment
             </button>
           </p>
         </div>
