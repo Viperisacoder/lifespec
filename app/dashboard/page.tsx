@@ -583,9 +583,9 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
   if (yAxisMax >= 2000000) yTicks.push(2000000);
   if (yAxisMax >= 3000000) yTicks.push(3000000);
 
-  const graphHeight = 480;
+  const graphHeight = 500;
   const graphWidth = 1400;
-  const padding = { top: 40, right: 60, bottom: 120, left: 140 };
+  const padding = { top: 40, right: 80, bottom: 140, left: 140 };
   const innerWidth = graphWidth - padding.left - padding.right;
   const innerHeight = graphHeight - padding.top - padding.bottom;
 
@@ -613,12 +613,12 @@ function TimelineGraph({ financeData, blueprint }: { financeData: FinanceData; b
         </p>
       </div>
       
-      <div style={{ width: '100%', overflowX: 'auto', display: 'flex', justifyContent: 'center', overflow: 'visible' }}>
+      <div style={{ width: '100%', overflowX: 'auto', display: 'flex', justifyContent: 'center' }}>
         <svg 
           ref={svgRef}
           width={graphWidth} 
           height={graphHeight} 
-          style={{ minWidth: '100%', maxWidth: '100%', cursor: 'crosshair', overflow: 'visible' }}
+          style={{ minWidth: '100%', maxWidth: '100%', cursor: 'crosshair' }}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - rect.left;
