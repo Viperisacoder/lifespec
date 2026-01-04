@@ -14,9 +14,11 @@ export function ActionBar({ onBack, onFinish, isLoading = false }: ActionBarProp
       className="fixed bottom-0 left-0 right-0 z-50 border-t"
       style={{
         backgroundColor: `rgb(var(--panel) / 0.95)`,
-        borderColor: 'rgb(var(--border))',
+        borderColor: 'rgb(var(--gold))',
+        borderTopWidth: '2px',
         backdropFilter: 'blur(10px)',
         height: '72px',
+        boxShadow: '0 -4px 20px rgba(213, 160, 33, 0.1)',
       }}
     >
       <div className="h-full max-w-6xl mx-auto px-8 flex items-center justify-between">
@@ -24,15 +26,15 @@ export function ActionBar({ onBack, onFinish, isLoading = false }: ActionBarProp
         <button
           onClick={onBack}
           className="text-sm font-medium transition-colors duration-300 hover:text-opacity-100"
-          style={{ color: 'rgb(var(--muted))' }}
+          style={{ color: 'rgb(var(--gold))' }}
           onMouseEnter={(e) => (e.currentTarget.style.color = 'rgb(var(--text))')}
-          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(var(--muted))')}
+          onMouseLeave={(e) => (e.currentTarget.style.color = 'rgb(var(--gold))')}
         >
           ← Back
         </button>
 
         {/* Center Text */}
-        <p className="text-xs" style={{ color: 'rgb(var(--muted-2))' }}>
+        <p className="text-xs" style={{ color: 'rgb(var(--gold))' }}>
           You can refine this later.
         </p>
 

@@ -63,14 +63,15 @@ export function FinancialCard({
                   className="flex items-baseline gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-opacity-50"
                   style={{
                     backgroundColor: `rgb(var(--panel-2) / 0.5)`,
-                    borderLeft: '3px solid rgb(var(--gold))',
+                    borderLeft: '4px solid rgb(var(--gold))',
+                    boxShadow: '0 0 20px rgba(213, 160, 33, 0.1)',
                   }}
                 >
                   <div className="flex-1">
                     <p className="text-sm font-medium mb-1" style={{ color: 'rgb(var(--muted))' }}>
                       Monthly Lifestyle Cost
                     </p>
-                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--text))' }}>
+                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--gold))' }}>
                       ${monthlyTotal.toLocaleString()}
                     </p>
                   </div>
@@ -83,14 +84,15 @@ export function FinancialCard({
                   className="flex items-baseline gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-opacity-50"
                   style={{
                     backgroundColor: `rgb(var(--panel-2) / 0.5)`,
-                    borderLeft: '3px solid rgb(var(--gold))',
+                    borderLeft: '4px solid rgb(var(--gold))',
+                    boxShadow: '0 0 20px rgba(213, 160, 33, 0.1)',
                   }}
                 >
                   <div className="flex-1">
                     <p className="text-sm font-medium mb-1" style={{ color: 'rgb(var(--muted))' }}>
                       Yearly Lifestyle Cost
                     </p>
-                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--text))' }}>
+                    <p className="text-4xl font-bold" style={{ color: 'rgb(var(--gold))' }}>
                       ${yearlyTotal.toLocaleString()}
                     </p>
                   </div>
@@ -102,8 +104,9 @@ export function FinancialCard({
                 <div
                   className="flex items-baseline gap-4 p-4 rounded-lg transition-all duration-300 hover:bg-opacity-50"
                   style={{
-                    backgroundColor: `rgb(var(--panel-2) / 0.5)`,
-                    borderLeft: '3px solid rgb(var(--gold))',
+                    backgroundColor: `rgb(var(--panel-2) / 0.8)`,
+                    borderLeft: '4px solid rgb(var(--gold))',
+                    boxShadow: '0 0 30px rgba(213, 160, 33, 0.2)',
                   }}
                 >
                   <div className="flex-1">
@@ -144,16 +147,17 @@ export function FinancialCard({
                     className="w-full flex items-center justify-between py-3 px-4 rounded-lg transition-all duration-300 hover:bg-opacity-50"
                     style={{
                       backgroundColor: `rgb(var(--panel-2) / 0.3)`,
+                      borderLeft: '3px solid rgb(var(--gold))',
                     }}
                   >
                     <p
                       className="text-sm font-semibold uppercase tracking-wider"
-                      style={{ color: 'rgb(var(--text))' }}
+                      style={{ color: 'rgb(var(--gold))' }}
                     >
                       {section.category}
                     </p>
                     <span
-                      style={{ color: 'rgb(var(--muted))' }}
+                      style={{ color: 'rgb(var(--gold))' }}
                       className={`transition-transform duration-300 ${
                         expandedSections[section.category] ? 'rotate-180' : ''
                       }`}
@@ -171,12 +175,13 @@ export function FinancialCard({
                           className="flex items-center justify-between py-2 px-3 rounded transition-all duration-300 hover:translate-x-1"
                           style={{
                             backgroundColor: `rgb(var(--panel-2) / 0.2)`,
+                            borderLeft: '2px solid rgb(var(--gold))',
                           }}
                         >
                           <p className="text-sm" style={{ color: 'rgb(var(--muted))' }}>
                             {item.name}
                           </p>
-                          <p className="text-sm font-semibold" style={{ color: 'rgb(var(--text))' }}>
+                          <p className="text-sm font-semibold" style={{ color: 'rgb(var(--gold))' }}>
                             +${item.monthly.toLocaleString()}
                           </p>
                         </div>
@@ -188,7 +193,8 @@ export function FinancialCard({
                   <div
                     className="mt-4 h-px"
                     style={{
-                      background: `linear-gradient(90deg, rgb(var(--border)), transparent)`,
+                      background: `linear-gradient(90deg, rgb(var(--gold)), transparent)`,
+                      opacity: 0.4,
                     }}
                   />
                 </div>
