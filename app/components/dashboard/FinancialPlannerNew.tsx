@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from 'react';
 import { SavedBlueprint } from '@/lib/blueprintTypes';
-import { calculateCashflow, PRESET_PROFILES, PlannerInputs } from '@/lib/finance/cashflow';
+import { calculateCashflow, PRESET_PROFILES, PlannerInputs, DEFAULT_INPUTS, validateInputs, sanitizeCurrencyInput, normalizePercent } from '@/lib/finance/cashflow';
 import { formatCurrencyDetailed, formatPercent } from '@/lib/finance/format';
 
 interface FinancialPlannerNewProps {
@@ -12,13 +12,16 @@ interface FinancialPlannerNewProps {
 }
 
 export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }: FinancialPlannerNewProps) {
-  const [inputs, setInputs] = useState<PlannerInputs>({
-    grossYearly: financeData.annual_income || 150000,
-    taxRate: 0.28,
-    savingsRate: 0.25,
-    returnRate: 0.08,
-    startingNetWorth: 0,
-  });
+  // Initialize with validated defaults
+  const [inputs, setInputs] = useState<PlannerInputs>(() =>
+    validateInputs({
+      grossYearly: financeData.annual_income || DEFAULT_INPUTS.grossYearly,
+      taxRate: DEFAULT_INPUTS.taxRate,
+      savingsRate: DEFAULT_INPUTS.savingsRate,
+      returnRate: DEFAULT_INPUTS.returnRate,
+      startingNetWorth: DEFAULT_INPUTS.startingNetWorth,
+    })
+  );
 
   const [plannedBudgets, setPlannedBudgets] = useState<Record<string, number>>(() => {
     const budgets: Record<string, number> = {};
@@ -28,10 +31,21 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
     return budgets;
   });
 
-  const plannedLifestyleMonthly = useMemo(
-    () => Object.values(plannedBudgets).reduce((sum, val) => sum + (val || 0), 0),
-    [plannedBudgets]
+  // Blueprint total for fallback
+  const blueprintMonthlyTotal = useMemo(
+    () => blueprint?.blueprint?.selections?.reduce((sum: number, sel: any) => sum + (sel.totalMonthly || 0), 0) || 0,
+    [blueprint]
   );
+
+  // Planned lifestyle: use plannedBudgets if has rows, else fallback to blueprint total
+  const plannedLifestyleMonthly = useMemo(() => {
+    const plannedTotal = Object.values(plannedBudgets).reduce((sum, val) => sum + (val || 0), 0);
+    // If no planned budgets but blueprint exists, use blueprint total
+    if (plannedTotal === 0 && blueprintMonthlyTotal > 0) {
+      return blueprintMonthlyTotal;
+    }
+    return plannedTotal;
+  }, [plannedBudgets, blueprintMonthlyTotal]);
 
   const cashflow = useMemo(
     () => calculateCashflow(inputs, plannedLifestyleMonthly),
@@ -47,13 +61,28 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
     [blueprint]
   );
 
-  const handleInputChange = (key: keyof PlannerInputs, value: number) => {
-    setInputs((prev) => ({ ...prev, [key]: Math.max(0, value) }));
+  const handleInputChange = (key: keyof PlannerInputs, rawValue: string | number) => {
+    let value: number;
+
+    if (key === 'grossYearly' || key === 'startingNetWorth') {
+      // Currency inputs: sanitize and validate
+      value = sanitizeCurrencyInput(rawValue);
+      if (isNaN(value)) value = inputs[key];
+    } else {
+      // Percent inputs: normalize and validate
+      value = normalizePercent(rawValue);
+      if (isNaN(value)) value = inputs[key];
+    }
+
+    setInputs((prev) => {
+      const updated = { ...prev, [key]: value };
+      return validateInputs(updated);
+    });
   };
 
   const handleApplyPreset = (preset: keyof typeof PRESET_PROFILES) => {
     const profile = PRESET_PROFILES[preset];
-    setInputs((prev) => ({ ...prev, ...profile }));
+    setInputs((prev) => validateInputs({ ...prev, ...profile }));
   };
 
   const handleSetPlannedToCurrent = () => {
@@ -64,8 +93,9 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
     setPlannedBudgets(updated);
   };
 
-  const handleBudgetChange = (category: string, value: number) => {
-    setPlannedBudgets((prev) => ({ ...prev, [category]: Math.max(0, value) }));
+  const handleBudgetChange = (category: string, rawValue: string | number) => {
+    const value = sanitizeCurrencyInput(rawValue);
+    setPlannedBudgets((prev) => ({ ...prev, [category]: isNaN(value) ? 0 : Math.max(0, value) }));
   };
 
   return (
@@ -169,9 +199,10 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
                 Annual Gross Income
               </label>
               <input
-                type="number"
-                value={inputs.grossYearly || ''}
-                onChange={(e) => handleInputChange('grossYearly', parseFloat(e.target.value) || 0)}
+                type="text"
+                value={inputs.grossYearly ? `$${inputs.grossYearly.toLocaleString()}` : ''}
+                onChange={(e) => handleInputChange('grossYearly', e.target.value)}
+                placeholder="$150,000"
                 className="w-full px-4 py-3 rounded-lg border transition-all focus:outline-none"
                 style={{
                   backgroundColor: `rgb(var(--panel-2) / 0.5)`,
@@ -194,11 +225,10 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
                 Tax Rate {formatPercent(inputs.taxRate)}
               </label>
               <input
-                type="number"
-                value={inputs.taxRate * 100 || ''}
-                onChange={(e) => handleInputChange('taxRate', (parseFloat(e.target.value) || 0) / 100)}
-                min="0"
-                max="90"
+                type="text"
+                value={inputs.taxRate > 0 ? `${(inputs.taxRate * 100).toFixed(1)}` : ''}
+                onChange={(e) => handleInputChange('taxRate', e.target.value)}
+                placeholder="30"
                 className="w-full px-4 py-3 rounded-lg border transition-all focus:outline-none"
                 style={{
                   backgroundColor: `rgb(var(--panel-2) / 0.5)`,
@@ -221,11 +251,10 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
                 Savings Rate {formatPercent(inputs.savingsRate)}
               </label>
               <input
-                type="number"
-                value={inputs.savingsRate * 100 || ''}
-                onChange={(e) => handleInputChange('savingsRate', (parseFloat(e.target.value) || 0) / 100)}
-                min="0"
-                max="90"
+                type="text"
+                value={inputs.savingsRate > 0 ? `${(inputs.savingsRate * 100).toFixed(1)}` : ''}
+                onChange={(e) => handleInputChange('savingsRate', e.target.value)}
+                placeholder="25"
                 className="w-full px-4 py-3 rounded-lg border transition-all focus:outline-none"
                 style={{
                   backgroundColor: `rgb(var(--panel-2) / 0.5)`,
@@ -248,11 +277,10 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
                 Return Rate {formatPercent(inputs.returnRate)}
               </label>
               <input
-                type="number"
-                value={inputs.returnRate * 100 || ''}
-                onChange={(e) => handleInputChange('returnRate', (parseFloat(e.target.value) || 0) / 100)}
-                min="0"
-                max="90"
+                type="text"
+                value={inputs.returnRate > 0 ? `${(inputs.returnRate * 100).toFixed(1)}` : ''}
+                onChange={(e) => handleInputChange('returnRate', e.target.value)}
+                placeholder="7"
                 className="w-full px-4 py-3 rounded-lg border transition-all focus:outline-none"
                 style={{
                   backgroundColor: `rgb(var(--panel-2) / 0.5)`,
@@ -275,9 +303,10 @@ export function FinancialPlannerNew({ blueprint, financeData, onCashflowUpdate }
                 Starting Net Worth
               </label>
               <input
-                type="number"
-                value={inputs.startingNetWorth || ''}
-                onChange={(e) => handleInputChange('startingNetWorth', parseFloat(e.target.value) || 0)}
+                type="text"
+                value={inputs.startingNetWorth ? `$${inputs.startingNetWorth.toLocaleString()}` : ''}
+                onChange={(e) => handleInputChange('startingNetWorth', e.target.value)}
+                placeholder="$0"
                 className="w-full px-4 py-3 rounded-lg border transition-all focus:outline-none"
                 style={{
                   backgroundColor: `rgb(var(--panel-2) / 0.5)`,
