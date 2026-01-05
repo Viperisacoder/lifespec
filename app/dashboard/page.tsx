@@ -7,6 +7,8 @@ import { getBlueprint } from '@/lib/blueprintService';
 import { SavedBlueprint } from '@/lib/blueprintTypes';
 import { createBrowserClient } from '@supabase/ssr';
 import { CustomTooltip } from '@/app/components/dashboard/CustomTooltip';
+import { FinancialPlannerSection } from '@/app/components/dashboard/FinancialPlannerSection';
+import { BudgetItem } from '@/hooks/useCashflowModel';
 
 interface FinanceData {
   annual_income: number | null;
@@ -29,6 +31,7 @@ export default function DashboardPage() {
     has_debt: false,
   });
   const [isEditingFinances, setIsEditingFinances] = useState(false);
+  const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([]);
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -50,6 +53,16 @@ export default function DashboardPage() {
             localStorage.setItem('lifespec_blueprint', JSON.stringify(result.data));
           } else if (cachedBlueprint) {
             setBlueprint(JSON.parse(cachedBlueprint));
+          }
+
+          // Initialize budget items from blueprint
+          if (result.success && result.data?.blueprint?.selections) {
+            const items: BudgetItem[] = result.data.blueprint.selections.map((sel: any) => ({
+              category: sel.category,
+              current: sel.totalMonthly || 0,
+              planned: sel.totalMonthly || 0,
+            }));
+            setBudgetItems(items);
           }
 
           // Load finance data
@@ -468,6 +481,31 @@ export default function DashboardPage() {
             <TimelineGraph financeData={financeData} blueprint={blueprint} />
           </div>
         </div>
+
+        {/* Financial Planner Section */}
+        {budgetItems.length > 0 && (
+          <div className="mt-12">
+            <div
+              className="rounded-2xl border"
+              style={{
+                backgroundColor: `rgb(var(--panel) / 0.8)`,
+                borderColor: 'rgb(var(--border))',
+                boxShadow: 'var(--shadow)',
+              }}
+            >
+              <FinancialPlannerSection
+                initialAssumptions={{
+                  grossYearly: financeData.annual_income || 0,
+                  taxRate: 0.22,
+                  savingsRate: 0.25,
+                  investmentReturn: 0.08,
+                  startingNetWorth: 0,
+                }}
+                initialBudgetItems={budgetItems}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
