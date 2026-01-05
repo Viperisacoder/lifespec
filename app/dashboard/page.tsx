@@ -7,7 +7,7 @@ import { getBlueprint } from '@/lib/blueprintService';
 import { SavedBlueprint } from '@/lib/blueprintTypes';
 import { createBrowserClient } from '@supabase/ssr';
 import { CustomTooltip } from '@/app/components/dashboard/CustomTooltip';
-import { FinancialPlannerNew } from '@/app/components/dashboard/FinancialPlannerNew';
+import { MonthlyBudgetPlannerSection } from '@/app/components/dashboard/MonthlyBudgetPlannerSection';
 
 interface FinanceData {
   annual_income: number | null;
@@ -474,14 +474,8 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Financial Planner Section */}
-        <FinancialPlannerNew
-          blueprint={blueprint}
-          financeData={{
-            annual_income: financeData.annual_income,
-            age: financeData.age,
-          }}
-        />
+        {/* Monthly Budget Planner Section */}
+        <MonthlyBudgetPlannerSection />
       </div>
     </div>
   );
