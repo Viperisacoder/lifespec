@@ -31,12 +31,12 @@ export function MonthlyBudgetPlannerSection() {
 
     if (key === 'grossYearly' || key === 'startingNetWorth' || key === 'savingsFixed') {
       value = sanitizeCurrencyInput(rawValue);
-      if (isNaN(value)) value = inputs[key];
+      if (isNaN(value) || value < 0) return; // Don't update if invalid
     } else if (key === 'taxRate' || key === 'savingsRate' || key === 'returnRate') {
       value = normalizePercent(rawValue);
-      if (isNaN(value)) value = inputs[key];
+      if (isNaN(value) || value < 0) return; // Don't update if invalid
     } else {
-      value = inputs[key] as any;
+      return;
     }
 
     setInputs((prev) => ({ ...prev, [key]: value }));
@@ -173,7 +173,7 @@ export function MonthlyBudgetPlannerSection() {
               </label>
               <input
                 type="text"
-                value={inputs.grossYearly ? `$${inputs.grossYearly.toLocaleString()}` : ''}
+                value={inputs.grossYearly > 0 ? `$${inputs.grossYearly.toLocaleString()}` : ''}
                 onChange={(e) => handleInputChange('grossYearly', e.target.value)}
                 placeholder="$150,000"
                 className="w-full px-4 py-3 rounded-lg border transition-all focus:outline-none"
