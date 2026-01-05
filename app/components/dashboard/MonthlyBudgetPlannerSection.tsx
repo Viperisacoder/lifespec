@@ -31,10 +31,10 @@ export function MonthlyBudgetPlannerSection() {
 
     if (key === 'grossYearly' || key === 'startingNetWorth' || key === 'savingsFixed') {
       value = sanitizeCurrencyInput(rawValue);
-      if (isNaN(value) || value < 0) return; // Don't update if invalid
+      if (isNaN(value)) return; // Don't update if invalid, but allow 0
     } else if (key === 'taxRate' || key === 'savingsRate' || key === 'returnRate') {
       value = normalizePercent(rawValue);
-      if (isNaN(value) || value < 0) return; // Don't update if invalid
+      if (isNaN(value)) return; // Don't update if invalid, but allow 0
     } else {
       return;
     }
