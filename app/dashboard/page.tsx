@@ -491,8 +491,30 @@ function calculateMillionaireAge(financeData: FinanceData): string {
     return 'Not Possible';
   }
 
+  // Use compound growth with 7% annual return (0.583% monthly)
+  const annualReturnRate = 0.07;
+  const monthlyReturnRate = annualReturnRate / 12;
   const millionTarget = 1000000;
-  const monthsNeeded = Math.ceil(millionTarget / monthlyAccumulation);
+
+  // Future Value of Annuity formula: FV = PMT * [((1 + r)^n - 1) / r]
+  // Solve for n (months needed)
+  // This accounts for compound growth on contributions
+  let netWorth = 0;
+  let monthsNeeded = 0;
+  const maxMonths = 1200; // 100 years max
+
+  for (let month = 0; month < maxMonths; month++) {
+    netWorth = netWorth * (1 + monthlyReturnRate) + monthlyAccumulation;
+    monthsNeeded = month + 1;
+    if (netWorth >= millionTarget) {
+      break;
+    }
+  }
+
+  if (netWorth < millionTarget) {
+    return 'Not Possible';
+  }
+
   const yearsNeeded = monthsNeeded / 12;
   const millionaireAge = Math.floor(financeData.age + yearsNeeded);
 
@@ -516,8 +538,6 @@ function calculateDreamCompletionAge(financeData: FinanceData, blueprint: SavedB
     return financeData.age.toString();
   }
 
-  // Calculate how much monthly income is needed to cover the gap
-  const monthlyIncomeGap = blueprintMonthlyCost - currentMonthlyIncome;
   const monthlySavings = financeData.monthly_savings || 0;
   const monthlyInvesting = financeData.monthly_investing || 0;
   const monthlyAccumulation = monthlySavings + monthlyInvesting;
@@ -527,9 +547,33 @@ function calculateDreamCompletionAge(financeData: FinanceData, blueprint: SavedB
     return 'Not Possible';
   }
 
-  // Calculate years needed to accumulate enough to cover the gap
-  // Assuming the gap can be covered by converting savings/investing to income
-  const yearsNeeded = monthlyIncomeGap / monthlyAccumulation;
+  // Use 4% rule: need 25x annual expenses to generate that income passively
+  // blueprintMonthlyCost * 12 * 25 = capital needed
+  const annualBlueprintCost = blueprintMonthlyCost * 12;
+  const capitalNeeded = annualBlueprintCost * 25;
+
+  // Use compound growth with 7% annual return
+  const annualReturnRate = 0.07;
+  const monthlyReturnRate = annualReturnRate / 12;
+
+  // Calculate months needed to accumulate capital using compound growth
+  let netWorth = 0;
+  let monthsNeeded = 0;
+  const maxMonths = 1200; // 100 years max
+
+  for (let month = 0; month < maxMonths; month++) {
+    netWorth = netWorth * (1 + monthlyReturnRate) + monthlyAccumulation;
+    monthsNeeded = month + 1;
+    if (netWorth >= capitalNeeded) {
+      break;
+    }
+  }
+
+  if (netWorth < capitalNeeded) {
+    return 'Not Possible';
+  }
+
+  const yearsNeeded = monthsNeeded / 12;
   const dreamCompletionAge = Math.floor(financeData.age + yearsNeeded);
 
   if (dreamCompletionAge > 100) {
