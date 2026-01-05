@@ -48,16 +48,19 @@ export default function DashboardPage() {
 
           // Load blueprint
           const result = await getBlueprint();
+          let blueprintData = null;
           if (result.success) {
+            blueprintData = result.data;
             setBlueprint(result.data);
             localStorage.setItem('lifespec_blueprint', JSON.stringify(result.data));
           } else if (cachedBlueprint) {
-            setBlueprint(JSON.parse(cachedBlueprint));
+            blueprintData = JSON.parse(cachedBlueprint);
+            setBlueprint(blueprintData);
           }
 
           // Initialize budget items from blueprint
-          if (result.success && result.data?.blueprint?.selections) {
-            const items: BudgetItem[] = result.data.blueprint.selections.map((sel: any) => ({
+          if (blueprintData?.blueprint?.selections) {
+            const items: BudgetItem[] = blueprintData.blueprint.selections.map((sel: any) => ({
               category: sel.category,
               current: sel.totalMonthly || 0,
               planned: sel.totalMonthly || 0,
