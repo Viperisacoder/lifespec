@@ -486,29 +486,31 @@ export default function DashboardPage() {
         </div>
 
         {/* Financial Planner Section */}
-        {budgetItems.length > 0 && (
-          <div className="mt-12">
-            <div
-              className="rounded-2xl border"
-              style={{
-                backgroundColor: `rgb(var(--panel) / 0.8)`,
-                borderColor: 'rgb(var(--border))',
-                boxShadow: 'var(--shadow)',
+        <div className="mt-12">
+          <div
+            className="rounded-2xl border"
+            style={{
+              backgroundColor: `rgb(var(--panel) / 0.8)`,
+              borderColor: 'rgb(var(--border))',
+              boxShadow: 'var(--shadow)',
+            }}
+          >
+            <FinancialPlannerSection
+              initialAssumptions={{
+                grossYearly: financeData.annual_income || 0,
+                taxRate: 0.22,
+                savingsRate: 0.25,
+                investmentReturn: 0.08,
+                startingNetWorth: 0,
               }}
-            >
-              <FinancialPlannerSection
-                initialAssumptions={{
-                  grossYearly: financeData.annual_income || 0,
-                  taxRate: 0.22,
-                  savingsRate: 0.25,
-                  investmentReturn: 0.08,
-                  startingNetWorth: 0,
-                }}
-                initialBudgetItems={budgetItems}
-              />
-            </div>
+              initialBudgetItems={budgetItems.length > 0 ? budgetItems : blueprint?.blueprint?.selections?.map((sel: any) => ({
+                category: sel.category,
+                current: sel.totalMonthly || 0,
+                planned: sel.totalMonthly || 0,
+              })) || []}
+            />
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

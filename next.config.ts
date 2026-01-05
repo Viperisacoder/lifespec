@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
       ...(config.ignoreWarnings || []),
       { module: /supabase\/functions/ },
     ];
+    // Disable webpack caching to prevent cache corruption on reload
+    config.cache = false;
     return config;
   },
   // Force Vercel rebuild - framer-motion completely removed
