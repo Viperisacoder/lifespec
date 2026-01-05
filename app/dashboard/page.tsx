@@ -7,8 +7,7 @@ import { getBlueprint } from '@/lib/blueprintService';
 import { SavedBlueprint } from '@/lib/blueprintTypes';
 import { createBrowserClient } from '@supabase/ssr';
 import { CustomTooltip } from '@/app/components/dashboard/CustomTooltip';
-import { FinancialPlannerSection } from '@/app/components/dashboard/FinancialPlannerSection';
-import { BudgetItem } from '@/hooks/useCashflowModel';
+import { FinancialPlannerNew } from '@/app/components/dashboard/FinancialPlannerNew';
 
 interface FinanceData {
   annual_income: number | null;
@@ -31,7 +30,6 @@ export default function DashboardPage() {
     has_debt: false,
   });
   const [isEditingFinances, setIsEditingFinances] = useState(false);
-  const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([]);
 
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL || '',
@@ -58,15 +56,6 @@ export default function DashboardPage() {
             setBlueprint(blueprintData);
           }
 
-          // Initialize budget items from blueprint
-          if (blueprintData?.blueprint?.selections) {
-            const items: BudgetItem[] = blueprintData.blueprint.selections.map((sel: any) => ({
-              category: sel.category,
-              current: sel.totalMonthly || 0,
-              planned: sel.totalMonthly || 0,
-            }));
-            setBudgetItems(items);
-          }
 
           // Load finance data
           const { data: financeRecord } = await supabase
@@ -486,31 +475,13 @@ export default function DashboardPage() {
         </div>
 
         {/* Financial Planner Section */}
-        <div className="mt-12">
-          <div
-            className="rounded-2xl border"
-            style={{
-              backgroundColor: `rgb(var(--panel) / 0.8)`,
-              borderColor: 'rgb(var(--border))',
-              boxShadow: 'var(--shadow)',
-            }}
-          >
-            <FinancialPlannerSection
-              initialAssumptions={{
-                grossYearly: financeData.annual_income || 0,
-                taxRate: 0.22,
-                savingsRate: 0.25,
-                investmentReturn: 0.08,
-                startingNetWorth: 0,
-              }}
-              initialBudgetItems={budgetItems.length > 0 ? budgetItems : blueprint?.blueprint?.selections?.map((sel: any) => ({
-                category: sel.category,
-                current: sel.totalMonthly || 0,
-                planned: sel.totalMonthly || 0,
-              })) || []}
-            />
-          </div>
-        </div>
+        <FinancialPlannerNew
+          blueprint={blueprint}
+          financeData={{
+            annual_income: financeData.annual_income,
+            age: financeData.age,
+          }}
+        />
       </div>
     </div>
   );
